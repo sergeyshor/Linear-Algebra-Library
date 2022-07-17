@@ -2,9 +2,10 @@
 #define MATRIX_HPP
 
 #include <cstddef>
-#include <exception>
 #include <initializer_list>
+#include <stdexcept>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 namespace LinAlg
@@ -71,7 +72,7 @@ LinAlg::Matrix<T>::Matrix(std::initializer_list< std::initializer_list<T> > il)
     if (!std::is_arithmetic<T>::value) { throw std::invalid_argument("invalid Matrix template argument"); }
 
     for (auto i = il.begin(); i != il.end(); ++i) {
-        if (_cols != i->size()) { throw std::length_error("invalid nested initializer list size"); }
+        if (_cols != i->size()) { throw std::invalid_argument("invalid nested initializer list size"); }
 
         _matrix.insert(_matrix.end(), i->begin(), i->end());
     }
