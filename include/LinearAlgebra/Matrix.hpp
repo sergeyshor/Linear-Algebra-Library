@@ -19,8 +19,12 @@ namespace LinAlg
         Matrix(std::size_t rows, std::size_t cols, T value);
         Matrix(std::size_t rows, std::size_t cols, const std::vector<T>& v);
         Matrix(std::initializer_list< std::initializer_list<T> > il);
-        Matrix(const Matrix& other);
-        Matrix(Matrix&& other) noexcept; 
+        Matrix(const Matrix<T>& other) = default;
+        Matrix(Matrix<T>&& other) noexcept;
+        ~Matrix() = default;
+
+        Matrix<T>& operator= (const Matrix<T>& other) = default;
+        Matrix<T>& operator= (Matrix<T>&& other) noexcept;
 
         std::size_t rows() const { return _rows; }
         std::size_t cols() const { return _cols; }
@@ -34,21 +38,21 @@ namespace LinAlg
 }
 
 template <typename T>
-LinAlg::Matrix<T>::Matrix()
+inline LinAlg::Matrix<T>::Matrix()
     : _rows(0), _cols(0),
     _matrix(std::is_arithmetic<T>::value ? 0 : throw std::invalid_argument("invalid Matrix template argument"))
 {
 }
 
 template <typename T>
-LinAlg::Matrix<T>::Matrix(std::size_t rows, std::size_t cols)
+inline LinAlg::Matrix<T>::Matrix(std::size_t rows, std::size_t cols)
     : _rows(rows), _cols(cols),
     _matrix(std::is_arithmetic<T>::value ? rows * cols : throw std::invalid_argument("invalid Matrix template argument"))
 {
 }
 
 template <typename T>
-LinAlg::Matrix<T>::Matrix(std::size_t rows, std::size_t cols, T value)
+inline LinAlg::Matrix<T>::Matrix(std::size_t rows, std::size_t cols, T value)
     : _rows(rows), _cols(cols),
     _matrix(std::is_arithmetic<T>::value ? rows * cols : throw std::invalid_argument("invalid Matrix template argument"))
 {
@@ -56,17 +60,17 @@ LinAlg::Matrix<T>::Matrix(std::size_t rows, std::size_t cols, T value)
 }
 
 template <typename T>
-LinAlg::Matrix<T>::Matrix(std::size_t rows, std::size_t cols, const std::vector<T>& v)
+inline LinAlg::Matrix<T>::Matrix(std::size_t rows, std::size_t cols, const std::vector<T>& v)
     : _rows(rows), _cols(cols), 
     _matrix(std::is_arithmetic<T>::value ? rows * cols : throw std::invalid_argument("invalid Matrix template argument"))
 {
-    if (v.size() != _matrix.size()) { throw std::length_error("invalid vector argument size"); }
+    if (v.size() != _matrix.size()) { throw std::invalid_argument("invalid vector argument size"); }
 
     _matrix.assign(v.begin(), v.end());
 }
 
 template <typename T>
-LinAlg::Matrix<T>::Matrix(std::initializer_list< std::initializer_list<T> > il)
+inline LinAlg::Matrix<T>::Matrix(std::initializer_list< std::initializer_list<T> > il)
     : _rows(il.size()), _cols(il.begin()->size())
 {
     if (!std::is_arithmetic<T>::value) { throw std::invalid_argument("invalid Matrix template argument"); }
@@ -79,17 +83,24 @@ LinAlg::Matrix<T>::Matrix(std::initializer_list< std::initializer_list<T> > il)
 }
 
 template <typename T>
-LinAlg::Matrix<T>::Matrix(const Matrix& other)
-    : _rows(other._rows), _cols(other._cols), _matrix(other._matrix)
-{
-}
-
-template <typename T>
-LinAlg::Matrix<T>::Matrix(Matrix&& other) noexcept
+inline LinAlg::Matrix<T>::Matrix(Matrix&& other) noexcept
     : _rows(other._rows), _cols(other._cols), _matrix(std::move(other._matrix))
 {
     other._rows = 0;
     other._cols = 0;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T>& LinAlg::Matrix<T>::operator= (Matrix<T>&& other) noexcept
+{
+    _rows = other._rows;
+    _cols = other._cols;
+    _matrix = std::move(other._matrix);
+
+    other._rows = 0;
+    other._cols = 0;
+
+    return *this;
 }
 
 #endif // MATRIX_HPP
