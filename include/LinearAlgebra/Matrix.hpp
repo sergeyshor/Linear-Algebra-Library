@@ -29,6 +29,12 @@ namespace LinAlg
         Matrix<T>& operator= (const Matrix<T>& other) = default;
         Matrix<T>& operator= (Matrix<T>&& other) noexcept;
 
+        Matrix<T> operator* (T value);
+        Matrix<T> operator/ (T value);
+
+        Matrix<T>& operator*= (T value);
+        Matrix<T>& operator/= (T value);
+
         std::size_t rows() const { return _rows; }
         std::size_t cols() const { return _cols; }
         std::size_t vector_size() const { return _matrix.size(); }
@@ -121,6 +127,38 @@ inline LinAlg::Matrix<T>& LinAlg::Matrix<T>::operator= (Matrix<T>&& other) noexc
     other._rows = 0;
     other._cols = 0;
 
+    return *this;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::operator* (T value)
+{
+    LinAlg::Matrix<T> temp(*this);
+    for (T& element : temp._matrix) { element *= value; }
+    return temp;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::operator/ (T value)
+{
+    if (value == T()) { throw std::invalid_argument("Matrix division by zero"); }
+    LinAlg::Matrix<T> temp(*this);
+    for (T& element : temp._matrix) { element /= value; }
+    return temp;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T>& LinAlg::Matrix<T>::operator*= (T value)
+{
+    for (T& element : _matrix) { element *= value; }
+    return *this;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T>& LinAlg::Matrix<T>::operator/= (T value)
+{
+    if (value == T()) { throw std::invalid_argument("Matrix division by zero"); }
+    for (T& element : _matrix) { element /= value; }
     return *this;
 }
 
