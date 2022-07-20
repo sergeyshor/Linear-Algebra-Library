@@ -294,6 +294,239 @@ TEST(LinearAlgebraTest, MoveConstructor)
     }
 }
 
+TEST(LinearAlgebresTest, CopyAssignment)
+{
+    // DIFFERENT MATRIX ARGUMENTS OF COPY ASSIGNMENT OPERATOR AND EQUALITY OF TWO MATRICES TEST
+    LinAlg::Matrix<int> int_matrix1 = { { 32, -2, 0, 1 }, { 4, 12, 5, 3 }, { 3, 4, 52, 3 }, { -4, 5, -27, 6 } };
+    LinAlg::Matrix<int> int_matrix2;
+    int_matrix2 = int_matrix1;
+
+    EXPECT_EQ(int_matrix1.rows(), int_matrix2.rows());
+    EXPECT_EQ(int_matrix1.cols(), int_matrix2.cols());
+    EXPECT_EQ(int_matrix1.vector_size(), int_matrix2.vector_size());
+    for(std::size_t i = 0; i < int_matrix2.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix2.cols(); ++j) {
+            EXPECT_EQ(int_matrix1(i, j), int_matrix2(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> int_matrix3;
+    LinAlg::Matrix<int> int_matrix4(1, 2);
+    int_matrix4 = int_matrix3;
+
+    EXPECT_EQ(int_matrix3.rows(), int_matrix4.rows());
+    EXPECT_EQ(int_matrix3.cols(), int_matrix4.cols());
+    EXPECT_EQ(int_matrix3.vector_size(), int_matrix4.vector_size());
+
+    LinAlg::Matrix<int> int_matrix5(4, 5);
+    LinAlg::Matrix<int> int_matrix6;
+    int_matrix6 = int_matrix5;
+
+    EXPECT_EQ(int_matrix5.rows(), int_matrix6.rows());
+    EXPECT_EQ(int_matrix5.cols(), int_matrix6.cols());
+    EXPECT_EQ(int_matrix5.vector_size(), int_matrix6.vector_size());
+    for(std::size_t i = 0; i < int_matrix6.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix6.cols(); ++j) {
+            EXPECT_EQ(int_matrix5(i, j), int_matrix6(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> int_matrix7(4, 5, 1);
+    LinAlg::Matrix<int> int_matrix8;
+    int_matrix8 = int_matrix7;
+
+    EXPECT_EQ(int_matrix7.rows(), int_matrix8.rows());
+    EXPECT_EQ(int_matrix7.cols(), int_matrix8.cols());
+    EXPECT_EQ(int_matrix7.vector_size(), int_matrix8.vector_size());
+    for(std::size_t i = 0; i < int_matrix8.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix8.cols(); ++j) {
+            EXPECT_EQ(int_matrix7(i, j), int_matrix8(i, j));
+        }
+    }
+
+    std::vector<int> int_vector = { 1, 2, 3, 4, 5, 6 };
+    LinAlg::Matrix<int> int_matrix9(3, 2, int_vector);
+    LinAlg::Matrix<int> int_matrix10;
+    int_matrix10 = int_matrix9;
+
+    EXPECT_EQ(int_matrix9.rows(), int_matrix10.rows());
+    EXPECT_EQ(int_matrix9.cols(), int_matrix10.cols());
+    EXPECT_EQ(int_matrix9.vector_size(), int_matrix10.vector_size());
+    for(std::size_t i = 0; i < int_matrix10.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix10.cols(); ++j) {
+            EXPECT_EQ(int_matrix9(i, j), int_matrix10(i, j));
+        }
+    }
+
+    // SELF-ASSIGNMENT WITH COPY ASSIGNMENT OPERATOR TEST
+    LinAlg::Matrix<int> int_temp_matrix1(int_matrix1);
+    int_matrix1 = int_matrix1;
+
+    EXPECT_EQ(int_temp_matrix1.rows(), int_matrix1.rows());
+    EXPECT_EQ(int_temp_matrix1.cols(), int_matrix1.cols());
+    EXPECT_EQ(int_temp_matrix1.vector_size(), int_matrix1.vector_size());
+    for(std::size_t i = 0; i < int_matrix1.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix1.cols(); ++j) {
+            EXPECT_EQ(int_temp_matrix1(i, j), int_matrix1(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> int_temp_matrix3(int_matrix3);
+    int_matrix3 = int_matrix3;
+
+    EXPECT_EQ(int_temp_matrix3.rows(), int_matrix3.rows());
+    EXPECT_EQ(int_temp_matrix3.cols(), int_matrix3.cols());
+    EXPECT_EQ(int_temp_matrix3.vector_size(), int_matrix3.vector_size());
+    for(std::size_t i = 0; i < int_matrix3.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix3.cols(); ++j) {
+            EXPECT_EQ(int_temp_matrix3(i, j), int_matrix3(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> int_temp_matrix5(int_matrix5);
+    int_matrix5 = int_matrix5;
+
+    EXPECT_EQ(int_temp_matrix5.rows(), int_matrix5.rows());
+    EXPECT_EQ(int_temp_matrix5.cols(), int_matrix5.cols());
+    EXPECT_EQ(int_temp_matrix5.vector_size(), int_matrix5.vector_size());
+    for(std::size_t i = 0; i < int_matrix5.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix5.cols(); ++j) {
+            EXPECT_EQ(int_temp_matrix5(i, j), int_matrix5(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> int_temp_matrix7(int_matrix7);
+    int_matrix7 = int_matrix7;
+
+    EXPECT_EQ(int_temp_matrix7.rows(), int_matrix7.rows());
+    EXPECT_EQ(int_temp_matrix7.cols(), int_matrix7.cols());
+    EXPECT_EQ(int_temp_matrix7.vector_size(), int_matrix7.vector_size());
+    for(std::size_t i = 0; i < int_matrix7.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix7.cols(); ++j) {
+            EXPECT_EQ(int_temp_matrix7(i, j), int_matrix7(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> int_temp_matrix9(int_matrix9);
+    int_matrix9 = int_matrix9;
+
+    EXPECT_EQ(int_temp_matrix9.rows(), int_matrix9.rows());
+    EXPECT_EQ(int_temp_matrix9.cols(), int_matrix9.cols());
+    EXPECT_EQ(int_temp_matrix9.vector_size(), int_matrix9.vector_size());
+    for(std::size_t i = 0; i < int_matrix9.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix9.cols(); ++j) {
+            EXPECT_EQ(int_temp_matrix9(i, j), int_matrix9(i, j));
+        }
+    }
+}
+
+TEST(LinearAlgebresTest, MoveAssignment)
+{
+    // DIFFERENT MATRIX ARGUMENTS OF MOVE ASSIGNMENT OPERATOR, EMPTINESS OF OLD MATRIX OBJECT
+    // AND FORMER RESOURCES OF OLD MATRIX AND RESOURCES OF NEW MATRIX TEST
+    LinAlg::Matrix<int> int_matrix1 = { { 1, 2 }, { 3, 4 }, { 5, 6 } };
+    LinAlg::Matrix<int> int_temp_matrix1(int_matrix1);
+    LinAlg::Matrix<int> int_matrix2;
+    int_matrix2 = std::move(int_matrix1);
+
+    EXPECT_EQ(int_matrix2.rows(), 3);
+    EXPECT_EQ(int_matrix2.cols(), 2);
+    EXPECT_EQ(int_matrix2.vector_size(), 3 * 2);
+    EXPECT_EQ(int_matrix1.rows(), 0);
+    EXPECT_EQ(int_matrix1.cols(), 0);
+    EXPECT_EQ(int_matrix1.vector_size(), 0);
+    for(std::size_t i = 0; i < int_matrix2.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix2.cols(); ++j) {
+            EXPECT_EQ(int_temp_matrix1(i, j), int_matrix2(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> int_matrix3;
+    LinAlg::Matrix<int> int_matrix4(1, 4);
+    int_matrix4 = std::move(int_matrix3);
+
+    EXPECT_EQ(int_matrix4.rows(), 0);
+    EXPECT_EQ(int_matrix4.cols(), 0);
+    EXPECT_EQ(int_matrix4.vector_size(), 0);
+    EXPECT_EQ(int_matrix3.rows(), 0);
+    EXPECT_EQ(int_matrix3.cols(), 0);
+    EXPECT_EQ(int_matrix3.vector_size(), 0);
+
+    LinAlg::Matrix<int> int_matrix5(4, 5);
+    LinAlg::Matrix<int> int_temp_matrix5(int_matrix5);
+    LinAlg::Matrix<int> int_matrix6;
+    int_matrix6 = std::move(int_matrix5);
+
+    EXPECT_EQ(int_matrix6.rows(), 4);
+    EXPECT_EQ(int_matrix6.cols(), 5);
+    EXPECT_EQ(int_matrix6.vector_size(), 4 * 5);
+    EXPECT_EQ(int_matrix5.rows(), 0);
+    EXPECT_EQ(int_matrix5.cols(), 0);
+    EXPECT_EQ(int_matrix5.vector_size(), 0);
+    for(std::size_t i = 0; i < int_matrix6.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix6.cols(); ++j) {
+            EXPECT_EQ(int_temp_matrix5(i, j), int_matrix6(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> int_matrix7(4, 5, 1);
+    LinAlg::Matrix<int> int_temp_matrix7(int_matrix7);
+    LinAlg::Matrix<int> int_matrix8;
+    int_matrix8 = std::move(int_matrix7);
+
+    EXPECT_EQ(int_matrix8.rows(), 4);
+    EXPECT_EQ(int_matrix8.cols(), 5);
+    EXPECT_EQ(int_matrix8.vector_size(), 4 * 5);
+    EXPECT_EQ(int_matrix7.rows(), 0);
+    EXPECT_EQ(int_matrix7.cols(), 0);
+    EXPECT_EQ(int_matrix7.vector_size(), 0);
+    for(std::size_t i = 0; i < int_matrix8.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix8.cols(); ++j) {
+            EXPECT_EQ(int_temp_matrix7(i, j), int_matrix8(i, j));
+        }
+    }
+
+    std::vector<int> int_vector = { 1, 2, 3, 4, 5, 6 };
+    LinAlg::Matrix<int> int_matrix9(3, 2, int_vector);
+    LinAlg::Matrix<int> int_temp_matrix9(int_matrix9);
+    LinAlg::Matrix<int> int_matrix10;
+    int_matrix10 = std::move(int_matrix9);
+
+    EXPECT_EQ(int_matrix10.rows(), 3);
+    EXPECT_EQ(int_matrix10.cols(), 2);
+    EXPECT_EQ(int_matrix10.vector_size(), 3 * 2);
+    EXPECT_EQ(int_matrix9.rows(), 0);
+    EXPECT_EQ(int_matrix9.cols(), 0);
+    EXPECT_EQ(int_matrix9.vector_size(), 0);
+    for(std::size_t i = 0; i < int_matrix10.rows(); ++i) {
+        for (std::size_t j = 0; j < int_matrix10.cols(); ++j) {
+            EXPECT_EQ(int_temp_matrix9(i, j), int_matrix10(i, j));
+        }
+    }
+}
+
+TEST(LinearAlgebraTest, MethodAt)
+{
+    // AT METHOD MATRIX ELEMENTS ACCESS TEST
+    LinAlg::Matrix<int> int_matrix = { { -1, 27, 13, 4 }, { 68, -5, 10, 11 }, { 100, 41, 2, -12 }, { -16, 0, -1, 102 } };
+    EXPECT_EQ(int_matrix.at(1, 3), 11);
+    EXPECT_EQ(int_matrix.at(0, 0), -1);
+    EXPECT_EQ(int_matrix.at(2, 0), 100);
+
+    // EXCEPTION THROWING WHEN INDICES ARE OUT OF RANGE TEST 
+    ASSERT_THROW(int_matrix.at(5, 0), std::out_of_range);
+    ASSERT_THROW(int_matrix.at(3, -1), std::out_of_range);
+    ASSERT_THROW(int_matrix.at(18, 12), std::out_of_range);
+
+    // METHOD AT ASSIGNMENT TEST
+    int_matrix.at(3, 1) = 19;
+    EXPECT_EQ(int_matrix.at(3, 1), 19);
+
+    int int_value = 311;
+    int_matrix.at(2, 2) = int_value;
+    EXPECT_EQ(int_matrix.at(2, 2), 311);
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
