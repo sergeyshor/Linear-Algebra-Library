@@ -41,8 +41,15 @@ namespace LinAlg
         std::size_t max_rows() { return _matrix.max_size(); };
         std::size_t max_cols() { return max_rows() / _rows; };
 
+        bool isSquare() const { return _rows == _cols; }
+
         T& at(std::size_t row, std::size_t col);
         const T& at(std::size_t row, std::size_t col) const;
+
+        void set_identity();
+        void set_zero();
+        void set_diag(const std::vector<T>& v);
+        void set_diag(std::initializer_list<T> il);
 
     private:
         std::size_t _rows;
@@ -174,6 +181,49 @@ inline const T& LinAlg::Matrix<T>::at(std::size_t row, std::size_t col) const
 {
     if (row < 0 || col < 0 || _rows < row || _cols < col) { throw std::out_of_range("invalid Matrix subscripts"); }
     return _matrix[row * _cols + col];
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::set_identity()
+{
+    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+
+    std::vector<T> identityVector(vector_size());
+    for (auto i = 0; i < identityVector.size(); i += _rows + 1) {
+        identityVector[i] = 1;
+    }
+    *this = LinAlg::Matrix<T>(_rows, _cols, identityVector);
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::set_zero()
+{
+    *this = LinAlg::Matrix<T>(_rows, _cols);
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::set_diag(const std::vector<T>& v)
+{
+    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (v.size() != _rows) { throw std::invalid_argument("invalid vector argument size"); }
+
+    set_zero();
+    for (auto i = 0, j = 0; i < _matrix.size(); i += _rows + 1, ++j) {
+        _matrix[i] = v[j];
+    }
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::set_diag(std::initializer_list<T> il)
+{
+    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (il.size() != _rows) { throw std::invalid_argument("invalid initializer list argument size"); }
+
+    set_zero();
+    auto element = il.begin();
+    for (auto i = 0; i < _matrix.size(); i += _rows + 1, ++element) {
+        _matrix[i] = *element;
+    }
 }
 
 template <typename T>

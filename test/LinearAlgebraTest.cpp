@@ -582,6 +582,7 @@ TEST(LinearAlgebraTest, OperatorDivisionValue)
 
 TEST(LinearAlgebraTest, OperatorMultiplicationAssignmentValue)
 {
+    // POSITIVE NUMBER TEST
     LinAlg::Matrix<int> int_matrix = { { -27, 105, 53, -41 }, { 79, 72, -126, 79 }, { 112, -8, 64, 84 } };
     int int_value = 3;
     int_matrix *= int_value;
@@ -589,6 +590,7 @@ TEST(LinearAlgebraTest, OperatorMultiplicationAssignmentValue)
     EXPECT_EQ(int_matrix(2, 1), -24);
     EXPECT_EQ(int_matrix(1, 3), 237);
 
+    // NEGATIVE NUMBER TEST
     LinAlg::Matrix<double> double_matrix = { { 3.54, 4.03, -1.3 }, { 1.14, 25.4, 64.34 } };
     double double_value = -1.5;
     double_matrix *= double_value;
@@ -596,6 +598,7 @@ TEST(LinearAlgebraTest, OperatorMultiplicationAssignmentValue)
     EXPECT_DOUBLE_EQ(double_matrix(1, 0), -1.71);
     EXPECT_DOUBLE_EQ(double_matrix(0, 2), 1.95);
 
+    // NULL TEST
     LinAlg::Matrix<float> float_matrix = { { 21.14, 17.125 }, { 7.24, 0.13 } };
     float float_value = 0;
     float_matrix *= float_value;
@@ -626,6 +629,106 @@ TEST(LinearAlgebraTest, OperatorDivisionAssignmentValue)
     LinAlg::Matrix<float> float_matrix = { { 7.5, 0.523, 10.125 }, { 52.1, -0.41, 53.04 }, { -1.2, 0.375, 1.04 } };
     float float_value = 0;
     ASSERT_THROW(float_matrix /= float_value, std::invalid_argument);
+}
+
+TEST(LinearAlgebraTest, MethodSetIdentity)
+{
+    // DIFFERENT MATRICES TEST
+    LinAlg::Matrix<int> intMatrix(5, 5, 3);
+    intMatrix.set_identity();
+    EXPECT_EQ(intMatrix(1, 1), 1);
+    EXPECT_EQ(intMatrix(0, 3), 0);
+    EXPECT_EQ(intMatrix(4, 4), 1);
+    EXPECT_EQ(intMatrix(2, 0), 0);
+
+    LinAlg::Matrix<double> doubleMatrix = { { 1.12, 8.5, 9.0 }, { 0.31, 7.26, 15.11 }, { -0.103, 5.26, 16.125 } };
+    doubleMatrix.set_identity();
+    EXPECT_EQ(doubleMatrix(2, 2), 1);
+    EXPECT_EQ(doubleMatrix(0, 1), 0);
+    EXPECT_EQ(doubleMatrix(1, 1), 1);
+    EXPECT_EQ(doubleMatrix(2, 0), 0);
+
+    // NOT SQUARE MATRIX TEST
+    LinAlg::Matrix<float> floatMatrix = { { 1.131, -0.6, 2.7 }, { 12.3, 103.23, 9.5 } };
+    ASSERT_THROW(floatMatrix.set_identity(), std::invalid_argument);
+}
+
+TEST(LinearAlgebraTest, MethodSetZero)
+{
+    // SETTING MATRIX ELEMENTS TO ZERO TEST
+    LinAlg::Matrix<int> intMatrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    intMatrix.set_zero();
+    EXPECT_EQ(intMatrix(1, 2), 0);
+    EXPECT_EQ(intMatrix(0, 0), 0);
+
+    LinAlg::Matrix<double> doubleMatrix = { { 0.1, 8.0, 1.3, 5.25, 6.39 }, { 7.5, 2.275, 19.11, 0.27, 1.1 } };
+    doubleMatrix.set_zero();
+    EXPECT_DOUBLE_EQ(doubleMatrix(0, 2), 0);
+    EXPECT_DOUBLE_EQ(doubleMatrix(1, 4), 0);
+}
+
+TEST(LinearAlgebraTest, MethodSetDiagVector)
+{
+    // DIFFERENT MATRICES TEST
+    std::vector<int> intDiagVector = { 10, 11, 12 };
+    LinAlg::Matrix<int> intMatrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    intMatrix.set_diag(intDiagVector);
+    EXPECT_EQ(intMatrix(1, 1), 11);
+    EXPECT_EQ(intMatrix(0, 1), 0);
+    EXPECT_EQ(intMatrix(2, 2), 12);
+    EXPECT_EQ(intMatrix(2, 0), 0);
+
+    std::vector<double> doubleDiagVector = { 0.1, -1.125, 0, 7.36 };
+    LinAlg::Matrix<double> doubleMatrix = { { -35.0, 6.123, 4.11, 6.27 }, { 0.42, 5.3, 0.01, 41.2 }, { 94.32, 0.37, -7.125, 3.1 }, { 3.375, 4.9, -4.3, 9.37 } };
+    doubleMatrix.set_diag(doubleDiagVector);
+    EXPECT_DOUBLE_EQ(doubleMatrix(0, 0), 0.1);
+    EXPECT_DOUBLE_EQ(doubleMatrix(1, 2), 0);
+    EXPECT_DOUBLE_EQ(doubleMatrix(2, 2), 0);
+    EXPECT_DOUBLE_EQ(doubleMatrix(1, 1), -1.125);
+    EXPECT_DOUBLE_EQ(doubleMatrix(3, 0), 0);
+
+    // NOT SQUARE MATRIX TEST
+    std::vector<long long> longlongDiagVector = { 123, 56, 322 };
+    LinAlg::Matrix<long long> longlongMatrix = { { 31, 452, 53 }, { 27, 531, 624 } };
+    ASSERT_THROW(longlongMatrix.set_diag(longlongDiagVector), std::invalid_argument);
+
+    // INVALID VECTOR ARGUMENT OF CONSTRUCTOR SIZE
+    std::vector<float> floatDiagVector = { 0.1, 4.2, 42.3 };
+    LinAlg::Matrix<float> floatMatrix = { { 10.0, 4.12 }, { 3.5, 1.125 } };
+    ASSERT_THROW(floatMatrix.set_diag(floatDiagVector), std::invalid_argument);
+
+    std::vector<long> longDiagVector = { 3517, -2108, 62 };
+    LinAlg::Matrix<long> longMatrix = { { 623, 431, 35, 531 }, { 53, 90, 1, 352 }, { 74, 513, 89, 6531 }, { 421, 4, 51, 920 } };
+    ASSERT_THROW(longMatrix.set_diag(longDiagVector), std::invalid_argument);
+}
+
+TEST(LinearAlgebraTest, MethodSetDiagInitializerList)
+{
+    // DIFFERENT MATRICES TEST
+    LinAlg::Matrix<int> intMatrix = { { 7, 53, 21, -34 }, { 90, 3, 5, -2 }, { 145, 42, 6, 0 }, { 12, 52, 37, 54 } };
+    intMatrix.set_diag({ 51, 13, 4, 2 });
+    EXPECT_EQ(intMatrix(1, 1), 13);
+    EXPECT_EQ(intMatrix(0, 2), 0);
+    EXPECT_EQ(intMatrix(3, 3), 2);
+    EXPECT_EQ(intMatrix(1, 0), 0);
+
+    LinAlg::Matrix<float> floatMatrix = { { 14.4, -1.6 }, { 12.15, 6.2 } };
+    floatMatrix.set_diag({ -2.7, 5.1 });
+    EXPECT_FLOAT_EQ(floatMatrix(0, 0), -2.7);
+    EXPECT_FLOAT_EQ(floatMatrix(0, 1), 0);
+    EXPECT_FLOAT_EQ(floatMatrix(1, 1), 5.1);
+    EXPECT_FLOAT_EQ(floatMatrix(1, 0), 0);
+
+    // NOT SQUARE MATRIX TEST
+    LinAlg::Matrix<long> longMatrix = { { 663, 471, 631, 0 }, { -46, 55, 1, 804 }, { 412, 27, -2, 513 } };
+    ASSERT_THROW(longMatrix.set_diag({ 607, 26, -1 }), std::invalid_argument);
+
+    // INVALID INITIALIZER LIST ARGUMENT OF CONSTRUCTOR SIZE
+    LinAlg::Matrix<long long> longlongMatrix = { { -3, 296, 14 }, { 62, 0, 1 }, { -51, 72, 4 } };
+    ASSERT_THROW(longlongMatrix.set_diag({ 923, -215 }), std::invalid_argument);
+
+    LinAlg::Matrix<double> doubleMatrix = { { 1.4, 0.13, -5.27, 0.6 }, { 5.2, 0, 23.78, 6.41 }, { 6.1, 0.217, 7.73, 0.18 }, { 56.0, 9.5, 67.7, 7.24 } };
+    ASSERT_THROW(doubleMatrix.set_diag({ 3.07, 86.98, 62.4, 0.51, 3.23 }), std::invalid_argument);
 }
 
 int main(int argc, char** argv) {
