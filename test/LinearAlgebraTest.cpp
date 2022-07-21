@@ -696,7 +696,7 @@ TEST(LinearAlgebraTest, MethodSetDiagVector)
     LinAlg::Matrix<long long> longlongMatrix = { { 31, 452, 53 }, { 27, 531, 624 } };
     ASSERT_THROW(longlongMatrix.set_diag(longlongDiagVector), std::invalid_argument);
 
-    // INVALID VECTOR ARGUMENT OF CONSTRUCTOR SIZE
+    // INVALID VECTOR ARGUMENT OF CONSTRUCTOR SIZE TEST
     std::vector<float> floatDiagVector = { 0.1, 4.2, 42.3 };
     LinAlg::Matrix<float> floatMatrix = { { 10.0, 4.12 }, { 3.5, 1.125 } };
     ASSERT_THROW(floatMatrix.set_diag(floatDiagVector), std::invalid_argument);
@@ -727,12 +727,130 @@ TEST(LinearAlgebraTest, MethodSetDiagInitializerList)
     LinAlg::Matrix<long> longMatrix = { { 663, 471, 631, 0 }, { -46, 55, 1, 804 }, { 412, 27, -2, 513 } };
     ASSERT_THROW(longMatrix.set_diag({ 607, 26, -1 }), std::invalid_argument);
 
-    // INVALID INITIALIZER LIST ARGUMENT OF CONSTRUCTOR SIZE
+    // INVALID INITIALIZER LIST ARGUMENT OF CONSTRUCTOR SIZE TEST
     LinAlg::Matrix<long long> longlongMatrix = { { -3, 296, 14 }, { 62, 0, 1 }, { -51, 72, 4 } };
     ASSERT_THROW(longlongMatrix.set_diag({ 923, -215 }), std::invalid_argument);
 
     LinAlg::Matrix<double> doubleMatrix = { { 1.4, 0.13, -5.27, 0.6 }, { 5.2, 0, 23.78, 6.41 }, { 6.1, 0.217, 7.73, 0.18 }, { 56.0, 9.5, 67.7, 7.24 } };
     ASSERT_THROW(doubleMatrix.set_diag({ 3.07, 86.98, 62.4, 0.51, 3.23 }), std::invalid_argument);
+}
+
+TEST(LinearAlgebraTest, MethodSetRowVector)
+{
+    // METHOD SET ROW DIFFERENT VALUES TEST
+    std::vector<int> intVector = { 27, 0, 14 };
+    LinAlg::Matrix<int> intMatrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }, { 10, 11, 12 } };
+    intMatrix.set_row(intVector, 2);
+    EXPECT_EQ(intMatrix(2, 0), 27);
+    EXPECT_EQ(intMatrix(2, 1), 0);
+    EXPECT_EQ(intMatrix(2, 2), 14);
+
+    std::vector<double> doubleVector = { -5.31, 26.5 };
+    LinAlg::Matrix<double> doubleMatrix = { { 4.17, 8.125 }, { 7.214, 9.52 } };
+    doubleMatrix.set_row(doubleVector, 0);
+    EXPECT_DOUBLE_EQ(doubleMatrix(0, 0), -5.31);
+    EXPECT_DOUBLE_EQ(doubleMatrix(0, 1), 26.5);
+
+    // INVALID VECTOR ARGUMENT OF CONSTRUCTOR SIZE TEST
+    std::vector<long> longVector = { 41, 326, 214 };
+    LinAlg::Matrix<long> longMatrix = { { 1, 532, 6, -15 }, { -81, 0, 643, 956 }, { 2, 57, -231, 45 }, { 35, -18, 46, 10 } };
+    ASSERT_THROW(longMatrix.set_row(longVector, 1), std::invalid_argument);
+
+    std::vector<float> floatVector = { -0.237, 5.2 };
+    LinAlg::Matrix<float> floatMatrix = { { -1.571 }, { 0.91 }, { -4.532 }, { 1.0 }, { 4.12 } };
+    ASSERT_THROW(floatMatrix.set_row(floatVector, 3), std::invalid_argument);
+
+    // OUT OF RANGE ROW INDEX TEST
+    std::vector<long long> longlongVector = { 41, 26, 514 };
+    LinAlg::Matrix<long long> longlongMatrix = { { 91, -7, 36 }, { 23, -10, 76 }, { 82, 166, -15 } };
+    ASSERT_THROW(longlongMatrix.set_row(longlongVector, 5), std::out_of_range);
+
+    std::vector<short> shortVector = { 13, 52 };
+    LinAlg::Matrix<short> shortMatrix = { { 41, 37 }, { -4, 89 } };
+    ASSERT_THROW(shortMatrix.set_row(shortVector, -2), std::out_of_range);
+}
+
+TEST(LinearAlgebraTest, MethodSetColVector)
+{
+    // METHOD SET COL DIFFERENT VALUES TEST
+    std::vector<int> intVector = { -76, 88, 39, 6 };
+    LinAlg::Matrix<int> intMatrix = { { 91, -48, -19 }, { 64, 59, -3 }, { 21, 89, 14 }, { 31, 47, -26 } };
+    intMatrix.set_col(intVector, 2);
+    EXPECT_EQ(intMatrix(0, 2), -76);
+    EXPECT_EQ(intMatrix(1, 2), 88);
+    EXPECT_EQ(intMatrix(2, 2), 39);
+    EXPECT_EQ(intMatrix(3, 2), 6);
+
+    std::vector<float> floatVector = { 4.82, 9.53, -15.7 };
+    LinAlg::Matrix<float> floatMatrix = { { -0.5, 1.2, 0.12, 2.26 }, { 0, 5.32, 33.41, 1.5 }, { 6.23, 36.4, 1.53, 0 } };
+    floatMatrix.set_col(floatVector, 1);
+    EXPECT_FLOAT_EQ(floatMatrix(0, 1), 4.82);
+    EXPECT_FLOAT_EQ(floatMatrix(1, 1), 9.53);
+    EXPECT_FLOAT_EQ(floatMatrix(2, 1), -15.7);
+
+    // INVALID VECTOR ARGUMENT OF CONSTRUCTOR SIZE TEST
+    std::vector<long> longVector = { 423, 164, 6, 13 };
+    LinAlg::Matrix<long> longMatrix = { { 2, -5 }, { 341, 0 } };
+    ASSERT_THROW(longMatrix.set_col(longVector, 0), std::invalid_argument);
+
+    std::vector<double> doubleVector = { 10.121, 5.5 };
+    LinAlg::Matrix<double> doubleMatrix = { { 45.17, 3.1, -0.38 }, { 1.14, 125.8, 9.51 }, { -0.4, 124.0, 7.42 } };
+    ASSERT_THROW(doubleMatrix.set_col(doubleVector, 1), std::invalid_argument);
+
+    // OUT OF RANGE COL INDEX TEST
+    std::vector<short> shortVector = { 51, 27, -1, 23 };
+    LinAlg::Matrix<short> shortMatrix = { { 624, 81 }, { -56, 7 }, { 24, 73 }, { 112, -3 } };
+    ASSERT_THROW(shortMatrix.set_col(shortVector, -1), std::out_of_range);
+
+    std::vector<long long> longlongVector = { -35, 824 };
+    LinAlg::Matrix<long long> longlongMatrix = { { 4, 21, 9463, -551 }, { 631, -3, 285, -147 } };
+    ASSERT_THROW(longlongMatrix.set_col(longlongVector, 10), std::out_of_range);
+}
+
+TEST(LinearAlgebraTest, MethodGetRow)
+{
+    // METHOD GET ROW DIFFERENT VALUES TEST
+    LinAlg::Matrix<int> intMatrix = { { 8, 10 }, { -5, 3 } };
+    std::vector<int> intVector = intMatrix.get_row(0);
+    for(std::size_t i = 0; i < intVector.size(); ++i) { 
+        EXPECT_EQ(intVector[i], intMatrix(0, i));
+    }
+
+    LinAlg::Matrix<double> doubleMatrix = { { 0.14, -2.1, 17.135 }, { 1.5, 3.8, 9.27 }, { 51.2, 6.4, 7.05 } };
+    std::vector<double> doubleVector = doubleMatrix.get_row(1);
+    for(std::size_t i = 0; i < doubleVector.size(); ++i) { 
+        EXPECT_DOUBLE_EQ(doubleVector[i], doubleMatrix(1, i));
+    }
+
+    // OUT OF RANGE ROW INDEX TEST
+    LinAlg::Matrix<float> floatMatrix = { { 0.634 }, { 9.21 }, { 15.17 }, { 14.08 } };
+    ASSERT_THROW(std::vector<float> floatVector = floatMatrix.get_row(-1), std::out_of_range);
+
+    LinAlg::Matrix<short> shortMatrix = { { 1, -5 }, { 91, 58 }, { 53, 0 } };
+    ASSERT_THROW(std::vector<short> shortVector = shortMatrix.get_row(5), std::out_of_range);
+}
+
+TEST(LinearAlgebraTest, MethodGetCol)
+{
+    // METHOD GET COL DIFFERENT VALUES TEST
+    LinAlg::Matrix<float> floatMatrix = { { 7.14, 2.88 }, { -0.12, 3.53 }, { 10.47, 3.8 }, { -0.1, 6.2 }, { 3.61, 14.2 } };
+    std::vector<float> floatVector = floatMatrix.get_col(0);
+    for(std::size_t i = 0; i < floatVector.size(); ++i) { 
+        EXPECT_FLOAT_EQ(floatVector[i], floatMatrix(i, 0));
+    }
+
+    LinAlg::Matrix<int> intMatrix = { { 75, 0, 421 }, { -107, 135, 9 } };
+    std::vector<int> intVector = intMatrix.get_col(1);
+    for(std::size_t i = 0; i < intVector.size(); ++i) { 
+        EXPECT_EQ(intVector[i], intMatrix(i, 1));
+    }
+
+    // OUT OF RANGE COL INDEX TEST
+    LinAlg::Matrix<double> doubleMatrix = { { 1.42, 7.011 }, { 3.51, 67.25 }, { 81.13, -1.94 }, { 0.12, -8.159 } };
+    ASSERT_THROW(std::vector<double> doubleVector = doubleMatrix.get_col(-3), std::out_of_range);
+
+    LinAlg::Matrix<long> longMatrix = { { 1183, 0, 12 }, { 5913, -671, 530 }, { 758, 2417, -100 } };
+    ASSERT_THROW(std::vector<long> longVector = longMatrix.get_col(4), std::out_of_range);
 }
 
 int main(int argc, char** argv) {

@@ -50,6 +50,11 @@ namespace LinAlg
         void set_zero();
         void set_diag(const std::vector<T>& v);
         void set_diag(std::initializer_list<T> il);
+        void set_row(const std::vector<T>& v, std::size_t row);
+        void set_col(const std::vector<T>& v, std::size_t col);
+
+        std::vector<T> get_row(std::size_t row) const;
+        std::vector<T> get_col(std::size_t col) const;
 
     private:
         std::size_t _rows;
@@ -224,6 +229,52 @@ inline void LinAlg::Matrix<T>::set_diag(std::initializer_list<T> il)
     for (auto i = 0; i < _matrix.size(); i += _rows + 1, ++element) {
         _matrix[i] = *element;
     }
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::set_row(const std::vector<T>& v, std::size_t row)
+{
+    if (v.size() != _cols) { throw std::invalid_argument("invalid vector argument size"); }
+    if (row < 0 || row > _cols) { throw std::out_of_range("invalid Matrix row subscript"); }
+
+    for (std::size_t i = row * _cols, j = 0; j < _cols; ++i, ++j) {
+        _matrix[i] = v[j];
+    }
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::set_col(const std::vector<T>& v, std::size_t col)
+{
+    if (v.size() != _rows) { throw std::invalid_argument("invalid vector argument size"); }
+    if (col < 0 || col > _rows) { throw std::out_of_range("invalid Matrix column subscript"); }
+
+    for (std::size_t i = col, j = 0; j < _rows; i += _cols, ++j) {
+        _matrix[i] = v[j];
+    }
+}
+
+template <typename T>
+inline std::vector<T> LinAlg::Matrix<T>::get_row(std::size_t row) const
+{
+    if (row < 0 || row > _cols) { throw std::out_of_range("invalid Matrix row subscript"); }
+
+    std::vector<T> rowVector(_cols);
+    for (std::size_t i = row * _cols, j = 0; j < _cols; ++i, ++j) {
+        rowVector[j] = _matrix[i];
+    }
+    return rowVector;
+}
+
+template <typename T>
+inline std::vector<T> LinAlg::Matrix<T>::get_col(std::size_t col) const
+{
+    if (col < 0 || col > _rows) { throw std::out_of_range("invalid Matrix column subscript"); }
+
+    std::vector<T> colVector(_rows);
+    for (std::size_t i = col, j = 0; j < _rows; i += _cols, ++j) {
+        colVector[j] = _matrix[i];
+    }
+    return colVector;
 }
 
 template <typename T>
