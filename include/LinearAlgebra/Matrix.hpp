@@ -1,6 +1,7 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
+#include <cmath>
 #include <cstddef>
 #include <initializer_list>
 #include <stdexcept>
@@ -59,6 +60,10 @@ namespace LinAlg
 
         std::vector<T> get_row(std::size_t row) const;
         std::vector<T> get_col(std::size_t col) const;
+
+        void transpose();
+        Matrix<T> minor(std::size_t row, std::size_t col);
+        T determinant();
 
     private:
         std::size_t _rows;
@@ -323,6 +328,57 @@ inline std::vector<T> LinAlg::Matrix<T>::get_col(std::size_t col) const
         colVector[j] = _matrix[i];
     }
     return colVector;
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::transpose()
+{
+    std::vector<T> tempVector(vector_size());
+    std::swap(_rows, _cols);
+    int counter = 0;
+    for (auto i = 0; i < _rows; ++i) {
+        for (auto j = 0; j < _cols; ++j) {
+            tempVector[counter++] = _matrix[i + j * _rows];
+        }
+    }
+    _matrix.assign(tempVector.begin(), tempVector.end());
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::minor(std::size_t row, std::size_t col)
+{
+    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (row < 0 || row >= _rows) { throw std::out_of_range("invalid Matrix row subscript"); }
+    if (col < 0 || col >= _cols) { throw std::out_of_range("invalid Matrix column subscript"); }
+
+    std::vector<T> tempVector;
+    for (auto i = 0; i < _rows; ++i) {
+        if (i != row) {
+            for (auto j = 0; j < _cols; ++j) {
+                if (j != col) { tempVector.push_back(at(i, j)); }
+            }
+        }
+    }
+    return LinAlg::Matrix<T>(_rows - 1, _cols - 1, tempVector);
+}
+
+template <typename T>
+inline T LinAlg::Matrix<T>::determinant()
+{
+    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+
+    if (_rows == 1) { 
+        return at(0, 0); 
+    } else if (_rows == 2) { 
+        return at(0, 0) * at(1, 1) - at(0, 1) * at(1, 0); 
+    } else {
+        T totalDeterminant = 0;
+        for (auto i = 0; i < _cols; ++i) {
+            LinAlg::Matrix<T> minorMatrix(minor(0, i));
+            totalDeterminant += std::pow(-1, i) * _matrix[i] * minorMatrix.determinant();
+        }
+        return totalDeterminant;
+    }
 }
 
 template <typename T>

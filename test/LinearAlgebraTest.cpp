@@ -965,6 +965,102 @@ TEST(LinearAlgebraTest, MethodGetCol)
     ASSERT_THROW(std::vector<long> longVector = longMatrix.get_col(3), std::out_of_range);
 }
 
+TEST(LinearAlgebraTest, MethodTranspose)
+{
+    // DIFFERENT MATRICES TRANSPOSE METHOD TEST
+    LinAlg::Matrix<int> intMatrix1 = { { 1, 2, 3 }, { 4, 5, 6 } };
+    LinAlg::Matrix<int> intMatrix2(intMatrix1);
+    intMatrix1.transpose();
+    for (auto i = 0; i < intMatrix1.rows(); ++i) {
+        for (auto j = 0; j < intMatrix1.cols(); ++j) {
+            EXPECT_EQ(intMatrix1(i, j), intMatrix2(j, i));
+        }
+    }
+
+    LinAlg::Matrix<double> doubleMatrix1 = { { 1.5, -5.375, 6.24 }, { 8.8, 0.21, 7.2 }, { -0.27, 19.48, 1.4 } };
+    LinAlg::Matrix<double> doubleMatrix2(doubleMatrix1);
+    doubleMatrix1.transpose();
+    for (auto i = 0; i < doubleMatrix1.rows(); ++i) {
+        for (auto j = 0; j < doubleMatrix1.cols(); ++j) {
+            EXPECT_EQ(doubleMatrix1(i, j), doubleMatrix2(j, i));
+        }
+    }
+}
+
+TEST(LinearAlgebraTest, MethodMinor)
+{
+    // DIFFERENT MATRICES MINOR METHOD TEST
+    LinAlg::Matrix<int> intMatrix1 = { { -1, 914, 13 }, { 47, -12, 0 }, { 151, 10, 8 } };
+    LinAlg::Matrix<int> checkIntMatrix1 = { { -1, 13 }, { 151, 8 } };
+    LinAlg::Matrix<int> minorIntMatrix1 = intMatrix1.minor(1, 1);
+    for (auto i = 0; i < minorIntMatrix1.rows(); ++i) {
+        for (auto j = 0; j < minorIntMatrix1.cols(); ++j) {
+            EXPECT_EQ(checkIntMatrix1.at(i, j), minorIntMatrix1.at(i, j));
+        }
+    }
+
+    LinAlg::Matrix<double> doubleMatrix = { { -0.4, 23.27, 19.5 }, { 4.3, -5.29, 1.36 }, { 8.58, 1.033, 32.5 } };
+    LinAlg::Matrix<double> checkDoubleMatrix = { { -0.4, 23.27 }, { 8.58, 1.033 } };
+    LinAlg::Matrix<double> minorDoubleMatrix = doubleMatrix.minor(1, 2);
+    for (auto i = 0; i < minorDoubleMatrix.rows(); ++i) {
+        for (auto j = 0; j < minorDoubleMatrix.cols(); ++j) {
+            EXPECT_DOUBLE_EQ(checkDoubleMatrix.at(i, j), minorDoubleMatrix.at(i, j));
+        }
+    }
+
+    LinAlg::Matrix<long> longMatrix = { { 5078, 352, 458, 15 }, { -253, 264, 62, 1667 }, { 643, 100, 5753, -274 }, { 6, 544, 12, -4 } };
+    LinAlg::Matrix<long> checkLongMatrix = { { 5078, 352, 15 }, { -253, 264, 1667 }, { 643, 100, -274 } };
+    LinAlg::Matrix<long> minorLongMatrix = longMatrix.minor(3, 2);
+    for (auto i = 0; i < minorLongMatrix.rows(); ++i) {
+        for (auto j = 0; j < minorLongMatrix.cols(); ++j) {
+            EXPECT_EQ(checkLongMatrix.at(i, j), minorLongMatrix.at(i, j));
+        }
+    }
+
+    // INVALID ROW ARGUMENT TEST
+    LinAlg::Matrix<int> intMatrix2 = { { 1, 2, 3 }, { 6, 5, 4 }, { 7, 9, 8 } };
+    ASSERT_THROW(intMatrix2.minor(7, 1), std::out_of_range);
+
+    // INVALID COL ARGUMENT TEST
+    LinAlg::Matrix<float> floatMatrix1 = { { 1.9, -3.25 }, { 12.37, 8.88 } };
+    ASSERT_THROW(floatMatrix1.minor(0, 4), std::out_of_range);
+
+    // INVALID ROW AND COL ARGUMENTS TEST
+    LinAlg::Matrix<short> shortMatrix = { { 25, 54, 1, -5 }, { 0, 52, 63, 27 }, { -5, 64, 16, 10 }, { 200, 74, 13, 50 } };
+    ASSERT_THROW(shortMatrix.minor(6, 5), std::out_of_range);
+
+    // NOT SQUARE MATRIX TEST
+    LinAlg::Matrix<int> intMatrix3 = { { -3, 42, 1 }, { 4, 81, -9 } };
+    ASSERT_THROW(intMatrix3.minor(0, 0), std::invalid_argument);
+}
+
+TEST(LinearAlgebraTest, MethodDeterminant)
+{
+    // ZERO-ORDER MATRIX DETERMINANT TEST
+    LinAlg::Matrix<int> intMatrix0;
+    EXPECT_EQ(intMatrix0.determinant(), 0);
+
+    // FIRST-ORDER MATRIX DETERMINANT TEST
+    LinAlg::Matrix<double> doubleMatrix1 = { { -1.9 } };
+    EXPECT_DOUBLE_EQ(doubleMatrix1.determinant(), -1.9);
+
+    // SECOND-ORDER MATRIX DETERMINANT TEST
+    LinAlg::Matrix<int> intMatrix2 = { { -1, 2 }, { -6, 14 } };
+    EXPECT_EQ(intMatrix2.determinant(), -2);
+
+    // THIRD-ORDER MATRIX DETERMINANT TEST
+    LinAlg::Matrix<int> intMatrix3 = { { -1, 43, 2 }, { 0, 51, -13 }, { 12, 5, 27 } };
+    EXPECT_EQ(intMatrix3.determinant(), -9374);
+
+    // FOURTH-ORDER MATRIX DETERMINANT TEST
+    LinAlg::Matrix<int> intMatrix4 = { { 2, -4, 1, 12 }, { 11, 10, 6, 0 }, { -6, 21, 7, -1 }, { 7, 1, -8, 19 } };
+    EXPECT_EQ(intMatrix4.determinant(), 45234);
+
+    // NOT SQUARE MATRIX TEST
+    LinAlg::Matrix<float> floatMatrix = { { 1.3, -14.0, 5.7 }, { 0.0, 12.79, 4.24 } };
+    ASSERT_THROW(floatMatrix.determinant(), std::invalid_argument);
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
