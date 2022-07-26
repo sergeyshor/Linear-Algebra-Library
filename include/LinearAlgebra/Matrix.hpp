@@ -63,7 +63,10 @@ namespace LinAlg
 
         void transpose();
         Matrix<T> minor(std::size_t row, std::size_t col);
+        T cofactor(std::size_t row, std::size_t col);
         T determinant();
+        Matrix<T> adjoint();
+        Matrix<T> inverse();
 
     private:
         std::size_t _rows;
@@ -363,6 +366,12 @@ inline LinAlg::Matrix<T> LinAlg::Matrix<T>::minor(std::size_t row, std::size_t c
 }
 
 template <typename T>
+inline T LinAlg::Matrix<T>::cofactor(std::size_t row, std::size_t col)
+{
+    return std::pow(-1, row + col) * minor(row, col).determinant();
+}
+
+template <typename T>
 inline T LinAlg::Matrix<T>::determinant()
 {
     if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
@@ -374,11 +383,40 @@ inline T LinAlg::Matrix<T>::determinant()
     } else {
         T totalDeterminant = 0;
         for (auto i = 0; i < _cols; ++i) {
-            LinAlg::Matrix<T> minorMatrix(minor(0, i));
-            totalDeterminant += std::pow(-1, i) * _matrix[i] * minorMatrix.determinant();
+            totalDeterminant += _matrix[i] * cofactor(0, i);
         }
         return totalDeterminant;
     }
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::adjoint()
+{
+    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+
+    if (_rows == 1) {
+        return LinAlg::Matrix<T>({ { 1 } });
+    } else if (_rows == 2) {
+        return LinAlg::Matrix<T>({ { at(1, 1), -at(0, 1) }, { -at(1, 0), at(0, 0) } });
+    } else {
+        LinAlg::Matrix<T> adjointMatrix(_rows, _cols);
+        for (auto i = 0; i < _rows; ++i) {
+            for (auto j = 0; j < _cols; ++j) {
+                adjointMatrix.at(i, j) = cofactor(i, j);
+            }
+        }
+        adjointMatrix.transpose();
+        return adjointMatrix;
+    }
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::inverse()
+{
+    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+
+    LinAlg::Matrix<T> inverseMatrix = adjoint() / determinant();
+    return inverseMatrix;
 }
 
 template <typename T>
