@@ -36,6 +36,13 @@ namespace LinAlg
         Matrix<T>& operator*= (T value);
         Matrix<T>& operator/= (T value);
 
+        Matrix<T> operator- ();
+
+        Matrix<T> operator+ (const Matrix<T>& other);
+        Matrix<T> operator- (const Matrix<T>& other);
+        Matrix<T> operator* (const Matrix<T>& other);
+        Matrix<T> operator/ (const Matrix<T>& other);
+
         std::size_t rows() const { return _rows; }
         std::size_t cols() const { return _cols; }
         std::size_t vector_size() const { return _matrix.size(); }
@@ -184,6 +191,57 @@ inline LinAlg::Matrix<T>& LinAlg::Matrix<T>::operator/= (T value)
     if (value == T()) { throw std::invalid_argument("Matrix division by zero"); }
     for (T& element : _matrix) { element /= value; }
     return *this;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::operator- ()
+{
+    return (*this) * -1;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::operator+ (const Matrix<T>& other)
+{
+    if (_rows != other._rows || _cols != other._cols) { throw std::invalid_argument("invalid Matrix argument size"); }
+
+    LinAlg::Matrix<T> resultMatrix(*this);
+    for (auto i = 0; i < resultMatrix.rows(); ++i) {
+        for (auto j = 0; j < resultMatrix.cols(); ++j) {
+            resultMatrix.at(i, j) += other.at(i, j);
+        }
+    }
+    return resultMatrix;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::operator- (const Matrix<T>& other)
+{
+    LinAlg::Matrix<T> tempMatrix(other);
+    LinAlg::Matrix<T> resultMatrix(*this + -tempMatrix);
+    return resultMatrix;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::operator* (const Matrix<T>& other)
+{
+    if (_cols != other._rows) { throw std::invalid_argument("invalid Matrix argument size"); }
+    LinAlg::Matrix<T> resultMatrix(_rows, other._cols);
+    for (auto i = 0; i < resultMatrix.rows(); ++i) {
+        for (auto j = 0; j < resultMatrix.cols(); ++j) {
+            for (auto k = 0; k < _cols; ++k) {
+                resultMatrix.at(i, j) += at(i, k) * other.at(k, j);
+            }
+        }
+    }
+    return resultMatrix;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::operator/ (const Matrix<T>& other)
+{
+    LinAlg::Matrix<T> tempMatrix(other);
+    LinAlg::Matrix<T> resultMatrix = *this * tempMatrix.inverse();
+    return resultMatrix;
 }
 
 template <typename T>
@@ -414,6 +472,7 @@ template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::inverse()
 {
     if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (determinant() == 0) { throw std::runtime_error("null determinant"); }
 
     LinAlg::Matrix<T> inverseMatrix = adjoint() / determinant();
     return inverseMatrix;
