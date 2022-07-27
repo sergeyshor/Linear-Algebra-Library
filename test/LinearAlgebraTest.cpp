@@ -1319,6 +1319,177 @@ TEST(LinearAlgebraTest, OperatorDivisionMatrix)
     ASSERT_THROW(longMatrix1 / longMatrix2, std::runtime_error);
 }
 
+TEST(LinearAlgebraTest, OperatorAdditionAssignmentMatrix)
+{
+    // DIFFERENT MATRICES TEST
+    LinAlg::Matrix<double> doubleMatrix1 = { { -1.921, 53.46 }, { 0.35, 14.174 } };
+    LinAlg::Matrix<double> doubleMatrix2 = { { 5.88, 0.407 }, { 2.125, 7.705 } };
+    LinAlg::Matrix<double> tempDoubleMatrix = doubleMatrix1 + doubleMatrix2;
+    doubleMatrix1 += doubleMatrix2;
+    for (auto i = 0; i < doubleMatrix1.rows(); ++i) {
+        for (auto j = 0; j < doubleMatrix1.cols(); ++j) {
+            EXPECT_DOUBLE_EQ(doubleMatrix1.at(i, j), tempDoubleMatrix.at(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> intMatrix1 = { { 42, 10, 0 }, { 212, 68, 300 } };
+    LinAlg::Matrix<int> intMatrix2 = { { 9, -16, 225 }, { 17, 24, -1 } };
+    LinAlg::Matrix<int> tempIntMatrix = intMatrix1 + intMatrix2;
+    intMatrix2 += intMatrix1;
+    for (auto i = 0; i < intMatrix2.rows(); ++i) {
+        for (auto j = 0; j < intMatrix2.cols(); ++j) {
+            EXPECT_EQ(intMatrix2.at(i, j), tempIntMatrix.at(i, j));
+        }
+    }
+
+    // INVALID MATRIX ARGUMENT SIZE
+    LinAlg::Matrix<short> shortMatrix1 = { { 12, 7, 52, 100 }, { 3, 18, 27, 15 } };
+    LinAlg::Matrix<short> shortMatrix2 = { { 11, -10 }, { 120, -4 } };
+    ASSERT_THROW(shortMatrix1 += shortMatrix2, std::invalid_argument);
+}
+
+TEST(LinearAlgebraTest, OperatorSubstractionAssignmentMatrix)
+{
+    // DIFFERENT MATRICES TEST
+    LinAlg::Matrix<float> floatMatrix1 = { { 15.1, -6.75 }, { 10.125, 21.34 } };
+    LinAlg::Matrix<float> floatMatrix2 = { { -5.3, 10.04 }, { 9.12, 75.32 } };
+    LinAlg::Matrix<float> tempFloatMatrix = floatMatrix1 - floatMatrix2;
+    floatMatrix1 -= floatMatrix2;
+    for (auto i = 0; i < floatMatrix1.rows(); ++i) {
+        for (auto j = 0; j < floatMatrix1.cols(); ++j) {
+            EXPECT_FLOAT_EQ(floatMatrix1.at(i, j), tempFloatMatrix.at(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> intMatrix1 = { { 0, -9, 12, 31 }, { 15, -7, 204, 16 } };
+    LinAlg::Matrix<int> intMatrix2 = { { 23, -5, 10, 13 }, { 19, 311, 0, 17 } };
+    LinAlg::Matrix<int> tempIntMatrix = intMatrix2 - intMatrix1;
+    intMatrix2 -= intMatrix1;
+    for (auto i = 0; i < intMatrix2.rows(); ++i) {
+        for (auto j = 0; j < intMatrix2.cols(); ++j) {
+            EXPECT_EQ(intMatrix2.at(i, j), tempIntMatrix.at(i, j));
+        }
+    }
+
+    // INVALID MATRIX ARGUMENT SIZE
+    LinAlg::Matrix<long> longMatrix1 = { { 50, 2, 951 }, { 47, -3, 100 } };
+    LinAlg::Matrix<long> longMatrix2 = { { 513, -1024 }, { 245, 189 } };
+    ASSERT_THROW(longMatrix1 -= longMatrix2, std::invalid_argument);
+}
+
+TEST(LinearAlgebraTest, OperatorMultiplicationAssignmentMatrix)
+{
+    // DIFFERENT MATRICES TEST
+    LinAlg::Matrix<int> intMatrix1 = { { 1, 2 }, { 3, 4 } };
+	LinAlg::Matrix<int> intMatrix2 = { { 5, 6 }, { 7, 8 } };
+    LinAlg::Matrix<int> tempIntMatrix = intMatrix1 * intMatrix2;
+    intMatrix1 *= intMatrix2;
+    for (auto i = 0; i < intMatrix1.rows(); ++i) {
+        for (auto j = 0; j < intMatrix1.cols(); ++j) {
+            EXPECT_EQ(intMatrix1.at(i, j), tempIntMatrix.at(i, j));
+        }
+    }
+
+    LinAlg::Matrix<short> shortMatrix1 = { { 16, -1, 14 }, { 12, 2, 7 } };
+	LinAlg::Matrix<short> shortMatrix2 = { { 1, 9 }, { 18, 27 }, { 0, 10 } };
+    LinAlg::Matrix<short> tempShortMatrix = shortMatrix1 * shortMatrix2;
+    shortMatrix1 *= shortMatrix2;
+    for (auto i = 0; i < shortMatrix1.rows(); ++i) {
+        for (auto j = 0; j < shortMatrix1.cols(); ++j) {
+            EXPECT_EQ(shortMatrix1.at(i, j), tempShortMatrix.at(i, j));
+        }
+    }
+
+    // INVALID MATRIX ARGUMENT SIZE
+    LinAlg::Matrix<double> doubleMatrix1 = { { 1.0, -12.14, 5.3 }, { 4.48, 0.15, 2.275 } };
+    LinAlg::Matrix<double> doubleMatrix2 = { { 1.5 }, { 7.05 } };
+    ASSERT_THROW(doubleMatrix1 *= doubleMatrix2, std::invalid_argument);
+}
+
+TEST(LinearAlgebraTest, OperatorDivisionAssignmentMatrix)
+{
+    // DIFFERENT MATRICES TEST
+    LinAlg::Matrix<double> doubleMatrix1 = { { 10.5, -0.25 }, { 6.3, 4.47 } };
+    LinAlg::Matrix<double> doubleMatrix2 = { { 4, 7 }, { 2, 6 } };
+    LinAlg::Matrix<double> tempDoubleMatrix = doubleMatrix1 / doubleMatrix2;
+    doubleMatrix1 /= doubleMatrix2;
+    for (auto i = 0; i < doubleMatrix1.rows(); ++i) {
+        for (auto j = 0; j < doubleMatrix1.cols(); ++j) {
+            EXPECT_DOUBLE_EQ(doubleMatrix1.at(i, j), tempDoubleMatrix.at(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> intMatrix1 = { { 10, 7 }, { -1, 22 }, { 41, 5 } };
+    LinAlg::Matrix<int> intMatrix2 = { { 4, 3 }, { 3, 2 } };
+    LinAlg::Matrix<int> tempIntMatrix = intMatrix1 / intMatrix2;
+    intMatrix1 /= intMatrix2;
+    for (auto i = 0; i < intMatrix1.rows(); ++i) {
+        for (auto j = 0; j < intMatrix1.cols(); ++j) {
+            EXPECT_DOUBLE_EQ(intMatrix1.at(i, j), tempIntMatrix.at(i, j));
+        }
+    }
+
+    // INVALID MATRIX ARGUMENT SIZE
+    LinAlg::Matrix<short> shortMatrix1 = { { 10, -41, 9 }, { 16, 17, 200 } };
+    LinAlg::Matrix<short> shortMatrix2 = { { 24, 1 }, { 0, -8 } };
+    ASSERT_THROW(shortMatrix1 /= shortMatrix2, std::invalid_argument);
+
+    LinAlg::Matrix<int> intMatrix3 = { { 112 }, { 64 } };
+    LinAlg::Matrix<int> intMatrix4 = { { -7, 28 }, { 14, 9 } };
+    ASSERT_THROW(intMatrix3 /= intMatrix4, std::invalid_argument);
+
+    // NULL DETERMINANT
+    LinAlg::Matrix<long> longMatrix1 = { { 15, 1194, 317 }, { 2381, -42, 1264 }, { 235, 1536, 1025 } };
+    LinAlg::Matrix<long> longMatrix2 = { { 15, 17, 19 }, { -1, 0, 1 }, { 26, 28, 30 } };
+    ASSERT_THROW(longMatrix1 /= longMatrix2, std::runtime_error);
+}
+
+TEST(LinearAlgebraTest, MethodPow)
+{
+    // RAISING MATRIX TO ZERO POWER
+    LinAlg::Matrix<double> doubleMatrix = { { 1.42, -32.8, 0.9 }, { 10.1, 7.05, 6.4 }, { 1.5, 5.832, -0.63 } };
+    LinAlg::Matrix<double> tempDoubleMatrix = { { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } };
+    doubleMatrix.pow(0);
+    for (auto i = 0; i < doubleMatrix.rows(); ++i) {
+        for (auto j = 0; j < doubleMatrix.cols(); ++j) {
+            EXPECT_DOUBLE_EQ(doubleMatrix.at(i, j), tempDoubleMatrix.at(i, j));
+        }
+    }
+
+    // RAISING MATRIX TO POSITIVE POWER
+    LinAlg::Matrix<short> shortMatrix = { { 10, -2, 3 }, { 0, 27, 4 }, { 9, 16, -5  } };
+    LinAlg::Matrix<short> tempShortMatrix = { { 127, -26, 7 }, { 36, 793, 88 }, { 45, 334, 116 } };
+    shortMatrix.pow(2);
+    for (auto i = 0; i < shortMatrix.rows(); ++i) {
+        for (auto j = 0; j < shortMatrix.cols(); ++j) {
+            EXPECT_EQ(shortMatrix.at(i, j), tempShortMatrix.at(i, j));
+        }
+    }
+
+    LinAlg::Matrix<int> intMatrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    LinAlg::Matrix<int> tempIntMatrix = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    intMatrix.pow(1);
+    for (auto i = 0; i < intMatrix.rows(); ++i) {
+        for (auto j = 0; j < intMatrix.cols(); ++j) {
+            EXPECT_EQ(intMatrix.at(i, j), tempIntMatrix.at(i, j));
+        }
+    }
+
+    // RAISING MATRIX TO NEGATIVE POWER
+    LinAlg::Matrix<long> longMatrix = { { 2, 5, 7 }, { 6, 3, 4 }, { 5, -2, -3  } };
+    LinAlg::Matrix<long> tempLongMatrix = { { 4357, -4688, 3896 }, { -166000, 178611, -148436 }, { 117336, -126250, 104921 } };
+    longMatrix.pow(-3);
+    for (auto i = 0; i < longMatrix.rows(); ++i) {
+        for (auto j = 0; j < longMatrix.cols(); ++j) {
+            EXPECT_EQ(longMatrix.at(i, j), tempLongMatrix.at(i, j));
+        }
+    }
+
+    // NOT SQUARE MATRIX
+    LinAlg::Matrix<float> floatMatrix = { { 0.52, 8.5, 11.03 }, { -4.2, 15.47, 13.189 } };
+    ASSERT_THROW(floatMatrix.pow(2), std::invalid_argument);
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
