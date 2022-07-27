@@ -531,7 +531,7 @@ TEST(LinearAlgebraTest, MethodAt)
     ASSERT_THROW(intMatrix.at(5, 3) = intValue2, std::out_of_range);
 }
 
-TEST(LinearAlgebraTest, OperatorMultiplicationValue)
+TEST(LinearAlgebraTest, OperatorMultiplicationValueRHS)
 {
     // NEGATIVE NUMBER TEST
     LinAlg::Matrix<int> intMatrix = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
@@ -1488,6 +1488,63 @@ TEST(LinearAlgebraTest, MethodPow)
     // NOT SQUARE MATRIX
     LinAlg::Matrix<float> floatMatrix = { { 0.52, 8.5, 11.03 }, { -4.2, 15.47, 13.189 } };
     ASSERT_THROW(floatMatrix.pow(2), std::invalid_argument);
+}
+
+TEST(LinearAlgebraTest, OperatorEquality)
+{
+    // SELF EQUALITY TEST
+    LinAlg::Matrix<int> intMatrix1 = { { 1, 2, 3 }, { 4, 5, 6 } };
+    EXPECT_TRUE(intMatrix1 == intMatrix1);
+
+    // INEQUALITY OF COLS TEST
+    LinAlg::Matrix<int> intMatrix2 = { { 7, 8 }, { 9, 0 } };
+    EXPECT_FALSE(intMatrix1 == intMatrix2);
+
+    // INEQUALITY OF ROWS TEST
+    LinAlg::Matrix<int> intMatrix3 = { { 10, 14 }, { -12, 50 }, { 273, -45 } };
+    EXPECT_FALSE(intMatrix2 == intMatrix3);
+
+    // INEQUALITY OF MATRICES TEST
+    LinAlg::Matrix<double> doubleMatrix1 = { { 1.5, -4.2 }, { -5.33, 0 }, { 8.05, 14.37 } };
+    LinAlg::Matrix<double> doubleMatrix2 = { { 1.5, -4.2 }, { -5.33, 13.64 }, { 12.23, 14.37 } };
+    EXPECT_FALSE(doubleMatrix1 == doubleMatrix2);
+
+    // EQUALITY OF MATRICES TEST
+    LinAlg::Matrix<short> shortMatrix1 = { { 31, 28, -4 }, { 15, 81, 77 } };
+    LinAlg::Matrix<short> shortMatrix2 = { { 31, 28, -4 }, { 15, 81, 77 } };
+    EXPECT_TRUE(shortMatrix1 == shortMatrix2);
+
+    LinAlg::Matrix<long> longMatrix1 = { { 100, -24 }, { 0, 55 } };
+    LinAlg::Matrix<long> longMatrix2 = { { 100, -24 }, { 0, 55 } };
+    EXPECT_TRUE(longMatrix1 == longMatrix2);
+}
+
+TEST(LinearAlgebraTest, OperatorMultiplicationValueLHS)
+{
+    // NEGATIVE NUMBER TEST
+    LinAlg::Matrix<int> intMatrix = { { 1, 2, 3, 4 }, { 5, 6, 7, 8 }, { 9, 10, 11, 12 }, { 13, 14, 15, 16 } };
+    int intValue = -4;
+    intMatrix = intValue * intMatrix;
+    EXPECT_EQ(intMatrix.at(2, 1), -40);
+    EXPECT_EQ(intMatrix.at(0, 3), -16);
+    EXPECT_EQ(intMatrix.at(3, 2), -60);
+
+    // POSITIVE NUMBER TEST
+    LinAlg::Matrix<double> doubleMatrix = { { 0.42, 32.1}, { 44.112, 4.0 }, { 34.52, 1.245 } };
+    LinAlg::Matrix<double> resultMatrix;
+    double doubleValue = 2.0;
+    resultMatrix = doubleValue * doubleMatrix;
+    EXPECT_DOUBLE_EQ(resultMatrix.at(1, 1), 8.0);
+    EXPECT_DOUBLE_EQ(resultMatrix.at(0, 1), 64.2);
+    EXPECT_DOUBLE_EQ(resultMatrix.at(2, 0), 69.04);
+
+    // NULL TEST
+    LinAlg::Matrix<float> floatMatrix = { { 1.1, 42.0, 4.24 }, { 7.5, 2.275, 1.124 } };
+    float floatValue = 0;
+    floatMatrix = floatValue * floatMatrix;
+    EXPECT_FLOAT_EQ(floatMatrix.at(1, 0), 0);
+    EXPECT_FLOAT_EQ(floatMatrix.at(1, 2), 0);
+    EXPECT_FLOAT_EQ(floatMatrix.at(0, 0), 0);
 }
 
 int main(int argc, char** argv) {

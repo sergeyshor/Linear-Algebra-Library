@@ -81,6 +81,12 @@ namespace LinAlg
         Matrix<T> adjoint();
         Matrix<T> inverse();
 
+        template <typename U>
+        friend bool operator== (const Matrix<U>& lhs, const Matrix<U>& rhs);
+
+        template <typename U>
+        friend Matrix<U> operator* (U value, const Matrix<U>& other);
+
     private:
         std::size_t _rows;
         std::size_t _cols;
@@ -90,6 +96,27 @@ namespace LinAlg
         std::size_t check_cols_arg(std::size_t cols);
         std::size_t check_template_arg(std::size_t size);
     };
+
+    template <typename U>
+    bool operator== (const Matrix<U>& lhs, const Matrix<U>& rhs)
+    {
+        if (&lhs == &rhs) { return true; };
+        if (lhs.rows() != rhs.rows() || lhs.cols() != rhs.cols()) { return false; }
+
+        for (auto i = 0; i < lhs.rows(); ++i) {
+            for (auto j = 0; j < lhs.cols(); ++j) {
+                if (lhs.at(i, j) != rhs.at(i, j)) { return false; }
+            }
+        }
+        return true;
+    }
+
+    template <typename U>
+    Matrix<U> operator* (U value, const Matrix<U>& other)
+    {
+        Matrix<U> tempMatrix(other);
+        return tempMatrix * value;
+    }
 
 }
 
