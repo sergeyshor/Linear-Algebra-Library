@@ -1,6 +1,7 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
+#include <algorithm>
 #include <cmath>
 #include <cstddef>
 #include <initializer_list>
@@ -13,14 +14,7 @@
 namespace LinAlg
 {
     template <typename T>
-    bool areEqual(T value1, T value2)
-    {
-        if (std::numeric_limits<T>::is_iec559) {
-            return std::fabs(value1 - value2) <= ((std::fabs(value1) < std::fabs(value2) ? std::fabs(value2) : std::fabs(value1)) * std::numeric_limits<T>::epsilon());
-        } else {
-            return value1 == value2;
-        }
-    }
+    bool areEqual(T value1, T value2);
 
     template <typename T>
     class Matrix
@@ -65,7 +59,8 @@ namespace LinAlg
         std::size_t max_rows() { return _matrix.max_size(); };
         std::size_t max_cols() { return max_rows() / _rows; };
 
-        bool isSquare() const { return _rows == _cols; }
+        bool square() const { return _rows == _cols; }
+        bool zero() const { return *this == Matrix<T>(_rows, _cols); };
 
         T& at(std::size_t row, std::size_t col);
         const T& at(std::size_t row, std::size_t col) const;
@@ -86,6 +81,8 @@ namespace LinAlg
 
         void transpose();
         void pow(int power);
+        void swap_row(std::size_t row1, std::size_t row2);
+        void swap_col(std::size_t col1, std::size_t col2);
         T cofactor(std::size_t row, std::size_t col);
         T determinant();
         Matrix<T> minor(std::size_t row, std::size_t col);
@@ -108,8 +105,18 @@ namespace LinAlg
         std::size_t check_template_arg(std::size_t size);
     };
 
+    template <typename T>
+    inline bool areEqual(T value1, T value2)
+    {
+        if (std::numeric_limits<T>::is_iec559) {
+            return std::fabs(value1 - value2) <= (std::max(std::fabs(value1), std::fabs(value2)) * std::numeric_limits<T>::epsilon());
+        } else {
+            return value1 == value2;
+        }
+    }
+
     template <typename U>
-    bool operator== (const Matrix<U>& lhs, const Matrix<U>& rhs)
+    inline bool operator== (const Matrix<U>& lhs, const Matrix<U>& rhs)
     {
         if (&lhs == &rhs) { return true; };
         if (lhs.rows() != rhs.rows() || lhs.cols() != rhs.cols()) { return false; }
@@ -123,7 +130,7 @@ namespace LinAlg
     }
 
     template <typename U>
-    Matrix<U> operator* (U value, const Matrix<U>& other)
+    inline Matrix<U> operator* (U value, const Matrix<U>& other)
     {
         Matrix<U> tempMatrix(other);
         return tempMatrix * value;
@@ -334,7 +341,7 @@ inline const T& LinAlg::Matrix<T>::at(std::size_t row, std::size_t col) const
 template <typename T>
 inline void LinAlg::Matrix<T>::set_identity()
 {
-    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (!square()) { throw std::invalid_argument("square Matrix required"); }
 
     std::vector<T> identityVector(vector_size());
     for (auto i = 0; i < identityVector.size(); i += _rows + 1) {
@@ -352,7 +359,7 @@ inline void LinAlg::Matrix<T>::set_zero()
 template <typename T>
 inline void LinAlg::Matrix<T>::set_diag(const std::vector<T>& v)
 {
-    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (!square()) { throw std::invalid_argument("square Matrix required"); }
     if (v.size() != _rows) { throw std::invalid_argument("invalid vector argument size"); }
 
     set_zero();
@@ -364,7 +371,7 @@ inline void LinAlg::Matrix<T>::set_diag(const std::vector<T>& v)
 template <typename T>
 inline void LinAlg::Matrix<T>::set_diag(std::initializer_list<T> il)
 {
-    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (!square()) { throw std::invalid_argument("square Matrix required"); }
     if (il.size() != _rows) { throw std::invalid_argument("invalid initializer list argument size"); }
 
     set_zero();
@@ -481,7 +488,7 @@ inline void LinAlg::Matrix<T>::transpose()
 template <typename T>
 inline void LinAlg::Matrix<T>::pow(int power)
 {
-    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (!square()) { throw std::invalid_argument("square Matrix required"); }
 
     if (power == 0) {
         set_identity();
@@ -501,6 +508,30 @@ inline void LinAlg::Matrix<T>::pow(int power)
 }
 
 template <typename T>
+inline void LinAlg::Matrix<T>::swap_row(std::size_t row1, std::size_t row2)
+{
+    if ( (row1 < 0 || row1 >= _rows) || (row2 < 0 || row2 >= _rows) ) { throw std::out_of_range("invalid Matrix row subscript"); }
+
+    if (row1 != row2) {
+        for (auto i = row1 * _cols, j = row2 * _cols; i < (row1 + 1) * _cols; ++i, ++j) {
+            std::swap(_matrix[i], _matrix[j]);
+        }
+    }
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::swap_col(std::size_t col1, std::size_t col2)
+{
+    if ( (col1 < 0 || col1 >= _cols) || (col2 < 0 || col2 >= _cols) ) { throw std::out_of_range("invalid Matrix column subscript"); }
+
+    if (col1 != col2) {
+        for (auto i = col1, j = col2; i < (_rows - 1) * _cols + col1 + 1; i += _cols, j += _cols) {
+            std::swap(_matrix[i], _matrix[j]);
+        }
+    }
+}
+
+template <typename T>
 inline T LinAlg::Matrix<T>::cofactor(std::size_t row, std::size_t col)
 {
     return std::pow(-1, row + col) * minor(row, col).determinant();
@@ -509,7 +540,7 @@ inline T LinAlg::Matrix<T>::cofactor(std::size_t row, std::size_t col)
 template <typename T>
 inline T LinAlg::Matrix<T>::determinant()
 {
-    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (!square()) { throw std::invalid_argument("square Matrix required"); }
 
     if (_rows == 1) { 
         return at(0, 0); 
@@ -527,7 +558,7 @@ inline T LinAlg::Matrix<T>::determinant()
 template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::minor(std::size_t row, std::size_t col)
 {
-    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (!square()) { throw std::invalid_argument("square Matrix required"); }
     if (row < 0 || row >= _rows) { throw std::out_of_range("invalid Matrix row subscript"); }
     if (col < 0 || col >= _cols) { throw std::out_of_range("invalid Matrix column subscript"); }
 
@@ -545,7 +576,7 @@ inline LinAlg::Matrix<T> LinAlg::Matrix<T>::minor(std::size_t row, std::size_t c
 template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::adjoint()
 {
-    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (!square()) { throw std::invalid_argument("square Matrix required"); }
 
     if (_rows == 1) {
         return LinAlg::Matrix<T>({ { 1 } });
@@ -566,7 +597,7 @@ inline LinAlg::Matrix<T> LinAlg::Matrix<T>::adjoint()
 template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::inverse()
 {
-    if (!isSquare()) { throw std::invalid_argument("square Matrix required"); }
+    if (!square()) { throw std::invalid_argument("square Matrix required"); }
     if (determinant() == 0) { throw std::runtime_error("null determinant"); }
 
     LinAlg::Matrix<T> inverseMatrix = adjoint() / determinant();

@@ -1302,6 +1302,63 @@ TEST(LinearAlgebraTest, OperatorMultiplicationValueLHS)
     EXPECT_FLOAT_EQ(floatMatrix.at(0, 0), 0);
 }
 
+TEST(LinearAlgebraTest, CheckIfZeroMatrixMethod)
+{
+    // MATRIX IS ZERO TEST
+    LinAlg::Matrix<double> doubleMatrix(4, 5);
+    EXPECT_TRUE(doubleMatrix.zero());
+
+    // MATRIX IS NOT ZERO TEST
+    LinAlg::Matrix<int> intMatrix = { { 0, 0 }, { 0, 1 } };
+    EXPECT_FALSE(intMatrix.zero());
+}
+
+TEST(LinearAlgebraTest, MethodSwapRow)
+{
+    // DIFFERENT MATRICES TEST
+    LinAlg::Matrix<int> intMatrix = { { 1, 2, 3 }, { 4, 5, 6 } };
+    std::vector<int> rowIntVector0 = intMatrix.get_row(0);
+    std::vector<int> rowIntVector1 = intMatrix.get_row(1);
+    intMatrix.swap_row(0, 1);
+    EXPECT_TRUE(rowIntVector0 == intMatrix.get_row(1) && rowIntVector1 == intMatrix.get_row(0));
+
+    LinAlg::Matrix<double> doubleMatrix = { { -0.52, 13.1 }, { 0, 100.6 }, { 4.125, -6.11 }, { 1.3215, 23.42901 }, { 8.8, -7.05 }, { 17.54, 12.0 } };
+    std::vector<double> rowDoubleVector4 = doubleMatrix.get_row(4);
+    std::vector<double> rowDoubleVector2 = doubleMatrix.get_row(2);
+    doubleMatrix.swap_row(4, 2);
+    EXPECT_TRUE(rowDoubleVector4 == doubleMatrix.get_row(2) && rowDoubleVector2 == doubleMatrix.get_row(4));
+
+    // OUT OF RANGE ROW INDEX TEST
+    LinAlg::Matrix<short> shortMatrix = { { 9, 52, 0, 17 }, { 1, -28, 9, 10 } };
+    ASSERT_THROW(shortMatrix.swap_row(2, 0), std::out_of_range);
+
+    LinAlg::Matrix<float> floatMatrix = { { -1.426 }, { 10.0 }, { 2.181 }, { 5.77 } };
+    ASSERT_THROW(floatMatrix.swap_row(1, -1), std::out_of_range);
+}
+
+TEST(LinearAlgebraTest, MethodSwapCol)
+{
+    // DIFFERENT MATRICES TEST
+    LinAlg::Matrix<int> intMatrix = { { 6, 7, 8 }, { 9, 10, 11 } };
+    std::vector<int> colIntVector0 = intMatrix.get_col(0);
+    std::vector<int> colIntVector2 = intMatrix.get_col(2);
+    intMatrix.swap_col(0, 2);
+    EXPECT_TRUE(colIntVector0 == intMatrix.get_col(2) && colIntVector2 == intMatrix.get_col(0));
+
+    LinAlg::Matrix<double> doubleMatrix = { { 1.53, 68.4, 8.64, 0.5 }, { 10.0, -1.2, 2.7, 53.8 }, { 8.098, 2.29, 5.94, -3.5 } };
+    std::vector<double> colDoubleVector2 = doubleMatrix.get_col(2);
+    std::vector<double> colDoubleVector1 = doubleMatrix.get_col(1);
+    doubleMatrix.swap_col(2, 1);
+    EXPECT_TRUE(colDoubleVector1 == doubleMatrix.get_col(2) && colDoubleVector2 == doubleMatrix.get_col(1));
+
+    // OUT OF RANGE COL INDEX TEST
+    LinAlg::Matrix<long> longMatrix = { { 523, 10643, 748, 946 }, { 385, -9581, 73, 99 } };
+    ASSERT_THROW(longMatrix.swap_col(-7, 2), std::out_of_range);
+
+    LinAlg::Matrix<float> floatMatrix = { { 1.5, -26.1 }, { 0.01, 9.23 }, { -3.1, 7.94 } };
+    ASSERT_THROW(floatMatrix.swap_col(1, 2), std::out_of_range);
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
