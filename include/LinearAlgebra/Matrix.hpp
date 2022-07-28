@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstddef>
 #include <initializer_list>
+#include <limits>
 #include <stdexcept>
 #include <type_traits>
 #include <utility>
@@ -11,6 +12,16 @@
 
 namespace LinAlg
 {
+    template <typename T>
+    bool areEqual(T value1, T value2)
+    {
+        if (std::numeric_limits<T>::is_iec559) {
+            return std::fabs(value1 - value2) <= ((std::fabs(value1) < std::fabs(value2) ? std::fabs(value2) : std::fabs(value1)) * std::numeric_limits<T>::epsilon());
+        } else {
+            return value1 == value2;
+        }
+    }
+
     template <typename T>
     class Matrix
     {
@@ -105,7 +116,7 @@ namespace LinAlg
 
         for (auto i = 0; i < lhs.rows(); ++i) {
             for (auto j = 0; j < lhs.cols(); ++j) {
-                if (lhs.at(i, j) != rhs.at(i, j)) { return false; }
+                if (!areEqual(lhs.at(i, j), rhs.at(i, j))) { return false; }
             }
         }
         return true;
@@ -184,13 +195,14 @@ inline const T& LinAlg::Matrix<T>::operator() (std::size_t row, std::size_t col)
 template <typename T>
 inline LinAlg::Matrix<T>& LinAlg::Matrix<T>::operator= (Matrix<T>&& other) noexcept
 {
-    _rows = other._rows;
-    _cols = other._cols;
-    _matrix = std::move(other._matrix);
+    if (this != &other) {
+        _rows = other._rows;
+        _cols = other._cols;
+        _matrix = std::move(other._matrix);
 
-    other._rows = 0;
-    other._cols = 0;
-
+        other._rows = 0;
+        other._cols = 0;
+    }
     return *this;
 }
 
