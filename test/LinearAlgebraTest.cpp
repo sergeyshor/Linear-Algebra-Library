@@ -1302,15 +1302,15 @@ TEST(LinearAlgebraTest, OperatorMultiplicationValueLHS)
     EXPECT_FLOAT_EQ(floatMatrix.at(0, 0), 0);
 }
 
-TEST(LinearAlgebraTest, CheckIfZeroMatrixMethod)
+TEST(LinearAlgebraTest, MethodIsZero)
 {
     // MATRIX IS ZERO TEST
     LinAlg::Matrix<double> doubleMatrix(4, 5);
-    EXPECT_TRUE(doubleMatrix.zero());
+    EXPECT_TRUE(doubleMatrix.is_zero());
 
     // MATRIX IS NOT ZERO TEST
     LinAlg::Matrix<int> intMatrix = { { 0, 0 }, { 0, 1 } };
-    EXPECT_FALSE(intMatrix.zero());
+    EXPECT_FALSE(intMatrix.is_zero());
 }
 
 TEST(LinearAlgebraTest, MethodSwapRow)
@@ -1461,6 +1461,50 @@ TEST(LinearAlgebraTest, MethodAddCol)
     // OUT OF RANGE COL INDEX TEST
     LinAlg::Matrix<float> floatMatrix = { { -10.89, 9.67, 5.54 }, { 1.25, 2.9, 8.6 } };
     ASSERT_THROW(floatMatrix.add_col(-1, 2, 9), std::out_of_range);
+}
+
+TEST(LinearAlgebraTest, InverseMatrixMethod)
+{
+    // SOLVING MATRIX EQUATION TEST
+    LinAlg::Matrix<double> doubleMatrix1 = { { 3, 1, -1 }, { 2, -2, 0 }, { 1, 2, -1 } };
+    LinAlg::Matrix<double> doubleMatrix2 = { { 1, 2, -1 }, { 2, 1, 2 }, { -1, 2, 1 } };
+    LinAlg::Matrix<double> doubleResult1 = LinAlg::inverse_matrix_method(doubleMatrix1, doubleMatrix2);
+    LinAlg::Matrix<double> checkResult1 = doubleMatrix1 * doubleResult1;
+    EXPECT_TRUE(checkResult1 == doubleMatrix2);
+
+    LinAlg::Matrix<float> floatMatrix1 = { { 4, -3, 18 }, { 2, 1, 6 }, { 1, -1, 5 } };
+    LinAlg::Matrix<float> floatMatrix2 = { { 45, -28 }, { 19, -6 }, { 12, -8 } };
+    LinAlg::Matrix<float> floatResult = LinAlg::inverse_matrix_method(floatMatrix1, floatMatrix2);
+    LinAlg::Matrix<float> checkResult2 = floatMatrix1 * floatResult;
+    EXPECT_TRUE(checkResult2 == floatMatrix2);
+
+    // SOLVING SYSTEM OF LINEAR EQUATIONS TEST
+    LinAlg::Matrix<float> floatMatrix3 = { { 1, 2 }, { 3, -5 }, };
+    LinAlg::Matrix<float> floatMatrix4 = { { 4 }, { 1 } };
+    LinAlg::Matrix<float> floatResult2 = LinAlg::inverse_matrix_method(floatMatrix3, floatMatrix4);
+    LinAlg::Matrix<float> checkResult3 = floatMatrix3 * floatResult2;
+    EXPECT_TRUE(checkResult3 == floatMatrix4);
+
+    LinAlg::Matrix<double> doubleMatrix3 = { { 4, -1, 0 }, { 3, 2, 5 }, { 1, -3, 4 } };
+    LinAlg::Matrix<double> doubleMatrix4 = { { -6 }, { -14 }, { -19 } };
+    LinAlg::Matrix<double> doubleResult2 = LinAlg::inverse_matrix_method(doubleMatrix3, doubleMatrix4);
+    LinAlg::Matrix<double> checkResult4 = doubleMatrix3 * doubleResult2;
+    EXPECT_TRUE(checkResult4 == doubleMatrix4);
+
+    // INVALID MATRICES SIZE TEST
+    LinAlg::Matrix<long> longMatrix1 = { { 19, -5, 315 }, { 0, 634, 87 }, { 80, 14, -54 } };
+    LinAlg::Matrix<long> longMatrix2 = { { 97, -64 }, { 11, 532 } };
+    ASSERT_THROW(LinAlg::inverse_matrix_method(longMatrix1, longMatrix2), std::invalid_argument);
+
+    // NULL DETERMINANT TEST
+    LinAlg::Matrix<int> intMatrix1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+    LinAlg::Matrix<int> intMatrix2 = { { 0 }, { 10 }, { 11 } };
+    ASSERT_THROW(LinAlg::inverse_matrix_method(intMatrix1, intMatrix2), std::runtime_error);
+
+    // NOT SQUARE MATRIX TEST
+    LinAlg::Matrix<short> shortMatrix1 = { { 1, -4 }, { 10, 2 }, { -16, 5 } };
+    LinAlg::Matrix<short> shortMatrix2 = { { 13 }, { 9 }, { 27 } };
+    ASSERT_THROW(LinAlg::inverse_matrix_method(shortMatrix1, shortMatrix2), std::invalid_argument);
 }
 
 int main(int argc, char** argv) {

@@ -59,8 +59,8 @@ namespace LinAlg
         std::size_t max_rows() { return _matrix.max_size(); };
         std::size_t max_cols() { return max_rows() / _rows; };
 
-        bool square() const { return _rows == _cols; }
-        bool zero() const { return *this == Matrix<T>(_rows, _cols); };
+        bool is_square() const { return _rows == _cols; }
+        bool is_zero() const { return *this == Matrix<T>(_rows, _cols); };
 
         T& at(std::size_t row, std::size_t col);
         const T& at(std::size_t row, std::size_t col) const;
@@ -110,7 +110,7 @@ namespace LinAlg
     };
 
     template <typename T>
-    inline bool areEqual(T value1, T value2)
+    inline bool are_equal(T value1, T value2)
     {
         if (std::numeric_limits<T>::is_iec559) {
             return std::fabs(value1 - value2) <= (std::max(std::fabs(value1), std::fabs(value2)) * std::numeric_limits<T>::epsilon());
@@ -127,7 +127,7 @@ namespace LinAlg
 
         for (auto i = 0; i < lhs.rows(); ++i) {
             for (auto j = 0; j < lhs.cols(); ++j) {
-                if (!areEqual(lhs.at(i, j), rhs.at(i, j))) { return false; }
+                if (!are_equal(lhs.at(i, j), rhs.at(i, j))) { return false; }
             }
         }
         return true;
@@ -345,7 +345,7 @@ inline const T& LinAlg::Matrix<T>::at(std::size_t row, std::size_t col) const
 template <typename T>
 inline void LinAlg::Matrix<T>::set_identity()
 {
-    if (!square()) { throw std::invalid_argument("square Matrix required"); }
+    if (!is_square()) { throw std::invalid_argument("square Matrix required"); }
 
     std::vector<T> identityVector(vector_size());
     for (auto i = 0; i < identityVector.size(); i += _rows + 1) {
@@ -363,7 +363,7 @@ inline void LinAlg::Matrix<T>::set_zero()
 template <typename T>
 inline void LinAlg::Matrix<T>::set_diag(const std::vector<T>& v)
 {
-    if (!square()) { throw std::invalid_argument("square Matrix required"); }
+    if (!is_square()) { throw std::invalid_argument("square Matrix required"); }
     if (v.size() != _rows) { throw std::invalid_argument("invalid vector argument size"); }
 
     set_zero();
@@ -375,7 +375,7 @@ inline void LinAlg::Matrix<T>::set_diag(const std::vector<T>& v)
 template <typename T>
 inline void LinAlg::Matrix<T>::set_diag(std::initializer_list<T> il)
 {
-    if (!square()) { throw std::invalid_argument("square Matrix required"); }
+    if (!is_square()) { throw std::invalid_argument("square Matrix required"); }
     if (il.size() != _rows) { throw std::invalid_argument("invalid initializer list argument size"); }
 
     set_zero();
@@ -492,7 +492,7 @@ inline void LinAlg::Matrix<T>::transpose()
 template <typename T>
 inline void LinAlg::Matrix<T>::pow(int power)
 {
-    if (!square()) { throw std::invalid_argument("square Matrix required"); }
+    if (!is_square()) { throw std::invalid_argument("square Matrix required"); }
 
     if (power == 0) {
         set_identity();
@@ -596,7 +596,7 @@ inline T LinAlg::Matrix<T>::cofactor(std::size_t row, std::size_t col)
 template <typename T>
 inline T LinAlg::Matrix<T>::determinant()
 {
-    if (!square()) { throw std::invalid_argument("square Matrix required"); }
+    if (!is_square()) { throw std::invalid_argument("square Matrix required"); }
 
     if (_rows == 1) { 
         return at(0, 0); 
@@ -614,7 +614,7 @@ inline T LinAlg::Matrix<T>::determinant()
 template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::minor(std::size_t row, std::size_t col)
 {
-    if (!square()) { throw std::invalid_argument("square Matrix required"); }
+    if (!is_square()) { throw std::invalid_argument("square Matrix required"); }
     if (row < 0 || row >= _rows) { throw std::out_of_range("invalid Matrix row subscript"); }
     if (col < 0 || col >= _cols) { throw std::out_of_range("invalid Matrix column subscript"); }
 
@@ -632,7 +632,7 @@ inline LinAlg::Matrix<T> LinAlg::Matrix<T>::minor(std::size_t row, std::size_t c
 template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::adjoint()
 {
-    if (!square()) { throw std::invalid_argument("square Matrix required"); }
+    if (!is_square()) { throw std::invalid_argument("square Matrix required"); }
 
     if (_rows == 1) {
         return LinAlg::Matrix<T>({ { 1 } });
@@ -653,7 +653,7 @@ inline LinAlg::Matrix<T> LinAlg::Matrix<T>::adjoint()
 template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::inverse()
 {
-    if (!square()) { throw std::invalid_argument("square Matrix required"); }
+    if (!is_square()) { throw std::invalid_argument("square Matrix required"); }
     if (determinant() == 0) { throw std::runtime_error("null determinant"); }
 
     LinAlg::Matrix<T> inverseMatrix = adjoint() / determinant();
