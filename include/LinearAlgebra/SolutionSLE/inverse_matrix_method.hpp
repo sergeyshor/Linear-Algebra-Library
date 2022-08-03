@@ -6,11 +6,11 @@
 namespace LinAlg 
 {
     template <typename T>
-    LinAlg::Matrix<T> inverse_matrix_method(const LinAlg::Matrix<T>& lhs, const LinAlg::Matrix<T>& rhs)
+    Matrix<T> inverse_matrix_method(const Matrix<T>& lhs, const Matrix<T>& rhs)
     {
-        LinAlg::Matrix<T> A(lhs);
-        LinAlg::Matrix<T> B(rhs);
-        LinAlg::Matrix<T> X(A.inverse() * B);
+        Matrix<T> A(lhs);
+        Matrix<T> B(rhs);
+        Matrix<T> X(A.inverse() * B);
         return X;
     }
 

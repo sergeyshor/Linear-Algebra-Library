@@ -87,6 +87,10 @@ namespace LinAlg
         void mult_col(std::size_t col, T value);
         void add_row(std::size_t lhsRow, std::size_t rhsRow, T value);
         void add_col(std::size_t lhsCol, std::size_t rhsCol, T value);
+        void clear() noexcept;
+        void resize(std::size_t rows, std::size_t cols);
+        void join(const Matrix<T>& other);
+        void separate(std::size_t col, Matrix<T>& lhs, Matrix<T>& rhs);
         T cofactor(std::size_t row, std::size_t col);
         T determinant();
         Matrix<T> minor(std::size_t row, std::size_t col);
@@ -540,8 +544,10 @@ inline void LinAlg::Matrix<T>::mult_row(std::size_t row, T value)
 {
     if (row < 0 || row >= _rows) { throw std::out_of_range("invalid Matrix row subscript"); }
 
-    for (auto i = row * _cols; i < (row + 1) * _cols; ++i) {
-        _matrix[i] *= value;
+    if (value != 0) {
+        for (auto i = row * _cols; i < (row + 1) * _cols; ++i) {
+            _matrix[i] *= value;
+        }
     }
 }
 
@@ -550,8 +556,10 @@ inline void LinAlg::Matrix<T>::mult_col(std::size_t col, T value)
 {
     if (col < 0 || col >= _cols) { throw std::out_of_range("invalid Matrix column subscript"); }
 
-    for (auto i = col; i < (_rows - 1) * _cols + col + 1; i += _cols) {
-        _matrix[i] *= value;
+    if (value != 0) {
+        for (auto i = col; i < (_rows - 1) * _cols + col + 1; i += _cols) {
+            _matrix[i] *= value;
+        }
     }
 }
 
@@ -583,6 +591,64 @@ inline void LinAlg::Matrix<T>::add_col(std::size_t lhsCol, std::size_t rhsCol, T
             for (auto i = lhsCol, j = rhsCol; i < (_rows - 1) * _cols + lhsCol + 1; i += _cols, j += _cols) {
                 _matrix[i] += value * _matrix[j];
             }
+        }
+    }
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::clear() noexcept
+{
+    _rows = 0;
+    _cols = 0;
+    _matrix.clear();
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::resize(std::size_t rows, std::size_t cols)
+{
+    if (rows == cols && rows == 0) {
+        clear();
+    } else if (rows != _rows || cols != _cols) {
+        LinAlg::Matrix<T> tempMatrix(rows, cols);
+        std::vector<T> tempVector(rows * cols);
+        for (auto i = 0; i < rows; ++i) {
+            for (auto j = 0; j < cols; ++j) {
+                tempVector[i * cols + j] = (i < _rows && j < _cols) ? at(i, j) : T();
+            }
+        }
+        std::swap(_rows, tempMatrix._rows);
+        std::swap(_cols, tempMatrix._cols);
+        _matrix.assign(tempVector.begin(), tempVector.end());
+    }
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::join(const LinAlg::Matrix<T>& other)
+{
+    if (_rows != other._rows) { throw std::invalid_argument("invalid join Matrix size"); }
+
+    std::size_t oldCols = _cols;
+    resize(_rows, _cols + other._cols);
+    for (auto i = oldCols; i < oldCols + other._cols; ++i) {
+        std::vector<T> tempVector = other.get_col(i - oldCols);
+        set_col(i, tempVector);
+    }
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::separate(std::size_t col, LinAlg::Matrix<T>& lhs, LinAlg::Matrix<T>& rhs)
+{
+    if (col < 0 || col > _cols) { throw std::out_of_range("invalid Matrix column subscript"); }
+
+    std::size_t lhsCol = 0;
+    lhs = LinAlg::Matrix<T>(_rows, _cols - 1);
+    rhs = LinAlg::Matrix<T>(_rows, 1);
+    for (auto i = 0; i < _cols; ++i) {
+        if (i != col) {
+            std::vector<T> tempVector = get_col(i);
+            lhs.set_col(lhsCol++, tempVector);
+        } else {
+            rhs._matrix = get_col(col);
         }
     }
 }
