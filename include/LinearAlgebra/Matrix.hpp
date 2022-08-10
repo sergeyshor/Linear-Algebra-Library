@@ -14,7 +14,7 @@
 namespace LinAlg
 {
     template <typename T>
-    bool areEqual(T value1, T value2);
+    bool are_equal(T value1, T value2);
 
     template <typename T>
     class Matrix
@@ -56,11 +56,15 @@ namespace LinAlg
         std::size_t rows() const { return _rows; }
         std::size_t cols() const { return _cols; }
         std::size_t vector_size() const { return _matrix.size(); }
-        std::size_t max_rows() { return _matrix.max_size(); };
-        std::size_t max_cols() { return max_rows() / _rows; };
+        std::size_t max_rows() { return _matrix.max_size(); }
+        std::size_t max_cols() { return max_rows() / _rows; }
 
         bool is_square() const { return _rows == _cols; }
-        bool is_zero() const { return *this == Matrix<T>(_rows, _cols); };
+        bool is_zero() const { return *this == Matrix<T>(_rows, _cols); }
+        bool is_zero_row(std::size_t row) const { return get_row(row) == std::vector<T>(_cols); }
+        bool is_zero_col(std::size_t col) const { return get_col(col) == std::vector<T>(_rows); }
+        bool is_empty() const { return _matrix.empty(); }
+        bool is_invertible() { return determinant() != 0; }
 
         T& at(std::size_t row, std::size_t col);
         const T& at(std::size_t row, std::size_t col) const;
@@ -91,14 +95,23 @@ namespace LinAlg
         void resize(std::size_t rows, std::size_t cols);
         void join(const Matrix<T>& other);
         void separate(std::size_t col, Matrix<T>& lhs, Matrix<T>& rhs);
+        void del_row(std::size_t row);
+        void del_col(std::size_t col);
         T cofactor(std::size_t row, std::size_t col);
         T determinant();
+        T rank();
+        Matrix<T> submatrix(std::size_t row, std::size_t col);
         Matrix<T> minor(std::size_t row, std::size_t col);
         Matrix<T> adjoint();
         Matrix<T> inverse();
+        Matrix<T> row_echelon();
+        Matrix<T> back_sub();
 
         template <typename U>
         friend bool operator== (const Matrix<U>& lhs, const Matrix<U>& rhs);
+
+        template <typename U>
+        friend bool operator!= (const Matrix<U>& lhs, const Matrix<U>& rhs);
 
         template <typename U>
         friend Matrix<U> operator* (U value, const Matrix<U>& other);
@@ -135,6 +148,12 @@ namespace LinAlg
             }
         }
         return true;
+    }
+
+    template <typename U>
+    inline bool operator!= (const Matrix<U>& lhs, const Matrix<U>& rhs)
+    {
+        return !(lhs == rhs);
     }
 
     template <typename U>
@@ -654,6 +673,34 @@ inline void LinAlg::Matrix<T>::separate(std::size_t col, LinAlg::Matrix<T>& lhs,
 }
 
 template <typename T>
+inline void LinAlg::Matrix<T>::del_row(std::size_t row)
+{
+    if (row < 0 || row >= _rows) { throw std::out_of_range("invalid Matrix row subscript"); }
+
+    auto it = _matrix.begin() + row * _cols;
+    _matrix.erase(it, it + _cols);
+    _rows--;
+}
+
+template <typename T>
+inline void LinAlg::Matrix<T>::del_col(std::size_t col)
+{
+    if (col < 0 || col > _cols) { throw std::out_of_range("invalid Matrix column subscript"); }
+
+    std::size_t indexToDel = col;
+    std::vector<T> tempVector;
+    for (auto i = 0; i < vector_size(); ++i) {
+        if (i != indexToDel) {
+            tempVector.push_back(_matrix[i]);
+        } else {
+            indexToDel += _cols;
+        }
+    }
+    _cols--;
+    _matrix.assign(tempVector.begin(), tempVector.end());
+}
+
+template <typename T>
 inline T LinAlg::Matrix<T>::cofactor(std::size_t row, std::size_t col)
 {
     return std::pow(-1, row + col) * minor(row, col).determinant();
@@ -678,9 +725,20 @@ inline T LinAlg::Matrix<T>::determinant()
 }
 
 template <typename T>
-inline LinAlg::Matrix<T> LinAlg::Matrix<T>::minor(std::size_t row, std::size_t col)
+inline T LinAlg::Matrix<T>::rank()
 {
-    if (!is_square()) { throw std::invalid_argument("square Matrix required"); }
+    LinAlg::Matrix<T> tempMatrix = row_echelon();
+
+    std::size_t rank = 0;
+    for (auto i = 0; i < _rows; ++i) {
+        if (!tempMatrix.is_zero_row(i)) { rank++; }
+    }
+    return rank;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::submatrix(std::size_t row, std::size_t col)
+{
     if (row < 0 || row >= _rows) { throw std::out_of_range("invalid Matrix row subscript"); }
     if (col < 0 || col >= _cols) { throw std::out_of_range("invalid Matrix column subscript"); }
 
@@ -693,6 +751,14 @@ inline LinAlg::Matrix<T> LinAlg::Matrix<T>::minor(std::size_t row, std::size_t c
         }
     }
     return LinAlg::Matrix<T>(_rows - 1, _cols - 1, tempVector);
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::minor(std::size_t row, std::size_t col)
+{
+    if (!is_square()) { throw std::invalid_argument("square Matrix required"); }
+    
+    return submatrix(row, col);
 }
 
 template <typename T>
@@ -720,10 +786,76 @@ template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::inverse()
 {
     if (!is_square()) { throw std::invalid_argument("square Matrix required"); }
-    if (determinant() == 0) { throw std::runtime_error("null determinant"); }
+    if (!is_invertible()) { throw std::runtime_error("null determinant"); }
 
     LinAlg::Matrix<T> inverseMatrix = adjoint() / determinant();
     return inverseMatrix;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::row_echelon()
+{
+    LinAlg::Matrix<T> tempMatrix(*this);
+    LinAlg::Matrix<T> subMatrix(*this);
+
+    std::size_t pivotRow = 0, pivotCol = 0;
+    while (pivotRow < _rows && pivotCol < _cols) {
+        T pivotValue = tempMatrix.at(pivotRow, pivotCol);
+        if (subMatrix.is_zero_col(0)) {
+            subMatrix.del_col(0);
+            pivotCol++;
+        }
+        else {
+            for (auto row = pivotRow; row < _rows; ++row) {
+                if (!pivotValue && tempMatrix.at(row, pivotCol) != 0) {
+                    pivotValue = tempMatrix.at(row, pivotCol);
+                    tempMatrix.swap_row(pivotRow, row);
+                    break;
+                }
+            }
+            for (auto row = pivotRow + 1; row < _rows; ++row) {
+                if (tempMatrix.at(row, pivotCol) != 0) {
+                    T coef = tempMatrix.at(row, pivotCol) / pivotValue;
+                    for (auto col = 0; col < _cols; ++col) {
+                        if (col == pivotCol) {
+                            tempMatrix.at(row, col) = T();
+                            continue;
+                        }
+                        tempMatrix.at(row, col) -= tempMatrix.at(pivotRow, col) * coef;
+                    }
+                }
+            }
+            subMatrix = tempMatrix;
+            for (auto i = 0; i < pivotCol + 1; ++i) {
+                if (pivotRow + 1 < subMatrix.rows() && pivotCol + 1 < subMatrix.cols()) {
+                    subMatrix = subMatrix.submatrix(0, 0);
+                    continue;
+                }
+                break;
+            }
+            pivotRow++;
+            pivotCol++;
+        }
+    }
+    return tempMatrix;
+}
+
+template <typename T>
+inline LinAlg::Matrix<T> LinAlg::Matrix<T>::back_sub()
+{
+    LinAlg::Matrix<T> result(_cols - 1, 1);
+
+    for (int i = _rows - 1; i >= 0; --i) {
+        result.at(i, 0) = at(i, _rows);
+
+        for (int j = i + 1; j < _rows; ++j) {
+            result.at(i, 0) -= at(i, j) * result.at(j, 0);
+        }
+
+        result.at(i, 0) /= at(i, i);
+    }
+
+    return result;
 }
 
 template <typename T>

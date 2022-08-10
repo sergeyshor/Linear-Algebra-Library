@@ -852,6 +852,37 @@ TEST(LinearAlgebraTest, MethodTranspose)
     EXPECT_TRUE(doubleMatrix1 == checkMatrix2);
 }
 
+TEST(LinearAlgebraTest, MethodSubmatrix)
+{
+    // DIFFERENT MATRICES SUBMATRIX METHOD TEST
+    LinAlg::Matrix<int> intMatrix1 = { { 3, -3, -5, 8 }, { -3, 2, 4, -6 }, { 2, -5, -7, 5 } };
+    LinAlg::Matrix<int> checkIntMatrix1 = { { 3, -3, 8 }, { 2, -5, 5 } };
+    LinAlg::Matrix<int> submatrixIntMatrix = intMatrix1.submatrix(1, 2);
+    EXPECT_TRUE(checkIntMatrix1 == submatrixIntMatrix);
+
+    LinAlg::Matrix<double> doubleMatrix = { { 1.8, 4.06, -7.9 }, { -3.35, -12.857, 0.43 }, { 6.3, 9.61, -7.5 } };
+    LinAlg::Matrix<double> checkDoubleMatrix = { { -3.35, 0.43 }, { 6.3, -7.5 } };
+    LinAlg::Matrix<double> submatrixDoubleMatrix = doubleMatrix.submatrix(0, 1);
+    EXPECT_TRUE(checkDoubleMatrix == submatrixDoubleMatrix);
+
+    LinAlg::Matrix<long> longMatrix = { { 523, -314, -13 }, { 215, 0, 1101 }, { -40, 58, 600 }, { 947, -283, 8812 } };
+    LinAlg::Matrix<long> checkLongMatrix = { { 523, -314 }, { 215, 0 }, { 947, -283 } };
+    LinAlg::Matrix<long> submatrixLongMatrix = longMatrix.submatrix(2, 2);
+    EXPECT_TRUE(checkLongMatrix == submatrixLongMatrix);
+
+    // INVALID ROW ARGUMENT TEST
+    LinAlg::Matrix<int> intMatrix2 = { { 14, -23 }, { 0, 57 }, { 62, 48 } };
+    ASSERT_THROW(intMatrix2.submatrix(-1, 2), std::out_of_range);
+
+    // INVALID COL ARGUMENT TEST
+    LinAlg::Matrix<float> floatMatrix = { { 4.9, 0.115 }, { 20.7, 14.32 } };
+    ASSERT_THROW(floatMatrix.submatrix(0, -2), std::out_of_range);
+
+    // INVALID ROW AND COL ARGUMENTS TEST
+    LinAlg::Matrix<short> shortMatrix = { { -1, 1, 38, -1 }, { -41, 34, -27, 29 }, { -24, 3, 4, 15 } };
+    ASSERT_THROW(shortMatrix.submatrix(4, 3), std::out_of_range);
+}
+
 TEST(LinearAlgebraTest, MethodMinor)
 {
     // DIFFERENT MATRICES MINOR METHOD TEST
@@ -1245,20 +1276,20 @@ TEST(LinearAlgebraTest, OperatorEquality)
 
     // INEQUALITY OF COLS TEST
     LinAlg::Matrix<int> intMatrix2 = { { 7, 8 }, { 9, 0 } };
-    EXPECT_FALSE(intMatrix1 == intMatrix2);
+    EXPECT_TRUE(intMatrix1 != intMatrix2);
 
     // INEQUALITY OF ROWS TEST
     LinAlg::Matrix<int> intMatrix3 = { { 10, 14 }, { -12, 50 }, { 273, -45 } };
-    EXPECT_FALSE(intMatrix2 == intMatrix3);
+    EXPECT_TRUE(intMatrix2 != intMatrix3);
 
     // INEQUALITY OF MATRICES TEST
     LinAlg::Matrix<double> doubleMatrix1 = { { 1.5, -4.2 }, { -5.33, 0 }, { 8.05, 14.37 } };
     LinAlg::Matrix<double> doubleMatrix2 = { { 1.5, -4.2 }, { -5.33, 13.64 }, { 12.23, 14.37 } };
-    EXPECT_FALSE(doubleMatrix1 == doubleMatrix2);
+    EXPECT_TRUE(doubleMatrix1 != doubleMatrix2);
 
     LinAlg::Matrix<double> doubleMatrix3 = { { 0.5142353, 12.11 }, { -4.15, 33.70005302436 } };
     LinAlg::Matrix<double> doubleMatrix4 = { { 0.5142353, 12.11 }, { -4.15, 33.70005302435 } };
-    EXPECT_FALSE(doubleMatrix3 == doubleMatrix4);
+    EXPECT_TRUE(doubleMatrix3 != doubleMatrix4);
 
     // EQUALITY OF MATRICES TEST
     LinAlg::Matrix<short> shortMatrix1 = { { 31, 28, -4 }, { 15, 81, 77 } };
@@ -1581,6 +1612,10 @@ TEST(LinearAlgebraTest, MethodJoin)
     LinAlg::Matrix<short> shortMatrix1 = { { 23, 45 }, { -51, 75 }, { 8, 0 } };
     LinAlg::Matrix<short> shortMatrix2 = { { 32 }, { -14 }, { 4 }, { 10 } };
     ASSERT_THROW(shortMatrix1.join(shortMatrix2), std::invalid_argument);
+
+    LinAlg::Matrix<long> longMatrix1 = { { 42 }, { 538 }, { -1999 } };
+    LinAlg::Matrix<long> longMatrix2;
+    ASSERT_THROW(longMatrix1.join(longMatrix2), std::invalid_argument);
 }
 
 TEST(LinearAlgebraTest, MethodSeparate)
@@ -1623,6 +1658,143 @@ TEST(LinearAlgebraTest, MethodSeparate)
     LinAlg::Matrix<long long> longlongMatrix2(2, 2);
     LinAlg::Matrix<long long> longlongMatrix3(2, 1);
     ASSERT_THROW(longlongMatrix1.separate(-1, longlongMatrix2, longlongMatrix3), std::out_of_range);
+}
+
+TEST(LinearAlgebraTest, MethodDelRow)
+{
+    // DIFFERENT MATRICES TEST
+    LinAlg::Matrix<int> intMatrix = { { -1, 0, 2 }, { -5, 4, -7 }, { 6, -4, -6 } };
+    intMatrix.del_row(0);
+    LinAlg::Matrix<int> checkMatrix1 = { { -5, 4, -7 }, { 6, -4, -6 } };
+    EXPECT_TRUE(intMatrix == checkMatrix1);
+
+    LinAlg::Matrix<float> floatMatrix = { { -2.5, 0 }, { -1.4, -8.77 }, { 1.09, -13.4 } };
+    floatMatrix.del_row(1);
+    LinAlg::Matrix<float> checkMatrix2 = { { -2.5, 0 }, { 1.09, -13.4 } };
+    EXPECT_TRUE(floatMatrix == checkMatrix2);
+
+    LinAlg::Matrix<short> shortMatrix = { { 5, 8, -4, 2 }, { 6, 9, -5, -3 }, { 4, 7, -3, 1 } };
+    shortMatrix.del_row(2);
+    LinAlg::Matrix<short> checkMatrix3 = { { 5, 8, -4, 2 }, { 6, 9, -5, -3 } };
+    EXPECT_TRUE(shortMatrix == checkMatrix3);
+
+    // OUT OF RANGE ROW INDEX TEST
+    LinAlg::Matrix<long> longMatrix = { { -213, 541, 3517 }, { 321, -174, -1010 } };
+    ASSERT_THROW(longMatrix.del_row(-5), std::out_of_range);
+
+    LinAlg::Matrix<double> doubleMatrix = { { 7.3, -12 }, { 0.34, -20.1 }, { 14.8, 5.17 } };
+    ASSERT_THROW(doubleMatrix.del_row(3), std::out_of_range);
+}
+
+TEST(LinearAlgebraTest, MethodDelCol)
+{
+    // DIFFERENT MATRICES TEST
+    LinAlg::Matrix<float> floatMatrix = { { 1.3, 2.9 }, { -1.1, -6.4 }, { 33.1, 7.8 } };
+    floatMatrix.del_col(0);
+    LinAlg::Matrix<float> checkMatrix1 = { { 2.9 }, { -6.4 }, { 7.8 } };
+    EXPECT_TRUE(floatMatrix == checkMatrix1);
+
+    LinAlg::Matrix<int> intMatrix = { { -1, 2, 5 }, { 3, 4, 1 }, { 0, 1, 2 } };
+    intMatrix.del_col(1);
+    LinAlg::Matrix<int> checkMatrix2 = { { -1, 5 }, { 3, 1 }, { 0, 2 } };
+    EXPECT_TRUE(intMatrix == checkMatrix2);
+
+    LinAlg::Matrix<short> shortMatrix = { { -1, 0, 3, 6 }, { 2, 1, 0, -4 } };
+    shortMatrix.del_col(3);
+    LinAlg::Matrix<short> checkMatrix3 = { { -1, 0, 3 }, { 2, 1, 0 } };
+    EXPECT_TRUE(shortMatrix == checkMatrix3);
+
+    // OUT OF RANGE COL INDEX TEST
+    LinAlg::Matrix<long> longMatrix = { { 134, 27, 0, 388 }, { 2513, -1, 16, -75 } };
+    ASSERT_THROW(longMatrix.del_col(-2), std::out_of_range);
+
+    LinAlg::Matrix<double> doubleMatrix = { { 2.8, 4.14, -12.6 }, { 0.113, 26.17, 1.43 } };
+    ASSERT_THROW(doubleMatrix.del_row(3), std::out_of_range);
+}
+
+TEST(LinearAlgebraTest, MethodIsZeroRow)
+{
+    // MATRIX ROW IS ZERO TEST
+    LinAlg::Matrix<int> intMatrix = { { 10, 64 }, { -25, 36 }, { 62, 0 }, { 0, 0 }, { 0, 1 } };
+    EXPECT_TRUE(intMatrix.is_zero_row(3));
+
+    // MATRIX ROW IS NOT ZERO TEST
+    LinAlg::Matrix<float> floatMatrix = { { 0.0, 0.1, 0.0 }, { 1.5, 3.33, -0.15 }, { 1.05, 0.34, 12.29 } };
+    EXPECT_FALSE(floatMatrix.is_zero_row(0));
+}
+
+TEST(LinearAlgebraTest, MethodIsZeroCol)
+{
+    // MATRIX COL IS ZERO TEST
+    LinAlg::Matrix<int> intMatrix = { { 0, 3, -2, -2 }, { 0, 1, -1, 0 }, { 0, 7, -3, 5 } };
+    EXPECT_TRUE(intMatrix.is_zero_col(0));
+
+    // MATRIX COL IS NOT ZERO TEST
+    LinAlg::Matrix<double> doubleMatrix = { { 2.63, 0.0, 7.5 }, { 10.4, 0.005, -0.3 }, { 9.1, 0.01, 12.6 } };
+    EXPECT_FALSE(doubleMatrix.is_zero_col(1));
+}
+
+TEST(LinearAlgebraTest, MethodRank)
+{
+    // DIFFERENT MATRICES TEST
+    LinAlg::Matrix<int> intMatrix = { { 1, 2 }, { -1, -2 }, { 2, 4 } };
+    EXPECT_EQ(intMatrix.rank(), 1);
+
+    LinAlg::Matrix<double> doubleMatrix1 = { { 1, 1, 1, 1, 0 }, { 1, 2, 1, 1, 0 }, { 1, 1, 3, 1, 0 }, { 1, 1, 1, 4, 0 }, { 1, 2, 3, 4, 0 } };
+    EXPECT_EQ(doubleMatrix1.rank(), 4);
+
+    LinAlg::Matrix<float> floatMatrix1 = { { 2, 3, -1, 1, 1 }, { 8, 12, -9, 8, 3 }, { 4, 6, 3, -2, 3 }, { 2, 3, 9, -7, 3 } };
+    EXPECT_EQ(floatMatrix1.rank(), 2);
+
+    LinAlg::Matrix<float> floatMatrix2 = { { 0, 4, 10, 1 }, { 4, 8, 18, 7 }, { 10, 18, 40, 17 }, { 1, 7, 17, 3 } };
+    EXPECT_EQ(floatMatrix2.rank(), 2);
+
+    LinAlg::Matrix<double> doubleMatrix2 = { { 0, 1, 2, 3 }, { 0, 6, 5, 4 }, { 0, 7, 8, 9 } };
+    EXPECT_EQ(doubleMatrix2.rank(), 2);
+
+    LinAlg::Matrix<double> doubleMatrix3 = { { 4, -7, -2, 1 }, { -1, 3, 3, -4 }, { -3, 5, 1, 0 }, { -2, 3, 0, 1 }, { 1, -2, -1, 1 } };
+    EXPECT_EQ(doubleMatrix3.rank(), 2);
+
+    LinAlg::Matrix<float> floatMatrix3 = { { 2, 1, 3, 0 }, { 1, 4, 2, 1 }, { 3, 2, 2, 6 }, { 8, 5, 7, 12 } };
+    EXPECT_EQ(floatMatrix3.rank(), 3);
+
+    LinAlg::Matrix<double> doubleMatrix4 = { { 1, 2, 3 }, { 2, -1, 2 }, { 1, 1, 5 } };
+    EXPECT_EQ(doubleMatrix4.rank(), 3);
+
+    LinAlg::Matrix<short> shortMatrix = { { 0, 0, 0 }, { 0, 0, 0 } };
+    EXPECT_EQ(shortMatrix.rank(), 0);
+}   
+
+TEST(LinearAlgebraTest, GaussianElimination)
+{
+    // SOLVING SYSTEM OF LINEAR EQUATIONS TEST// DIFFERENT SYSTEM OF EQUATIONS TEST
+    LinAlg::Matrix<float> floatMatrix1 = { { 1, -1 }, { 2, 1 } };
+    LinAlg::Matrix<float> floatMatrix2 = { { -5 }, { -7 } };
+    LinAlg::Matrix<float> resultMatrix1 = LinAlg::gaussian_elimination(floatMatrix1, floatMatrix2);
+    LinAlg::Matrix<float> checkResult1 = { { -4 }, { 1 } };
+    EXPECT_TRUE(resultMatrix1 == checkResult1);
+
+    LinAlg::Matrix<double> doubleMatrix1 = { { 8, 7, 3 }, { -7, -4, -4 }, { -6, 5, -4 } };
+    LinAlg::Matrix<double> doubleMatrix2 = { { 18 }, { -11 }, { -15 } };
+    LinAlg::Matrix<double> resultMatrix2 = LinAlg::gaussian_elimination(doubleMatrix1, doubleMatrix2);
+    LinAlg::Matrix<double> checkResult2 = { { 5 }, { -1 }, { -5 } };
+    EXPECT_TRUE(resultMatrix2 == checkResult2);
+
+    LinAlg::Matrix<double> doubleMatrix3 = { { 2, 5, 4, 1 }, { 1, 3, 2, 1 }, { 2, 10, 9, 7 }, { 3, 8, 9, 2 } };
+    LinAlg::Matrix<double> doubleMatrix4 = { { 20 }, { 11 }, { 40 }, { 37 } };
+    LinAlg::Matrix<double> resultMatrix3 = LinAlg::gaussian_elimination(doubleMatrix3, doubleMatrix4);
+    LinAlg::Matrix<double> checkResult3 = { { 1 }, { 2 }, { 2 }, { 0 } };
+    EXPECT_TRUE(resultMatrix3 == checkResult3);
+
+    // INCONSISTENT SYSTEM OF LINEAR EQUATIONS TEST
+    LinAlg::Matrix<float> floatMatrix3 = { { 4, -3, 2, -1 }, { 3, -2, 1, -3 }, { 5, -3, 1, -8 } };
+    LinAlg::Matrix<float> floatMatrix4 = { { 8 }, { 7 }, { 1 } };
+    ASSERT_THROW(LinAlg::gaussian_elimination(floatMatrix3, floatMatrix4), std::runtime_error);
+
+    // INFINITE SOLUTIONS IN SYSTEM OF LINEAR EQUATIONS TEST
+    LinAlg::Matrix<double> doubleMatrix5 = { { 2, 3, -1, 1 }, { 8, 12, -9, 8 }, { 4, 6, 3, -2 }, { 2, 3, 9, -7 } };
+    LinAlg::Matrix<double> doubleMatrix6 = { { 1 }, { 3 }, { 3 }, { 3 } };
+    ASSERT_THROW(LinAlg::gaussian_elimination(doubleMatrix5, doubleMatrix6), std::runtime_error);
 }
 
 int main(int argc, char** argv) {

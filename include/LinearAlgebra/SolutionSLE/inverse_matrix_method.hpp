@@ -6,7 +6,7 @@
 namespace LinAlg 
 {
     template <typename T>
-    Matrix<T> inverse_matrix_method(const Matrix<T>& lhs, const Matrix<T>& rhs)
+    inline Matrix<T> inverse_matrix_method(const Matrix<T>& lhs, const Matrix<T>& rhs)
     {
         Matrix<T> A(lhs);
         Matrix<T> B(rhs);
