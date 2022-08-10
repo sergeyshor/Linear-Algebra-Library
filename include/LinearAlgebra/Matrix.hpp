@@ -64,6 +64,7 @@ namespace LinAlg
         bool is_zero_row(std::size_t row) const { return get_row(row) == std::vector<T>(_cols); }
         bool is_zero_col(std::size_t col) const { return get_col(col) == std::vector<T>(_rows); }
         bool is_row_echelon() const;
+        bool is_symmetric() const;
         bool is_empty() const { return _matrix.empty(); }
         bool is_invertible() { return determinant() != 0; }
 
@@ -363,6 +364,21 @@ inline bool LinAlg::Matrix<T>::is_row_echelon() const
 	}
 	return LinAlg::are_equal<T>(sum, 0);
 } 
+
+template <typename T>
+inline bool LinAlg::Matrix<T>::is_symmetric() const
+{
+    if (!is_square()) { return false; }
+
+    for (auto row = 0; row < _rows; ++row) {
+        for (auto col = 0; col < _cols; ++col) {
+            if (row != col) {
+                if (at(row, col) != at(col, row)) { return false; }
+            }
+        }
+    }
+    return true;
+}
 
 template <typename T>
 inline T& LinAlg::Matrix<T>::at(std::size_t row, std::size_t col)

@@ -8,7 +8,6 @@ set(ProjectSources
         LinearAlgebra/SolutionSLE.hpp
         LinearAlgebra/SolutionSLE/gaussian_elimination.hpp
         LinearAlgebra/SolutionSLE/inverse_matrix_method.hpp
-        LinearAlgebra/SolutionSLE/lu_decomposition.hpp
 )
 
 target_sources(${ProjectName} INTERFACE ${ProjectSources})

@@ -1814,6 +1814,21 @@ TEST(LinearAlgebraTest, MethodIsRowEchelon)
     EXPECT_FALSE(longMatrix.is_row_echelon());
 }
 
+TEST(LinearAlgebraTest, MethodIsSymmetric)
+{
+    // MATRIX IS SYMMETRIC TEST
+    LinAlg::Matrix<int> intMatrix = { { 1, 3, 0 }, { 3, 2, 6 }, { 0, 6, 5 } };
+    EXPECT_TRUE(intMatrix.is_symmetric());
+
+    // MATRIX IS NOT SYMMETRIC TEST
+    LinAlg::Matrix<float> floatMatrix { { 0.99, 3.5, 2.7 }, { 3.5, 19.4, -0.1501 }, { 2.7, -0.15, 5.33 } };
+    EXPECT_FALSE(floatMatrix.is_symmetric());
+
+    // NOT SQUARE MATRIX TEST
+    LinAlg::Matrix<short> shortMatrix { { 1, 2 }, { 2, 3 }, { 3, 4 } };
+    EXPECT_FALSE(shortMatrix.is_symmetric());
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
