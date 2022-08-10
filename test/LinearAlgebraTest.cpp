@@ -1797,6 +1797,23 @@ TEST(LinearAlgebraTest, GaussianElimination)
     ASSERT_THROW(LinAlg::gaussian_elimination(doubleMatrix5, doubleMatrix6), std::runtime_error);
 }
 
+TEST(LinearAlgebraTest, MethodIsRowEchelon)
+{
+    // MATRIX IS ROW ECHELON TEST
+    LinAlg::Matrix<short> shortMatrix = { { 1, 1, 2, 3, 4 }, { 0, 1, 2, 4, 5 }, { 0, 0, 0, 1, 2 } };
+    EXPECT_TRUE(shortMatrix.is_row_echelon());
+
+    LinAlg::Matrix<float> floatMatrix = { { 1.5, -0.1, 4.2 }, { 0, 6.44, 0 }, { 0, 0, 0 } };
+    EXPECT_TRUE(floatMatrix.is_row_echelon());
+
+    // MATRIX IS NOT ROW ECHELON TEST
+    LinAlg::Matrix<int> intMatrix = { { 1, 2, -3, 1 }, { 2, 4, 0, 7 }, { -1, 3, 2, 0 } };
+    EXPECT_FALSE(intMatrix.is_row_echelon());
+
+    LinAlg::Matrix<long> longMatrix = { { 100, 52, 37, 52 }, { 0, 2, 634, 80 }, { 0, 579, 32, 27 }, { 0, 0, 0, 523 } };
+    EXPECT_FALSE(longMatrix.is_row_echelon());
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();

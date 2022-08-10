@@ -63,6 +63,7 @@ namespace LinAlg
         bool is_zero() const { return *this == Matrix<T>(_rows, _cols); }
         bool is_zero_row(std::size_t row) const { return get_row(row) == std::vector<T>(_cols); }
         bool is_zero_col(std::size_t col) const { return get_col(col) == std::vector<T>(_rows); }
+        bool is_row_echelon() const;
         bool is_empty() const { return _matrix.empty(); }
         bool is_invertible() { return determinant() != 0; }
 
@@ -350,6 +351,18 @@ inline LinAlg::Matrix<T>& LinAlg::Matrix<T>::operator/= (const Matrix<T>& other)
     *this = *this / other;
     return *this;
 }
+
+template <typename T>
+inline bool LinAlg::Matrix<T>::is_row_echelon() const
+{
+    T sum = T();
+	for (auto row = 1; row < _rows; ++row) {
+		for (auto col = 0; col < row; ++col) {
+			sum += at(row, col);
+		}
+	}
+	return LinAlg::are_equal<T>(sum, 0);
+} 
 
 template <typename T>
 inline T& LinAlg::Matrix<T>::at(std::size_t row, std::size_t col)
