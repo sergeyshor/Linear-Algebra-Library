@@ -24,12 +24,13 @@ I am looking forward to add new functionality soon such as:
 - Complex number class.
 
 ## **License**
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://choosealicense.com/licenses/mit/)
 
 ## **Requirements**
 Linear Algebra Library requires **C++14** standard or newer.
 
 ### **Build System**
-- [CMake](https://cmake.org/);
+- [CMake](https://cmake.org/)
 
 ### **Testing Framework**
 - [GoogleTest](https://google.github.io/googletest/)
