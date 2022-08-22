@@ -74,4 +74,4 @@ You should run the following command with `sudo` on Linux.
 
 ## **Building**
 
-## **Documentation**
+## **[Documentation](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md)**
