@@ -16,6 +16,8 @@ Current version of library contains:
 - Different methods to solve a system of linear equations;
 - And some other functions.
 
+Full list of tools and methods can be viewed in [Documentation](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md).
+
 I am looking forward to add new functionality soon such as:
 - Boolean (binary) Matrix implementation;
 - Matrix class iterator;
