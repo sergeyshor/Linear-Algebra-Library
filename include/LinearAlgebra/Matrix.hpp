@@ -29,8 +29,8 @@ namespace LinAlg
         Matrix(Matrix<T>&& other) noexcept;
         ~Matrix() = default;
 
-        T& operator()(std::size_t row, std::size_t col);
-        const T& operator()(std::size_t row, std::size_t col) const;
+        T& operator() (std::size_t row, std::size_t col);
+        const T& operator() (std::size_t row, std::size_t col) const;
 
         Matrix<T>& operator= (const Matrix<T>& other) = default;
         Matrix<T>& operator= (Matrix<T>&& other) noexcept;

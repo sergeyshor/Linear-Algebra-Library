@@ -1,7 +1,7 @@
 #ifndef INVERSE_MATRIX_METHOD_HPP
 #define INVERSE_MATRIX_METHOD_HPP
 
-#include "../Matrix.hpp"
+#include "LinearAlgebra/Matrix.hpp"
 
 namespace LinAlg 
 {

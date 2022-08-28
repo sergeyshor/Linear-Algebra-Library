@@ -1,7 +1,7 @@
 #ifndef GAUSSIAN_ELIMINATION_HPP
 #define GAUSSIAN_ELIMINATION_HPP
 
-#include "../Matrix.hpp"
+#include "LinearAlgebra/Matrix.hpp"
 
 namespace LinAlg 
 {
