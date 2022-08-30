@@ -1,7 +1,8 @@
-# Description of ```are_equal``` function
+# Description of `are_equal` function
+### About
 
 ### Namespace 
-```LinAlg```
+`LinAlg`
 ### Parameters
 
 ### Returns

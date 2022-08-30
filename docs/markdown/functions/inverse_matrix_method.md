@@ -1,7 +1,8 @@
-# Description of ```inverse_matrix_method``` function
+# Description of `inverse_matrix_method` function
+### About
 
 ### Namespace 
-```LinAlg```
+`LinAlg`
 ### Parameters
 
 ### Returns

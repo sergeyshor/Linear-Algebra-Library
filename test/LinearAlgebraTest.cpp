@@ -1709,7 +1709,7 @@ TEST(LinearAlgebraTest, MethodDelCol)
     ASSERT_THROW(longMatrix.del_col(-2), std::out_of_range);
 
     LinAlg::Matrix<double> doubleMatrix = { { 2.8, 4.14, -12.6 }, { 0.113, 26.17, 1.43 } };
-    ASSERT_THROW(doubleMatrix.del_row(3), std::out_of_range);
+    ASSERT_THROW(doubleMatrix.del_col(3), std::out_of_range);
 }
 
 TEST(LinearAlgebraTest, MethodIsZeroRow)

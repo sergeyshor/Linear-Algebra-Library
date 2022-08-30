@@ -1,7 +1,8 @@
-# Description of ```gaussian_elimination``` function
+# Description of `gaussian_elimination` function
+### About
 
 ### Namespace 
-```LinAlg```
+`LinAlg`
 ### Parameters
 
 ### Returns
