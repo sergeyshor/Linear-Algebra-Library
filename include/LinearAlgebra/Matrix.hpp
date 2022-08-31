@@ -283,7 +283,7 @@ inline LinAlg::Matrix<T> LinAlg::Matrix<T>::operator- ()
 template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::operator+ (const Matrix<T>& other)
 {
-    if (_rows != other._rows || _cols != other._cols) { throw std::invalid_argument("invalid Matrix argument size"); }
+    if (rows() != other.rows() || cols() != other.cols()) { throw std::invalid_argument("invalid Matrix argument size"); }
 
     LinAlg::Matrix<T> resultMatrix(*this);
     for (auto i = 0; i < resultMatrix.rows(); ++i) {
@@ -305,11 +305,11 @@ inline LinAlg::Matrix<T> LinAlg::Matrix<T>::operator- (const Matrix<T>& other)
 template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::operator* (const Matrix<T>& other)
 {
-    if (_cols != other._rows) { throw std::invalid_argument("invalid Matrix argument size"); }
+    if (cols() != other.rows()) { throw std::invalid_argument("invalid Matrix argument size"); }
     LinAlg::Matrix<T> resultMatrix(_rows, other._cols);
     for (auto i = 0; i < resultMatrix.rows(); ++i) {
         for (auto j = 0; j < resultMatrix.cols(); ++j) {
-            for (auto k = 0; k < _cols; ++k) {
+            for (auto k = 0; k < cols(); ++k) {
                 resultMatrix.at(i, j) += at(i, k) * other.at(k, j);
             }
         }
@@ -768,8 +768,8 @@ inline T LinAlg::Matrix<T>::rank()
 template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::submatrix(std::size_t row, std::size_t col)
 {
-    if (row < 0 || row >= _rows) { throw std::out_of_range("invalid Matrix row subscript"); }
-    if (col < 0 || col >= _cols) { throw std::out_of_range("invalid Matrix column subscript"); }
+    if (row >= rows()) { throw std::out_of_range("invalid Matrix row subscript"); }
+    if (col >= cols()) { throw std::out_of_range("invalid Matrix column subscript"); }
 
     std::vector<T> tempVector;
     for (auto i = 0; i < _rows; ++i) {
@@ -828,24 +828,24 @@ inline LinAlg::Matrix<T> LinAlg::Matrix<T>::row_echelon()
     LinAlg::Matrix<T> subMatrix(*this);
 
     std::size_t pivotRow = 0, pivotCol = 0;
-    while (pivotRow < _rows && pivotCol < _cols) {
+    while (pivotRow < rows() && pivotCol < cols()) {
         T pivotValue = tempMatrix.at(pivotRow, pivotCol);
         if (subMatrix.is_zero_col(0)) {
             subMatrix.del_col(0);
             pivotCol++;
         }
         else {
-            for (auto row = pivotRow; row < _rows; ++row) {
+            for (auto row = pivotRow; row < rows(); ++row) {
                 if (!pivotValue && tempMatrix.at(row, pivotCol) != 0) {
                     pivotValue = tempMatrix.at(row, pivotCol);
                     tempMatrix.swap_row(pivotRow, row);
                     break;
                 }
             }
-            for (auto row = pivotRow + 1; row < _rows; ++row) {
+            for (auto row = pivotRow + 1; row < rows(); ++row) {
                 if (tempMatrix.at(row, pivotCol) != 0) {
                     T coef = tempMatrix.at(row, pivotCol) / pivotValue;
-                    for (auto col = 0; col < _cols; ++col) {
+                    for (auto col = 0; col < cols(); ++col) {
                         if (col == pivotCol) {
                             tempMatrix.at(row, col) = T();
                             continue;
@@ -872,12 +872,14 @@ inline LinAlg::Matrix<T> LinAlg::Matrix<T>::row_echelon()
 template <typename T>
 inline LinAlg::Matrix<T> LinAlg::Matrix<T>::back_sub()
 {
+    if (!is_row_echelon()) { throw std::invalid_argument("Matrix in row echelon form required"); }
+
     LinAlg::Matrix<T> result(_cols - 1, 1);
 
     for (int i = _rows - 1; i >= 0; --i) {
         result.at(i, 0) = at(i, _rows);
 
-        for (int j = i + 1; j < _rows; ++j) {
+        for (int j = i + 1; j < rows(); ++j) {
             result.at(i, 0) -= at(i, j) * result.at(j, 0);
         }
 

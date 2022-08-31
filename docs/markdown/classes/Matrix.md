@@ -17,23 +17,23 @@ Constructors & Destructor|
 
 Operators|
 :---:|
-T& [operator()]() (std::size_t row, std::size_t col)|
-const T& [operator()]() (std::size_t row, std::size_t col) const|
-Matrix<T>& [operator=]() (const Matrix<T>& other) = default|
-Matrix<T>& [operator=]() (Matrix<T>&& other) noexcept|
-Matrix<T> [operator*]() (T value)|
-Matrix<T> [operator/]() (T value)|
-Matrix<T> [operator*=]() (T value)|
-Matrix<T> [operator/=]() (T value)|
-Matrix<T> [operator-]() ()|
-Matrix<T> [operator+]() (const Matrix<T>& other)|
-Matrix<T> [operator-]() (const Matrix<T>& other)|
-Matrix<T> [operator*]() (const Matrix<T>& other)|
-Matrix<T> [operator/]() (const Matrix<T>& other)|
-Matrix<T> [operator+=]() (const Matrix<T>& other)|
-Matrix<T> [operator-=]() (const Matrix<T>& other)|
-Matrix<T> [operator*=]() (const Matrix<T>& other)|
-Matrix<T> [operator/=]() (const Matrix<T>& other)|
+T& [operator()](#operator) (std::size_t row, std::size_t col)|
+const T& [operator()](#operator) (std::size_t row, std::size_t col) const|
+Matrix<T>& [operator=](#operator-1) (const Matrix<T>& other) = default|
+Matrix<T>& [operator=](#operator-2) (Matrix<T>&& other) noexcept|
+Matrix<T> [operator*](#operator-3) (T value)|
+Matrix<T> [operator/](#operator-4) (T value)|
+Matrix<T> [operator*=](#operator-5) (T value)|
+Matrix<T> [operator/=](#operator-6) (T value)|
+Matrix<T> [operator-](#operator-) ()|
+Matrix<T> [operator+](#operator-7) (const Matrix<T>& other)|
+Matrix<T> [operator-](#operator--1) (const Matrix<T>& other)|
+Matrix<T> [operator*](#operator-8) (const Matrix<T>& other)|
+Matrix<T> [operator/](#operator-9) (const Matrix<T>& other)|
+Matrix<T> [operator+=](#operator-10) (const Matrix<T>& other)|
+Matrix<T> [operator-=](#operator--2) (const Matrix<T>& other)|
+Matrix<T> [operator*=](#operator-11) (const Matrix<T>& other)|
+Matrix<T> [operator/=](#operator-12) (const Matrix<T>& other)|
 
 Member functions|
 :---:|
@@ -91,9 +91,9 @@ Matrix<T> [back_sub](#back_sub)()|
 ### Friends
 Friends|
 :---:|
-friend bool [operator==]() (const Matrix<U>& lhs, const Matrix<U>& rhs)|
-friend bool [operator!=]() (const Matrix<U>& lhs, const Matrix<U>& rhs)|
-friend Matrix<U> [operator*]() (U value, const Matrix<U>& other)|
+friend bool [operator==](#operator-13) (const Matrix<U>& lhs, const Matrix<U>& rhs)|
+friend bool [operator!=](#operator-14) (const Matrix<U>& lhs, const Matrix<U>& rhs)|
+friend Matrix<U> [operator*](#operator-15) (U value, const Matrix<U>& other)|
 
 ---
 ## Constructors & Destructor Description
@@ -106,7 +106,7 @@ Matrix<T>::Matrix()
 Constructs and empty matrix.
 
 ---
-### **Zero-initialization Constructor**
+### Zero-initialization Constructor
 ```cpp
 template <typename T>
 Matrix<T>::Matrix(std::size_t rows, std::size_t cols)
@@ -124,7 +124,7 @@ Matrix<T>::Matrix(std::size_t rows, std::size_t cols)
 Constructs the matrix with **rows** rows and **cols** columns and initializes its elements with the default value of T.
 
 ---
-### **Value Constructor**
+### Value Constructor
 ```cpp
 template <typename T>
 Matrix<T>::Matrix(std::size_t rows, std::size_t cols, T value)
@@ -142,7 +142,7 @@ Matrix<T>::Matrix(std::size_t rows, std::size_t cols, T value)
 Constructs the matrix with **rows** rows and **cols** columns and initializes its elements with the **value** value of T.
 
 ---
-### **Vector Constructor**
+### Vector Constructor
 ```cpp
 template <typename T>
 Matrix<T>::Matrix(std::size_t rows, std::size_t cols, const std::vector<T>& v)
@@ -161,7 +161,7 @@ Matrix<T>::Matrix(std::size_t rows, std::size_t cols, const std::vector<T>& v)
 Constructs the matrix with **rows** rows and **cols** columns and initializes its elements with the elements of the **v** `std::vector` container.
 
 ---
-### **Initializer List Constructor**
+### Initializer List Constructor
 ```cpp
 template <typename T>
 Matrix<T>::Matrix(std::initializer_list< std::initializer_list<T> > il)
@@ -174,7 +174,7 @@ Matrix<T>::Matrix(std::initializer_list< std::initializer_list<T> > il)
 Constructs the matrix and initializes its rows with the corresponding nested initializer lists of the **il** initializer list.
 
 ---
-### **Copy Constructor**
+### Copy Constructor
 ```cpp
 template <typename T>
 Matrix<T>::Matrix(const Matrix<T>& other) = default
@@ -185,7 +185,7 @@ Matrix<T>::Matrix(const Matrix<T>& other) = default
 Constructs the container with the copy of the contents of other.
 
 ---
-### **Move Constructor**
+### Move Constructor
 ```cpp
 template <typename T>
 Matrix<T>::Matrix(Matrix<T>&& other) noexcept
@@ -196,7 +196,7 @@ Matrix<T>::Matrix(Matrix<T>&& other) noexcept
 Constructs the matrix with the contents of **other** using move semantics.
 
 ---
-### **Destructor**
+### Destructor
 ```cpp
 template <typename T>
 Matrix<T>::~Matrix() = default
@@ -206,10 +206,238 @@ Destructs the matrix.
 
 ---
 ## Operators
+### operator()()
+```cpp
+template <typename T>
+T& Matrix<T>::operator() (std::size_t row, std::size_t col)
+```
+```cpp
+template <typename T>
+const T& Matrix<T>::operator() (std::size_t row, std::size_t col) const
+```
+#### **Parameters**
+- **row** - row of the element of the matrix to return
+- **col** - column of the element of the matrix to return
+#### **Return value**
+Reference to the requested element.
+#### **About**
+Returns a reference to the element at specified row and column.
+
+---
+### operator=()
+```cpp
+template <typename T>
+Matrix<T>& Matrix<T>::operator= (const Matrix<T>& other) = default
+```
+#### **Parameters**
+- **other** - another object of the Matrix class.
+#### **Return value**
+`*this`.
+#### **About**
+Copy Assignment Operator.
+
+### operator=()
+```cpp
+template <typename T>
+Matrix<T>& Matrix<T>::operator= (Matrix<T>&& other) noexcept
+```
+#### **Parameters**
+- **other** - another object of the Matrix class.
+#### **Return value**
+`*this`.
+#### **About**
+Move assignment operator.
+
+### operator*()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::operator* (T value)
+```
+#### **Parameters**
+- **value** - multiplier value
+#### **Return value**
+Result matrix.
+#### **About**
+Returns the result of multiplication between the matrix as lhs and **value** value as rhs.
+  
+### operator/()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::operator/ (T value)
+```
+#### **Parameters**
+- **value** - divider value
+#### **Return value**
+Result matrix.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `value == T()`.
+#### **About**
+Returns the result of division between the matrix and **value** value.
+  
+### operator*=()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::operator*= (T value)
+```
+#### **Parameters**
+- **value** - multiplier value
+#### **Return value**
+Result matrix.
+#### **About**
+Returns the result of multiplication between the matrix and **value** value and assigns it to the matrix.
+  
+### operator/=()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::operator/= (T value)
+```
+#### **Parameters**
+- **value** - divider value
+#### **Return value**
+Result matrix.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `value == T()`.
+#### **About**
+Returns the result of division between the matrix and **value** value and assigns it to the matrix.
+
+---
+### operator-()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::operator- ()
+```
+#### **Parameters**
+(none)
+#### **Return value**
+Negative of the Matrix object.
+#### **About**
+Returns negative of the Matrix object.
+
+---
+### operator+()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::operator+ (const Matrix<T>& other)
+```
+#### **Parameters**
+- **other** - another object of the Matrix class.
+#### **Return value**
+Result matrix.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `rows() != other.rows() || cols() != other.cols()`.
+#### **About**
+Returns sum of two matrices.
+
+---
+### operator-()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::operator- (const Matrix<T>& other)
+```
+#### **Parameters**
+- **other** - another object of the Matrix class.
+#### **Return value**
+Result matrix.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `rows() != other.rows() || cols() != other.cols()`.
+#### **About**
+Returns difference of two matrices.
+
+---
+### operator*()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::operator* (const Matrix<T>& other)
+```
+#### **Parameters**
+- **other** - another object of the Matrix class.
+#### **Return value**
+Result matrix.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `cols() != other.rows()`.
+#### **About**
+Returns multiplication of two matrices.
+
+---
+### operator/()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::operator/ (const Matrix<T>& other)
+```
+#### **Parameters**
+- **other** - another object of the Matrix class.
+#### **Return value**
+Result matrix.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_square()`;
+- [std::runtime_error](https://en.cppreference.com/w/cpp/error/runtime_error) if `!is_invertible()`.
+#### **About**
+Returns division of two matrices.
+
+---
+### operator+=()
+```cpp
+template <typename T>
+Matrix<T>& Matrix<T>::operator+= (const Matrix<T>& other)
+```
+#### **Parameters**
+- **other** - another object of the Matrix class.
+#### **Return value**
+`*this`.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `rows() != other.rows() || cols() != other.cols()`.
+#### **About**
+Returns the result of sum of two matrices and assigns it to the matrix.
+
+---
+### operator-=()
+```cpp
+template <typename T>
+Matrix<T>& Matrix<T>::operator-= (const Matrix<T>& other)
+```
+#### **Parameters**
+- **other** - another object of the Matrix class.
+#### **Return value**
+`*this`.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `rows() != other.rows() || cols() != other.cols()`.
+#### **About**
+Returns the result of difference of two matrices and assigns it to the matrix.
+
+---
+### operator*=()
+```cpp
+template <typename T>
+Matrix<T>& Matrix<T>::operator*= (const Matrix<T>& other)
+```
+#### **Parameters**
+- **other** - another object of the Matrix class.
+#### **Return value**
+`*this`.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `cols() != other.rows()`.
+#### **About**
+Returns the result of multiplication of two matrices and assigns it to the matrix.
+
+---
+### operator/=()
+```cpp
+template <typename T>
+Matrix<T>& Matrix<T>::operator/= (const Matrix<T>& other)
+```
+#### **Parameters**
+- **other** - another object of the Matrix class.
+#### **Return value**
+`*this`.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_square()`;
+- [std::runtime_error](https://en.cppreference.com/w/cpp/error/runtime_error) if `!is_invertible()`.
+#### **About**
+Returns the result of division of two matrices and assigns it to the matrix.
 
 ---
 ## Member Functions Description
-### **rows()**
+### rows()
 ```cpp
 template <typename T>
 std::size_t Matrix<T>::rows() const
@@ -222,7 +450,7 @@ The number of rows in the matrix.
 Returns the number of rows in the matrix.
 
 ---
-### **cols()**
+### cols()
 ```cpp
 template <typename T>
 std::size_t Matrix<T>::cols() const
@@ -235,7 +463,7 @@ The number of cols in the matrix.
 Returns the number of cols in the matrix.
 
 ---
-### **vector_size()**
+### vector_size()
 ```cpp
 template <typename T>
 std::size_t Matrix<T>::vector_size() const
@@ -248,7 +476,7 @@ The size of `std::vector` that contains the elements of the matrix.
 Returns the size of `std::vector` that contains the elements of the matrix.
 
 ---
-### **max_rows()**
+### max_rows()
 ```cpp
 template <typename T>
 std::size_t Matrix<T>::max_rows()
@@ -261,7 +489,7 @@ The maximum possible number of rows.
 Returns the maximum possible number of rows.
 
 ---
-### **max_cols()**
+### max_cols()
 ```cpp
 template <typename T>
 std::size_t Matrix<T>::max_cols()
@@ -274,7 +502,7 @@ The maximum possible number of cols.
 Returns the maximum possible number of cols.
 
 ---
-### **is_square()**
+### is_square()
 ```cpp
 template <typename T>
 bool Matrix<T>::is_square() const
@@ -287,7 +515,7 @@ bool Matrix<T>::is_square() const
 Checks if the matrix is square.
 
 ---
-### **is_zero()**
+### is_zero()
 ```cpp
 template <typename T>
 bool Matrix<T>::is_zero() const
@@ -300,7 +528,7 @@ bool Matrix<T>::is_zero() const
 Checks if the matrix is zero.
 
 ---
-### **is_zero_row()**
+### is_zero_row()
 ```cpp
 template <typename T>
 bool Matrix<T>::is_zero_row(std::size_t row) const
@@ -313,7 +541,7 @@ bool Matrix<T>::is_zero_row(std::size_t row) const
 Checks if the requested row of the matrix is zero.
 
 ---
-### **is_zero_col()**
+### is_zero_col()
 ```cpp
 template <typename T>
 bool Matrix<T>::is_zero_col(std::size_t col) const
@@ -326,7 +554,7 @@ bool Matrix<T>::is_zero_col(std::size_t col) const
 Checks if the requested column of the matrix is zero.
 
 ---
-### **is_row_echelon()**
+### is_row_echelon()
 ```cpp
 template <typename T>
 bool Matrix<T>::is_row_echelon() const
@@ -339,7 +567,7 @@ bool Matrix<T>::is_row_echelon() const
 Checks if the matrix is in row echelon form.
 
 ---
-### **is_symmetric()**
+### is_symmetric()
 ```cpp
 template <typename T>
 bool Matrix<T>::is_symmetric() const
@@ -352,7 +580,7 @@ bool Matrix<T>::is_symmetric() const
 Checks if the matrix is symmetric.
 
 ---
-### **is_empty()**
+### is_empty()
 ```cpp
 template <typename T>
 bool Matrix<T>::is_empty() const
@@ -365,7 +593,7 @@ bool Matrix<T>::is_empty() const
 Checks if the matrix is empty.
 
 ---
-### **is_invertible()**
+### is_invertible()
 ```cpp
 template <typename T>
 bool Matrix<T>::is_invertible()
@@ -378,7 +606,7 @@ bool Matrix<T>::is_invertible()
 Checks if the matrix is invertible.
 
 ---
-### **at()**
+### at()
 ```cpp
 template <typename T>
 T& Matrix<T>::at(std::size_t row, std::size_t col)
@@ -398,7 +626,7 @@ Reference to the requested element.
 Returns a reference to the element at specified row and column with bounds checking.
 
 ---
-### **set_identity()**
+### set_identity()
 ```cpp
 template <typename T>
 void Matrix<T>::set_identity()
@@ -413,7 +641,7 @@ void Matrix<T>::set_identity()
 Sets the Matrix to the identity matrix.
 
 ---
-### **set_zero()**
+### set_zero()
 ```cpp
 template <typename T>
 void Matrix<T>::set_zero()
@@ -426,7 +654,7 @@ void Matrix<T>::set_zero()
 Sets the Matrix to the zero matrix.
 
 ---
-### **set_diag()**
+### set_diag()
 ```cpp
 template <typename T>
 void Matrix<T>::set_diag(const std::vector<T>& v)
@@ -442,7 +670,7 @@ void Matrix<T>::set_diag(const std::vector<T>& v)
 Sets the elements of the diagonal of the matrix with `std::vector`.
 
 ---
-### **set_diag()**
+### set_diag()
 ```cpp
 template <typename T>
 void Matrix<T>::set_diag(std::initializer_list<T> il)
@@ -458,7 +686,7 @@ void Matrix<T>::set_diag(std::initializer_list<T> il)
 Sets the elements of the diagonal of the matrix with the initializer list.
 
 ---
-### **set_row()**
+### set_row()
 ```cpp
 template <typename T>
 void Matrix<T>::set_row(std::size_t row, T value)
@@ -474,7 +702,7 @@ void Matrix<T>::set_row(std::size_t row, T value)
 Sets the elements of the **row** row of the matrix with the **value** value.
 
 ---
-### **set_row()**
+### set_row()
 ```cpp
 template <typename T>
 void Matrix<T>::set_row(std::size_t row, const std::vector<T>& v)
@@ -491,7 +719,7 @@ void Matrix<T>::set_row(std::size_t row, const std::vector<T>& v)
 Sets the elements of the **row** row of the matrix with the **v** `std::vector`.
 
 ---
-### **set_row()**
+### set_row()
 ```cpp
 template <typename T>
 void Matrix<T>::set_row(std::size_t row, std::initializer_list<T> il)
@@ -508,7 +736,7 @@ void Matrix<T>::set_row(std::size_t row, std::initializer_list<T> il)
 Sets the elements of the **row** row of the matrix with the **il** initializer list.
 
 ---
-### **set_col()**
+### set_col()
 ```cpp
 template <typename T>
 void Matrix<T>::set_col(std::size_t col, T value)
@@ -524,7 +752,7 @@ void Matrix<T>::set_col(std::size_t col, T value)
 Sets the elements of the **col** column of the matrix with the **value** value.
 
 ---
-### **set_col()**
+### set_col()
 ```cpp
 template <typename T>
 void Matrix<T>::set_col(std::size_t col, const std::vector<T>& v)
@@ -541,7 +769,7 @@ void Matrix<T>::set_col(std::size_t col, const std::vector<T>& v)
 Sets the elements of the **col** column of the matrix with the **v** `std::vector`.
 
 ---
-### **set_col()**
+### set_col()
 ```cpp
 template <typename T>
 void Matrix<T>::set_col(std::size_t col, std::initializer_list<T> il)
@@ -558,7 +786,7 @@ void Matrix<T>::set_col(std::size_t col, std::initializer_list<T> il)
 Sets the elements of the **col** column of the matrix with the **il** initializer list.
 
 ---
-### **get_row()**
+### get_row()
 ```cpp
 template <typename T>
 std::vector Matrix<T>::get_row(std::size_t row) const
@@ -573,7 +801,7 @@ The `std::vector` with the **row** row of the matrix.
 Returns `std::vector` with the elements of the **row** row of the matrix.
 
 ---
-### **get_col()**
+### get_col()
 ```cpp
 template <typename T>
 std::vector Matrix<T>::get_col(std::size_t col) const
@@ -588,7 +816,7 @@ The `std::vector` with the **col** column of the matrix.
 Returns `std::vector` with the elements of the **col** column of the matrix.
 
 ---
-### **transpose()**
+### transpose()
 ```cpp
 template <typename T>
 void Matrix<T>::transpose()
@@ -601,7 +829,7 @@ void Matrix<T>::transpose()
 Transposes the matrix.
 
 ---
-### **pow()**
+### pow()
 ```cpp
 template <typename T>
 void Matrix<T>::pow(int power)
@@ -616,7 +844,7 @@ void Matrix<T>::pow(int power)
 Computes the matrix raised to the power **power**.
 
 ---
-### **swap_row()**
+### swap_row()
 ```cpp
 template <typename T>
 void Matrix<T>::swap_row(std::size_t lhsRow, std::size_t rhsRow)
@@ -631,7 +859,7 @@ void Matrix<T>::swap_row(std::size_t lhsRow, std::size_t rhsRow)
 Swaps the rows of the matrix **lhsRow** and **rhsRow**.
 
 ---
-### **swap_col()**
+### swap_col()
 ```cpp
 template <typename T>
 void Matrix<T>::swap_col(std::size_t lhsCol, std::size_t rhsCol)
@@ -646,7 +874,7 @@ void Matrix<T>::swap_col(std::size_t lhsCol, std::size_t rhsCol)
 Swaps the columns of the matrix **lhsCol** and **rhsCol**.
 
 ---
-### **mult_row()**
+### mult_row()
 ```cpp
 template <typename T>
 void Matrix<T>::mult_row(std::size_t row, T value)
@@ -662,7 +890,7 @@ void Matrix<T>::mult_row(std::size_t row, T value)
 Multiplies the **row** row of the matrix by the **value** value.
 
 ---
-### **mult_col()**
+### mult_col()
 ```cpp
 template <typename T>
 void Matrix<T>::mult_col(std::size_t col, T value)
@@ -678,7 +906,7 @@ void Matrix<T>::mult_col(std::size_t col, T value)
 Multiplies the **col** column of the matrix by the **value** value.
 
 ---
-### **add_row()**
+### add_row()
 ```cpp
 template <typename T>
 void Matrix<T>::add_row(std::size_t lhsRow, std::size_t rhsRow, T value)
@@ -695,7 +923,7 @@ void Matrix<T>::add_row(std::size_t lhsRow, std::size_t rhsRow, T value)
 Adds the **rhsRow** row of the matrix multiplied by the **value** value to the **lhsRow** row of the matrix.
 
 ---
-### **add_col()**
+### add_col()
 ```cpp
 template <typename T>
 void Matrix<T>::add_col(std::size_t lhsCol, std::size_t rhsCol, T value)
@@ -712,7 +940,7 @@ void Matrix<T>::add_col(std::size_t lhsCol, std::size_t rhsCol, T value)
 Adds the **rhsCol** column of the matrix multiplied by the **value** value to the **lhsCol** column of the matrix.
 
 ---
-### **clear()**
+### clear()
 ```cpp
 template <typename T>
 void Matrix<T>::clear() noexcept
@@ -725,7 +953,7 @@ void Matrix<T>::clear() noexcept
 Erases all elements from the matrix.
 
 ---
-### **resize()**
+### resize()
 ```cpp
 template <typename T>
 void Matrix<T>::resize(std::size_t rows, std::size_t cols)
@@ -744,7 +972,7 @@ void Matrix<T>::resize(std::size_t rows, std::size_t cols)
 Resizes the matrix to contain **rows** rows and **cols** columns.
 
 ---
-### **join()**
+### join()
 ```cpp
 template <typename T>
 void Matrix<T>::join(const Matrix<T>& other)
@@ -759,7 +987,7 @@ void Matrix<T>::join(const Matrix<T>& other)
 Joins the matrix with the **other** matrix.
 
 ---
-### **separate()**
+### separate()
 ```cpp
 template <typename T>
 void Matrix<T>::separate(std::size_t col, LinAlg::Matrix<T>& lhs, LinAlg::Matrix<T>& rhs)
@@ -776,7 +1004,7 @@ void Matrix<T>::separate(std::size_t col, LinAlg::Matrix<T>& lhs, LinAlg::Matrix
 Separates the **col** column from the matrix and separates the matrix into **lhs** and **rhs** matrices.
 
 ---
-### **del_row()**
+### del_row()
 ```cpp
 template <typename T>
 void Matrix<T>::del_row(std::size_t row)
@@ -791,7 +1019,7 @@ void Matrix<T>::del_row(std::size_t row)
 Deletes the **row** row from the matrix.
 
 ---
-### **del_col()**
+### del_col()
 ```cpp
 template <typename T>
 void Matrix<T>::del_col(std::size_t col)
@@ -806,20 +1034,184 @@ void Matrix<T>::del_col(std::size_t col)
 Deletes the **col** column from the matrix.
 
 ---
-### **cofactor**
+### cofactor()
 ```cpp
 template <typename T>
 T Matrix<T>::cofactor(std::size_t row, std::size_t col)
 ```
 #### **Parameters**
-- **row** - column to delete from the matrix;
-- **col** - column to delete from the matrix.
+- **row** - row of the matrix containing a specified element;
+- **col** - column of the matrix containing a specified element.
 #### **Return value**
-(none)
+Determinant of the minor formed by removing **row** row and **col** column of the matrix.
+### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_square()`;
+- [std::out_of_range](https://en.cppreference.com/w/cpp/error/out_of_range) if `row >= rows()`;
+- [std::out_of_range](https://en.cppreference.com/w/cpp/error/out_of_range) if `col >= cols()`.
 #### **About**
-Deletes the **col** column from the matrix.
+Returns determinant of the minor formed by removing **row** row and **col** column of the matrix.
+
+---
+### determinant()
+```cpp
+template <typename T>
+T Matrix<T>::determinant()
+```
+#### **Parameters**
+(none)
+#### **Return value**
+Matrix determinant.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_square()`.
+#### **About**
+Returns matrix determinant. The determinant is computed via cofactor expansion.
+
+---
+### rank()
+```cpp
+template <typename T>
+T Matrix<T>::rank()
+```
+#### **Parameters**
+(none)
+#### **Return value**
+Matrix rank.
+#### **About**
+Returns matrix rank. The rank is computed via transforming the matrix to row echelon form.
+
+---
+### submatrix()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::submatrix(std::size_t row, std::size_t col)
+```
+#### **Parameters**
+- **row** - row of the matrix containing a specified element;
+- **col** - column of the matrix containing a specified element.
+#### **Return value**
+Submatrix of the matrix.
+#### **Exceptions**
+- [std::out_of_range](https://en.cppreference.com/w/cpp/error/out_of_range) if `row >= rows()`;
+- [std::out_of_range](https://en.cppreference.com/w/cpp/error/out_of_range) if `col >= cols()`.
+#### **About**
+Returns submatrix formed by removing **row** row and **col** column of the matrix.
+
+---
+### minor()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::minor(std::size_t row, std::size_t col)
+```
+#### **Parameters**
+- **row** - row of the matrix containing a specified element;
+- **col** - column of the matrix containing a specified element.
+#### **Return value**
+Minor of the matrix.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_square()`;
+- [std::out_of_range](https://en.cppreference.com/w/cpp/error/out_of_range) if `row >= rows()`;
+- [std::out_of_range](https://en.cppreference.com/w/cpp/error/out_of_range) if `col >= cols()`.
+#### **About**
+Returns minor formed by removing **row** row and **col** column of the matrix.
+
+---
+### adjoint()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::adjoint()
+```
+#### **Parameters**
+(none)
+#### **Return value**
+Adjoint of the matrix.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_square()`.
+#### **About**
+Returns adjoint of the matrix.
+
+---
+### inverse()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::inverse()
+```
+#### **Parameters**
+(none)
+#### **Return value**
+Inverse matrix.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_square()`;
+- [std::runtime_error](https://en.cppreference.com/w/cpp/error/runtime_error) if `!is_invertible()`.
+#### **About**
+Returns inverse of the matrix.
+
+---
+### row_echelon()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::row_echelon()
+```
+#### **Parameters**
+(none)
+#### **Return value**
+Matrix in row echelon form.
+#### **About**
+Returns matrix in row echelon form.
+
+---
+### back_sub()
+```cpp
+template <typename T>
+Matrix<T> Matrix<T>::back_sub()
+```
+#### **Parameters**
+(none)
+#### **Return value**
+Matrix containing the solution to the linear system.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_row_echelon()`.
+#### **About**
+Performs the procedure of solving a system of linear equations and returns matrix containing the solution to it.
 
 ---
 ## Friends Description
+### operator==()
+```cpp
+template <typename U>
+friend bool operator== (const Matrix<U>& lhs, const Matrix<U>& rhs)
+```
+#### **Parameters**
+- **lhs**, **rhs** - matrices whose contents to compare.
+#### **Return value**
+`true` if the contents of the matrices are equal, `false` otherwise.
+#### **About**
+Checks if the contents of **lhs** and **rhs** are equal, that is, they have the same number of elements and each element in **lhs** compares equal with the element in **rhs** at the same position.
+
+---
+### operator!=()
+```cpp
+template <typename U>
+friend bool operator!= (const Matrix<U>& lhs, const Matrix<U>& rhs)
+```
+#### **Parameters**
+- **lhs**, **rhs** - matrices whose contents to compare.
+#### **Return value**
+`true` if the contents of the matrices are not equal, `false` otherwise.
+#### **About**
+Checks if the contents of **lhs** and **rhs** are equal, that is, they have the same number of elements and each element in **lhs** compares equal with the element in **rhs** at the same position.
+
+---
+### operator*()
+```cpp
+template <typename U>
+friend Matrix<U> operator* (U value, const Matrix<U>& other)
+```
+#### **Parameters**
+- **value** - multiplier value
+- **other** - object of the Matrix class.
+#### **Return value**
+Result matrix.
+#### **About**
+Returns the result of multiplication between **value** value as lhs and the **other** matrix as rhs.
 
 [^1]: The negative `rows` and `cols` parameters convert to `std::size_t`. Constructors do not check for values below zero because converted negative values are more than `max_rows()` and `max_cols` values respectively.
