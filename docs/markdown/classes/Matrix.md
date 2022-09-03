@@ -182,7 +182,7 @@ Matrix<T>::Matrix(const Matrix<T>& other) = default
 #### **Parameters**
 - **other** - another object of the Matrix class.
 #### **About**
-Constructs the container with the copy of the contents of other.
+Constructs the container with the copy of the contents of **other**.
 
 ---
 ### Move Constructor
@@ -621,7 +621,7 @@ const T& Matrix<T>::at(std::size_t row, std::size_t col) const
 #### **Return value**
 Reference to the requested element.
 #### **Exceptions**
-- [std::out_of_range](https://en.cppreference.com/w/cpp/error/out_of_range) if `rows() < row || cols() < col`.
+- [std::out_of_range](https://en.cppreference.com/w/cpp/error/out_of_range) if `row >= rows() || col >= cols()`.
 #### **About**
 Returns a reference to the element at specified row and column with bounds checking.
 
@@ -789,7 +789,7 @@ Sets the elements of the **col** column of the matrix with the **il** initialize
 ### get_row()
 ```cpp
 template <typename T>
-std::vector Matrix<T>::get_row(std::size_t row) const
+std::vector<T> Matrix<T>::get_row(std::size_t row) const
 ```
 #### **Parameters**
 - **row** - row of the matrix to return.
@@ -804,7 +804,7 @@ Returns `std::vector` with the elements of the **row** row of the matrix.
 ### get_col()
 ```cpp
 template <typename T>
-std::vector Matrix<T>::get_col(std::size_t col) const
+std::vector<T> Matrix<T>::get_col(std::size_t col) const
 ```
 #### **Parameters**
 - **col** - column of the matrix to return.
@@ -841,7 +841,7 @@ void Matrix<T>::pow(int power)
 #### **Exceptions**
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_square()`.
 #### **About**
-Computes the matrix raised to the power **power**.
+Computes the matrix raised to the **power** power.
 
 ---
 ### swap_row()
@@ -990,7 +990,7 @@ Joins the matrix with the **other** matrix.
 ### separate()
 ```cpp
 template <typename T>
-void Matrix<T>::separate(std::size_t col, LinAlg::Matrix<T>& lhs, LinAlg::Matrix<T>& rhs)
+void Matrix<T>::separate(std::size_t col, Matrix<T>& lhs, Matrix<T>& rhs)
 ```
 #### **Parameters**
 - **col** - number of the column to separate from the matrix;
@@ -1167,11 +1167,11 @@ Matrix<T> Matrix<T>::back_sub()
 #### **Parameters**
 (none)
 #### **Return value**
-Matrix containing the solution to the linear system.
+Matrix containing solution to the linear system.
 #### **Exceptions**
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_row_echelon()`.
 #### **About**
-Performs the procedure of solving a system of linear equations and returns matrix containing the solution to it.
+Performs the procedure of solving a system of linear equations and returns matrix containing solution to it.
 
 ---
 ## Friends Description

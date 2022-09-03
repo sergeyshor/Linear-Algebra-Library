@@ -1,5 +1,7 @@
 # Description of gaussian_elimination.hpp file
 ```cpp
+#include <stdexcept>
+
 #include "LinearAlgebra/Matrix.hpp"
 ```
 ## About

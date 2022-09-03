@@ -11,11 +11,11 @@
 #include <vector>
 ```
 ## About
-This file holds the Matrix class implementation and are_equal function implementation used for comparing two numbers.
+This file holds the Matrix class implementation and are_equal function implementation used for comparison of two values.
 ## Functions
 ```cpp
 template <typename T>
-bool are_equal(T value1, T value2)
+bool are_equal(T lhs, T rhs)
 ```
 ## Classes
 ```cpp

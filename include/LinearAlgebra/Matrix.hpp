@@ -14,7 +14,7 @@
 namespace LinAlg
 {
     template <typename T>
-    bool are_equal(T value1, T value2);
+    bool are_equal(T lhs, T rhs);
 
     template <typename T>
     class Matrix
@@ -129,12 +129,12 @@ namespace LinAlg
     };
 
     template <typename T>
-    inline bool are_equal(T value1, T value2)
+    inline bool are_equal(T lhs, T rhs)
     {
         if (std::numeric_limits<T>::is_iec559) {
-            return std::fabs(value1 - value2) <= (std::max(std::fabs(value1), std::fabs(value2)) * std::numeric_limits<T>::epsilon());
+            return std::fabs(lhs - rhs) <= (std::max(std::fabs(lhs), std::fabs(rhs)) * std::numeric_limits<T>::epsilon());
         } else {
-            return value1 == value2;
+            return lhs == rhs;
         }
     }
 
@@ -383,14 +383,14 @@ inline bool LinAlg::Matrix<T>::is_symmetric() const
 template <typename T>
 inline T& LinAlg::Matrix<T>::at(std::size_t row, std::size_t col)
 {
-    if (rows() < row || cols() < col) { throw std::out_of_range("invalid Matrix subscripts"); }
+    if (row >= rows() || col >= cols()) { throw std::out_of_range("invalid Matrix subscripts"); }
     return _matrix[row * cols() + col];
 }
 
 template <typename T>
 inline const T& LinAlg::Matrix<T>::at(std::size_t row, std::size_t col) const
 {
-    if (rows() < row || cols() < col) { throw std::out_of_range("invalid Matrix subscripts"); }
+    if (row >= rows() || col >= cols()) { throw std::out_of_range("invalid Matrix subscripts"); }
     return _matrix[row * cols() + col];
 }
 

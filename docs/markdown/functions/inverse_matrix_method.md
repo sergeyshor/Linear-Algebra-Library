@@ -1,8 +1,19 @@
 # Description of `inverse_matrix_method` function
-### About
-
+```cpp
+template <typename T>
+Matrix<T> inverse_matrix_method(const Matrix<T>& lhs, const Matrix<T>& rhs)
+```
 ### Namespace 
 `LinAlg`
-### Parameters
+#### **Parameters**
+- **lhs** - matrix of independent variables;
+- **rhs** - matrix of dependent variables.
+#### **Return value**
+Matrix containing solution to the linear system.
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if **lhs** matrix is not square;
+- [std::runtime_error](https://en.cppreference.com/w/cpp/error/runtime_error) if **lhs** matrix is not invertible;
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if columns of the inverse of **lhs** matrix and **rhs** rows are not equal.
 
-### Returns
+#### **About**
+Solves system of linear equations (or matrix equation) using inverse matrix method and returns solution to it.

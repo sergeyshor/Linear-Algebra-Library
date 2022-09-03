@@ -1,6 +1,8 @@
 #ifndef GAUSSIAN_ELIMINATION_HPP
 #define GAUSSIAN_ELIMINATION_HPP
 
+#include <stdexcept>
+
 #include "LinearAlgebra/Matrix.hpp"
 
 namespace LinAlg 
@@ -18,7 +20,7 @@ namespace LinAlg
         A.join(B);
         extendedRank = A.rank();
 
-        if (rank != extendedRank) { throw std::runtime_error("system of linear equations is inconsistent"); }
+        if (rank < extendedRank) { throw std::runtime_error("system of linear equations is inconsistent"); }
         if (rank == extendedRank && rank < A.rows()) { throw std::runtime_error("system of linear equations has infinite solutions"); }
 
         A = A.row_echelon();
