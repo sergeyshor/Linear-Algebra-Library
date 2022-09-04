@@ -1,4 +1,6 @@
 # Description of gaussian_elimination.hpp file
+#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md)
+---
 ```cpp
 #include <stdexcept>
 
@@ -11,4 +13,6 @@ This file holds the Gaussian elimination method implementation used for solving 
 template <typename T>
 Matrix<T> gaussian_elimination(const Matrix<T>& lhs, const Matrix<T>& rhs)
 ```
-### [Go to the source file](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/SolutionSLE/gaussian_elimination.hpp)
+#### [Go to the description of this function](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/functions/gaussian_elimination.md)
+---
+#### [Go to the source file](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/SolutionSLE/gaussian_elimination.hpp)

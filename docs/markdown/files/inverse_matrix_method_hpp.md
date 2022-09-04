@@ -1,4 +1,6 @@
 # Description of inverse_matrix_method.hpp file
+#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md)
+---
 ```cpp
 #include "LinearAlgebra/Matrix.hpp"
 ```
@@ -9,4 +11,6 @@ This file holds the inverse matrix method implementation used for solving system
 template <typename T>
 Matrix<T> inverse_matrix_method(const Matrix<T>& lhs, const Matrix<T>& rhs)
 ```
-### [Go to the source file](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/SolutionSLE/inverse_matrix_method.hpp)
+#### [Go to the description of this function](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/functions/inverse_matrix_method.md)
+---
+#### [Go to the source file](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/SolutionSLE/inverse_matrix_method.hpp)

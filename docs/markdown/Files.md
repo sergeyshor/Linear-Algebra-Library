@@ -6,3 +6,6 @@ Full list of Linear Algebra Library files.
 - [LinearAlgebra.hpp](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/files/LinearAlgebra_hpp.md)
 - [Matrix.hpp](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/files/Matrix_hpp.md) 
 - [SolutionSLE.hpp](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/files/SolutionSLE_hpp.md)
+
+---
+#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md)

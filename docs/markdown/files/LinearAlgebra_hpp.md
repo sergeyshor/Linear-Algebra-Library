@@ -1,6 +1,8 @@
 # Description of LinearAlgebra.hpp file
+#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md)
+---
 ```cpp
 #include "LinearAlgebra/Matrix.hpp"
 #include "LinearAlgebra/SolutionSLE.hpp"
 ```
-### [Go to the source file](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra.hpp)
+#### [Go to the source file](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra.hpp)

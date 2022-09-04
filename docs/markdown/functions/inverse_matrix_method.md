@@ -1,8 +1,12 @@
 # Description of `inverse_matrix_method` function
+#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md)
+---
 ```cpp
 template <typename T>
 Matrix<T> inverse_matrix_method(const Matrix<T>& lhs, const Matrix<T>& rhs)
 ```
+### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/SolutionSLE/inverse_matrix_method.hpp#:~:text=inline%20Matrix%3CT%3E-,inverse_matrix_method,-(const%20Matrix)
+---
 ### Namespace 
 `LinAlg`
 #### **Parameters**
