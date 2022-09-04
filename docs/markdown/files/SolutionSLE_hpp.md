@@ -1,5 +1,5 @@
 # Description of SolutionSLE.hpp file
-#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md)
+#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/Files.md)
 ---
 ```cpp
 #include "LinearAlgebra/SolutionSLE/gaussian_elimination.hpp"

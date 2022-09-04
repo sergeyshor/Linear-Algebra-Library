@@ -1,5 +1,5 @@
 # Description of `Matrix` class
-#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md)
+#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/Classes.md)
 ---
 ## Namespace 
 `LinAlg`

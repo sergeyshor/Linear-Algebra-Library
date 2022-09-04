@@ -1,11 +1,11 @@
 # Description of `gaussian_elimination` function
-#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md)
+#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/Functions.md)
 ---
 ```cpp
 template <typename T>
 Matrix<T> gaussian_elimination(const Matrix<T>& lhs, const Matrix<T>& rhs)
 ```
-### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/SolutionSLE/gaussian_elimination.hpp#:~:text=inline%20Matrix%3CT%3E-,gaussian_elimination,-(const%20Matrix)
+#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/SolutionSLE/gaussian_elimination.hpp#:~:text=inline%20Matrix%3CT%3E-,gaussian_elimination,-(const%20Matrix )
 ---
 ### Namespace 
 `LinAlg`

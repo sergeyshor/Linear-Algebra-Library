@@ -1,11 +1,11 @@
 # Description of `are_equal` function
-#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md)
+#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/Functions.md)
 ---
 ```cpp
 template <typename T>
 bool are_equal(T lhs, T rhs)
 ```
-### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20bool-,are_equal,-(T%20lhs%2C%20T)
+#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20bool-,are_equal,-(T%20lhs%2C%20T )
 ---
 ### Namespace 
 `LinAlg`
