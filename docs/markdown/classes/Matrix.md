@@ -285,7 +285,7 @@ Result matrix.
 #### **Exceptions**
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `value == T()`.
 #### **About**
-Returns the result of division between the matrix and **value** value.
+Returns the result of division between the matrix and **value** value[^2].
   
 ### operator*=()
 #### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator*%3D,-(T%20value))
@@ -313,7 +313,7 @@ Result matrix.
 #### **Exceptions**
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `value == T()`.
 #### **About**
-Returns the result of division between the matrix and **value** value and assigns it to the matrix.
+Returns the result of division between the matrix and **value** value and assigns it to the matrix[^2].
 
 ---
 ### operator-()
@@ -392,7 +392,7 @@ Result matrix.
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_square()`;
 - [std::runtime_error](https://en.cppreference.com/w/cpp/error/runtime_error) if `!is_invertible()`.
 #### **About**
-Returns division of two matrices.
+Returns division of two matrices[^2].
 
 ---
 ### operator+=()
@@ -457,7 +457,7 @@ Matrix<T>& Matrix<T>::operator/= (const Matrix<T>& other)
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_square()`;
 - [std::runtime_error](https://en.cppreference.com/w/cpp/error/runtime_error) if `!is_invertible()`.
 #### **About**
-Returns the result of division of two matrices and assigns it to the matrix.
+Returns the result of division of two matrices and assigns it to the matrix[^2].
 
 ---
 ## Member Functions Description
@@ -1215,7 +1215,7 @@ Inverse matrix.
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_square()`;
 - [std::runtime_error](https://en.cppreference.com/w/cpp/error/runtime_error) if `!is_invertible()`.
 #### **About**
-Returns inverse of the matrix.
+Returns inverse of the matrix[^2].
 
 ---
 ### row_echelon()
@@ -1229,7 +1229,7 @@ Matrix<T> Matrix<T>::row_echelon()
 #### **Return value**
 Matrix in row echelon form.
 #### **About**
-Returns matrix in row echelon form.
+Returns matrix in row echelon form[^2].
 
 ---
 ### back_sub()
@@ -1245,7 +1245,7 @@ Matrix containing solution to the linear system.
 #### **Exceptions**
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `!is_row_echelon()`.
 #### **About**
-Performs the procedure of solving a system of linear equations and returns matrix containing solution to it.
+Performs the procedure of solving a system of linear equations and returns matrix containing solution to it[^2].
 
 ---
 ## Friends Description
@@ -1292,3 +1292,4 @@ Result matrix.
 Returns the result of multiplication between **value** value as lhs and the **other** matrix as rhs.
 
 [^1]: The negative `rows` and `cols` parameters convert to `std::size_t`. Constructors do not check for values below zero because converted negative values are more than `max_rows()` and `max_cols` values respectively.
+[^2]: Calculation accuracy is higher when using floating-point types.

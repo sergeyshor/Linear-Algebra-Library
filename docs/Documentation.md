@@ -44,7 +44,7 @@ You should run the following command with `sudo` on Linux.
 ```
 ### **Linux**
 ```console
->> ./LinearAlgebraTest.exe
+>> ./LinearAlgebraTest
 ```
 
 ## **Building**
