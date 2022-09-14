@@ -4,7 +4,7 @@
 ## Namespace 
 `LinAlg`
 ## About
-`Matrix` class is an implentation of the matrix from Linear Algebra. This implementation uses a sequence container ([std::vector](https://en.cppreference.com/w/cpp/container/vector)) to store elements of the matrix. The sequence container has been chosen because the memory layout is contiguous for 1D array, which makes it more memory and speed efficient. The `std::vector` size is determined by the number of rows and columns of the matrix. Many different [public member functions](#public-member-functions) have been implemented in the `Matrix` class in order to make it more user-friendly and to provide a wide range of functionality.
+`Matrix` class is an implementation of the matrix from Linear Algebra. This implementation uses a sequence container [`std::vector`](https://en.cppreference.com/w/cpp/container/vector) to store elements of the matrix. The sequence container has been chosen because the memory layout is contiguous for 1D array, which makes it more memory and speed efficient. The `std::vector` size is determined by the number of rows and columns of the matrix. Many different [public member functions](#public-member-functions) have been implemented in the `Matrix` class in order to make it more user-friendly and to provide a wide range of functionality. `Matrix` class works **only** with non-const [fundamental arithmetic types](https://cplusplus.com/reference/type_traits/is_arithmetic/#:~:text=an%20arithmetic%20type%3A-,fundamental%20arithmetic%20types,-integral%20types).
 ## Public member functions
 Constructors & Destructor|
 :---:|
@@ -105,6 +105,9 @@ friend Matrix<U> [operator*](#operator-15) (U value, const Matrix<U>& other)|
 template <typename T>
 Matrix<T>::Matrix()
 ```
+#### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if **T** is not non-const [fundamental arithmetic type](https://cplusplus.com/reference/type_traits/is_arithmetic/#:~:text=an%20arithmetic%20type%3A-,fundamental%20arithmetic%20types,-integral%20types).
+
 #### **About**
 Constructs and empty matrix.
 
@@ -119,6 +122,7 @@ Matrix<T>::Matrix(std::size_t rows, std::size_t cols)
 - **rows** - number of rows in the matrix;
 - **cols** - number of columns in the matrix.
 #### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if **T** is not non-const [fundamental arithmetic type](https://cplusplus.com/reference/type_traits/is_arithmetic/#:~:text=an%20arithmetic%20type%3A-,fundamental%20arithmetic%20types,-integral%20types);
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `rows >= max_rows()`[^1];
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `cols >= max_rows()`[^1];
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `rows != 0 && cols == 0`;
@@ -139,6 +143,7 @@ Matrix<T>::Matrix(std::size_t rows, std::size_t cols, T value)
 - **cols** - number of columns in the matrix;
 - **value** - value of T type to initialize the elements of the matrix with.
 #### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if **T** is not non-const [fundamental arithmetic type](https://cplusplus.com/reference/type_traits/is_arithmetic/#:~:text=an%20arithmetic%20type%3A-,fundamental%20arithmetic%20types,-integral%20types);
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `rows >= max_rows()`[^1];
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `cols >= max_rows()`[^1];
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `rows != 0 && cols == 0`;
@@ -158,6 +163,7 @@ Matrix<T>::Matrix(std::size_t rows, std::size_t cols, const std::vector<T>& v)
 - **cols** - number of columns in the matrix;
 - **v** - `std::vector` with the size of **rows**×**cols** to initialize the elements of the matrix with.
 #### **Exceptions**
+- [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if **T** is not non-const [fundamental arithmetic type](https://cplusplus.com/reference/type_traits/is_arithmetic/#:~:text=an%20arithmetic%20type%3A-,fundamental%20arithmetic%20types,-integral%20types);
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `rows >= max_rows()`[^1];
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `cols >= max_rows()`[^1];
 - [std::invalid_argument](https://en.cppreference.com/w/cpp/error/invalid_argument) if `rows != 0 && cols == 0`;
