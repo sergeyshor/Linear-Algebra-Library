@@ -16,7 +16,7 @@ Current version of library contains:
 - Different methods to solve a system of linear equations;
 - And some other functions.
 
-Full list of tools and methods can be viewed in [Documentation](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md).
+Full list of tools and methods can be viewed in [Documentation](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/docs/Documentation.md).
 
 I am looking forward to add new functionality soon such as:
 - Boolean (binary) Matrix implementation;
@@ -39,11 +39,11 @@ Linear Algebra Library requires **C++14** standard or newer.
 
 ## **Installation**
 
-### 1. Clone the repository from [GitHub](https://github.com/SergeyShor/Linear-Algebra-Library)
+### 1. Clone the repository from [GitHub](https://github.com/sergeyshor/Linear-Algebra-Library)
 **PATH** = path to clone repository
 ```console
 >> cd <PATH>
->> git clone --recursive https://github.com/SergeyShor/Linear-Algebra-Library.git
+>> git clone --recursive https://github.com/sergeyshor/Linear-Algebra-Library.git
 ```
 
 ### 2. Build installed products using CMake
@@ -132,4 +132,4 @@ target_link_libraries(
 >> ./MainProject
 ```
 
-## **[Documentation](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/Documentation.md)**
+## **[Documentation](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/docs/Documentation.md)**
