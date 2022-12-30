@@ -1,5 +1,5 @@
 # Description of `Matrix` class
-#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/Classes.md)
+#### [Go back](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/docs/markdown/Classes.md)
 ---
 ## Namespace 
 `LinAlg`
@@ -100,7 +100,7 @@ friend Matrix<U> [operator*](#operator-15) (U value, const Matrix<U>& other)|
 ---
 ## Constructors & Destructor Description
 ### **Default constructor**
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-())
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-())
 ```cpp
 template <typename T>
 Matrix<T>::Matrix()
@@ -113,7 +113,7 @@ Constructs and empty matrix.
 
 ---
 ### Zero-initialization Constructor
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-(std%3A%3Asize_t%20rows%2C%20std%3A%3Asize_t%20cols))
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-(std%3A%3Asize_t%20rows%2C%20std%3A%3Asize_t%20cols))
 ```cpp
 template <typename T>
 Matrix<T>::Matrix(std::size_t rows, std::size_t cols)
@@ -133,7 +133,7 @@ Constructs the matrix with **rows** rows and **cols** columns and initializes it
 
 ---
 ### Value Constructor
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-(std%3A%3Asize_t%20rows%2C%20std%3A%3Asize_t%20cols%2C%20T )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-(std%3A%3Asize_t%20rows%2C%20std%3A%3Asize_t%20cols%2C%20T )
 ```cpp
 template <typename T>
 Matrix<T>::Matrix(std::size_t rows, std::size_t cols, T value)
@@ -153,7 +153,7 @@ Constructs the matrix with **rows** rows and **cols** columns and initializes it
 
 ---
 ### Vector Constructor
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-(std%3A%3Asize_t%20rows%2C%20std%3A%3Asize_t%20cols%2C%20const )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-(std%3A%3Asize_t%20rows%2C%20std%3A%3Asize_t%20cols%2C%20const )
 ```cpp
 template <typename T>
 Matrix<T>::Matrix(std::size_t rows, std::size_t cols, const std::vector<T>& v)
@@ -174,7 +174,7 @@ Constructs the matrix with **rows** rows and **cols** columns and initializes it
 
 ---
 ### Initializer List Constructor
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-(std%3A%3Ainitializer_list%3C%20std )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-(std%3A%3Ainitializer_list%3C%20std )
 ```cpp
 template <typename T>
 Matrix<T>::Matrix(std::initializer_list< std::initializer_list<T> > il)
@@ -199,7 +199,7 @@ Constructs the container with the copy of the contents of **other**.
 
 ---
 ### Move Constructor
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-(Matrix%26%26%20other))
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,Matrix,-(Matrix%26%26%20other))
 ```cpp
 template <typename T>
 Matrix<T>::Matrix(Matrix<T>&& other) noexcept
@@ -221,12 +221,12 @@ Destructs the matrix.
 ---
 ## Operators
 ### operator()()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20T%26%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator(),-(std%3A%3Asize_t%20row%2C%20std )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20T%26%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator(),-(std%3A%3Asize_t%20row%2C%20std )
 ```cpp
 template <typename T>
 T& Matrix<T>::operator() (std::size_t row, std::size_t col)
 ```
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=const%20T%26%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator(),-(std%3A%3Asize_t%20row%2C%20std )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=const%20T%26%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator(),-(std%3A%3Asize_t%20row%2C%20std )
 ```cpp
 template <typename T>
 const T& Matrix<T>::operator() (std::size_t row, std::size_t col) const
@@ -253,7 +253,7 @@ Matrix<T>& Matrix<T>::operator= (const Matrix<T>& other) = default
 Copy Assignment Operator.
 
 ### operator=()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%3D,-(Matrix%3CT%3E%26%26%20other )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%3D,-(Matrix%3CT%3E%26%26%20other )
 ```cpp
 template <typename T>
 Matrix<T>& Matrix<T>::operator= (Matrix<T>&& other) noexcept
@@ -266,7 +266,7 @@ Matrix<T>& Matrix<T>::operator= (Matrix<T>&& other) noexcept
 Move assignment operator.
 
 ### operator*()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator*,-(T%20value))
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator*,-(T%20value))
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::operator* (T value)
@@ -279,7 +279,7 @@ Result matrix.
 Returns the result of multiplication between the matrix as lhs and **value** value as rhs.
   
 ### operator/()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator/,-(T%20value))
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator/,-(T%20value))
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::operator/ (T value)
@@ -294,7 +294,7 @@ Result matrix.
 Returns the result of division between the matrix and **value** value[^2].
   
 ### operator*=()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator*%3D,-(T%20value))
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator*%3D,-(T%20value))
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::operator*= (T value)
@@ -307,7 +307,7 @@ Result matrix.
 Returns the result of multiplication between the matrix and **value** value and assigns it to the matrix.
   
 ### operator/=()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator/%3D,-(T%20value))
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator/%3D,-(T%20value))
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::operator/= (T value)
@@ -323,7 +323,7 @@ Returns the result of division between the matrix and **value** value and assign
 
 ---
 ### operator-()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%2D,-())
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%2D,-())
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::operator- ()
@@ -337,7 +337,7 @@ Returns negative of the Matrix object.
 
 ---
 ### operator+()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%2B,-(const%20Matrix )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%2B,-(const%20Matrix )
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::operator+ (const Matrix<T>& other)
@@ -353,7 +353,7 @@ Returns sum of two matrices.
 
 ---
 ### operator-()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%2D,-(const%20Matrix )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%2D,-(const%20Matrix )
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::operator- (const Matrix<T>& other)
@@ -369,7 +369,7 @@ Returns difference of two matrices.
 
 ---
 ### operator*()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator*,-(const%20Matrix )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator*,-(const%20Matrix )
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::operator* (const Matrix<T>& other)
@@ -385,7 +385,7 @@ Returns multiplication of two matrices.
 
 ---
 ### operator/()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator/,-(const%20Matrix )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator/,-(const%20Matrix )
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::operator/ (const Matrix<T>& other)
@@ -402,7 +402,7 @@ Returns division of two matrices[^2].
 
 ---
 ### operator+=()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%2B%3D,-(const%20Matrix )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%2B%3D,-(const%20Matrix )
 ```cpp
 template <typename T>
 Matrix<T>& Matrix<T>::operator+= (const Matrix<T>& other)
@@ -418,7 +418,7 @@ Returns the result of sum of two matrices and assigns it to the matrix.
 
 ---
 ### operator-=()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%2D%3D,-(const%20Matrix )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator%2D%3D,-(const%20Matrix )
 ```cpp
 template <typename T>
 Matrix<T>& Matrix<T>::operator-= (const Matrix<T>& other)
@@ -434,7 +434,7 @@ Returns the result of difference of two matrices and assigns it to the matrix.
 
 ---
 ### operator*=()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator*%3D,-(const%20Matrix )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator*%3D,-(const%20Matrix )
 ```cpp
 template <typename T>
 Matrix<T>& Matrix<T>::operator*= (const Matrix<T>& other)
@@ -450,7 +450,7 @@ Returns the result of multiplication of two matrices and assigns it to the matri
 
 ---
 ### operator/=()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator/%3D,-(const%20Matrix )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,operator/%3D,-(const%20Matrix )
 ```cpp
 template <typename T>
 Matrix<T>& Matrix<T>::operator/= (const Matrix<T>& other)
@@ -468,7 +468,7 @@ Returns the result of division of two matrices and assigns it to the matrix[^2].
 ---
 ## Member Functions Description
 ### rows()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=std%3A%3Asize_t-,rows,-()%20const%20%7B)
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=std%3A%3Asize_t-,rows,-()%20const%20%7B)
 ```cpp
 template <typename T>
 std::size_t Matrix<T>::rows() const
@@ -482,7 +482,7 @@ Returns the number of rows in the matrix.
 
 ---
 ### cols()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=std%3A%3Asize_t-,cols,-()%20const%20%7B)
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=std%3A%3Asize_t-,cols,-()%20const%20%7B)
 ```cpp
 template <typename T>
 std::size_t Matrix<T>::cols() const
@@ -496,7 +496,7 @@ Returns the number of cols in the matrix.
 
 ---
 ### vector_size()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=std%3A%3Asize_t-,vector_size,-()%20const%20%7B)
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=std%3A%3Asize_t-,vector_size,-()%20const%20%7B)
 ```cpp
 template <typename T>
 std::size_t Matrix<T>::vector_size() const
@@ -510,7 +510,7 @@ Returns the size of `std::vector` that contains the elements of the matrix.
 
 ---
 ### max_rows()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=std%3A%3Asize_t-,max_rows,-()%20%7B%20return%20_matrix)
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=std%3A%3Asize_t-,max_rows,-()%20%7B%20return%20_matrix)
 ```cpp
 template <typename T>
 std::size_t Matrix<T>::max_rows()
@@ -524,7 +524,7 @@ Returns the maximum possible number of rows.
 
 ---
 ### max_cols()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=std%3A%3Asize_t-,max_cols,-()%20%7B%20return%20max_rows)
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=std%3A%3Asize_t-,max_cols,-()%20%7B%20return%20max_rows)
 ```cpp
 template <typename T>
 std::size_t Matrix<T>::max_cols()
@@ -538,7 +538,7 @@ Returns the maximum possible number of cols.
 
 ---
 ### is_square()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_square,-()%20const%20%7B)
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_square,-()%20const%20%7B)
 ```cpp
 template <typename T>
 bool Matrix<T>::is_square() const
@@ -552,7 +552,7 @@ Checks if the matrix is square.
 
 ---
 ### is_zero()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_zero,-()%20const%20%7B)
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_zero,-()%20const%20%7B)
 ```cpp
 template <typename T>
 bool Matrix<T>::is_zero() const
@@ -566,7 +566,7 @@ Checks if the matrix is zero.
 
 ---
 ### is_zero_row()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_zero_row,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_zero_row,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 bool Matrix<T>::is_zero_row(std::size_t row) const
@@ -580,7 +580,7 @@ Checks if the requested row of the matrix is zero.
 
 ---
 ### is_zero_col()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_zero_col,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_zero_col,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 bool Matrix<T>::is_zero_col(std::size_t col) const
@@ -594,7 +594,7 @@ Checks if the requested column of the matrix is zero.
 
 ---
 ### is_row_echelon()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,is_row_echelon,-()%20const)
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,is_row_echelon,-()%20const)
 ```cpp
 template <typename T>
 bool Matrix<T>::is_row_echelon() const
@@ -608,7 +608,7 @@ Checks if the matrix is in row echelon form.
 
 ---
 ### is_symmetric()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,is_symmetric,-()%20const)
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,is_symmetric,-()%20const)
 ```cpp
 template <typename T>
 bool Matrix<T>::is_symmetric() const
@@ -622,7 +622,7 @@ Checks if the matrix is symmetric.
 
 ---
 ### is_empty()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_empty,-()%20const%20%7B)
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_empty,-()%20const%20%7B)
 ```cpp
 template <typename T>
 bool Matrix<T>::is_empty() const
@@ -636,7 +636,7 @@ Checks if the matrix is empty.
 
 ---
 ### is_invertible()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_invertible,-()%20%7B%20return%20determinant)
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=bool-,is_invertible,-()%20%7B%20return%20determinant)
 ```cpp
 template <typename T>
 bool Matrix<T>::is_invertible()
@@ -650,12 +650,12 @@ Checks if the matrix is invertible.
 
 ---
 ### at()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20T%26%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,at,-(std%3A%3Asize_t%20row%2C%20std )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20T%26%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,at,-(std%3A%3Asize_t%20row%2C%20std )
 ```cpp
 template <typename T>
 T& Matrix<T>::at(std::size_t row, std::size_t col)
 ```
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=const%20T%26%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,at,-(std%3A%3Asize_t%20row%2C%20std )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=const%20T%26%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,at,-(std%3A%3Asize_t%20row%2C%20std )
 ```cpp
 template <typename T>
 const T& Matrix<T>::at(std::size_t row, std::size_t col) const
@@ -672,7 +672,7 @@ Returns a reference to the element at specified row and column with bounds check
 
 ---
 ### set_identity()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_identity,-())
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_identity,-())
 ```cpp
 template <typename T>
 void Matrix<T>::set_identity()
@@ -688,7 +688,7 @@ Sets the Matrix to the identity matrix.
 
 ---
 ### set_zero()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_zero,-())
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_zero,-())
 ```cpp
 template <typename T>
 void Matrix<T>::set_zero()
@@ -702,7 +702,7 @@ Sets the Matrix to the zero matrix.
 
 ---
 ### set_diag()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_diag,-(const%20std )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_diag,-(const%20std )
 ```cpp
 template <typename T>
 void Matrix<T>::set_diag(const std::vector<T>& v)
@@ -719,7 +719,7 @@ Sets the elements of the diagonal of the matrix with `std::vector`.
 
 ---
 ### set_diag()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_diag,-(std%3A%3Ainitializer_list%3CT )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_diag,-(std%3A%3Ainitializer_list%3CT )
 ```cpp
 template <typename T>
 void Matrix<T>::set_diag(std::initializer_list<T> il)
@@ -736,7 +736,7 @@ Sets the elements of the diagonal of the matrix with the initializer list.
 
 ---
 ### set_row()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_row,-(std%3A%3Asize_t%20row%2C%20T )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_row,-(std%3A%3Asize_t%20row%2C%20T )
 ```cpp
 template <typename T>
 void Matrix<T>::set_row(std::size_t row, T value)
@@ -753,7 +753,7 @@ Sets the elements of the **row** row of the matrix with the **value** value.
 
 ---
 ### set_row()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_row,-(std%3A%3Asize_t%20row%2C%20const )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_row,-(std%3A%3Asize_t%20row%2C%20const )
 ```cpp
 template <typename T>
 void Matrix<T>::set_row(std::size_t row, const std::vector<T>& v)
@@ -771,7 +771,7 @@ Sets the elements of the **row** row of the matrix with the **v** `std::vector`.
 
 ---
 ### set_row()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_row,-(std%3A%3Asize_t%20row%2C%20std )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_row,-(std%3A%3Asize_t%20row%2C%20std )
 ```cpp
 template <typename T>
 void Matrix<T>::set_row(std::size_t row, std::initializer_list<T> il)
@@ -789,7 +789,7 @@ Sets the elements of the **row** row of the matrix with the **il** initializer l
 
 ---
 ### set_col()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_col,-(std%3A%3Asize_t%20col%2C%20T )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_col,-(std%3A%3Asize_t%20col%2C%20T )
 ```cpp
 template <typename T>
 void Matrix<T>::set_col(std::size_t col, T value)
@@ -806,7 +806,7 @@ Sets the elements of the **col** column of the matrix with the **value** value.
 
 ---
 ### set_col()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_col,-(std%3A%3Asize_t%20col%2C%20const )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_col,-(std%3A%3Asize_t%20col%2C%20const )
 ```cpp
 template <typename T>
 void Matrix<T>::set_col(std::size_t col, const std::vector<T>& v)
@@ -824,7 +824,7 @@ Sets the elements of the **col** column of the matrix with the **v** `std::vecto
 
 ---
 ### set_col()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_col,-(std%3A%3Asize_t%20col%2C%20std )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20void%20LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,set_col,-(std%3A%3Asize_t%20col%2C%20std )
 ```cpp
 template <typename T>
 void Matrix<T>::set_col(std::size_t col, std::initializer_list<T> il)
@@ -842,7 +842,7 @@ Sets the elements of the **col** column of the matrix with the **il** initialize
 
 ---
 ### get_row()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,get_row,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,get_row,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 std::vector<T> Matrix<T>::get_row(std::size_t row) const
@@ -858,7 +858,7 @@ Returns `std::vector` with the elements of the **row** row of the matrix.
 
 ---
 ### get_col()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,get_col,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,get_col,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 std::vector<T> Matrix<T>::get_col(std::size_t col) const
@@ -874,7 +874,7 @@ Returns `std::vector` with the elements of the **col** column of the matrix.
 
 ---
 ### transpose()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,transpose,-())
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,transpose,-())
 ```cpp
 template <typename T>
 void Matrix<T>::transpose()
@@ -888,7 +888,7 @@ Transposes the matrix.
 
 ---
 ### pow()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,pow,-(int%20power )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,pow,-(int%20power )
 ```cpp
 template <typename T>
 void Matrix<T>::pow(int power)
@@ -904,7 +904,7 @@ Computes the matrix raised to the **power** power.
 
 ---
 ### swap_row()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,swap_row,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,swap_row,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 void Matrix<T>::swap_row(std::size_t lhsRow, std::size_t rhsRow)
@@ -920,7 +920,7 @@ Swaps the rows of the matrix **lhsRow** and **rhsRow**.
 
 ---
 ### swap_col()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,swap_col,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,swap_col,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 void Matrix<T>::swap_col(std::size_t lhsCol, std::size_t rhsCol)
@@ -936,7 +936,7 @@ Swaps the columns of the matrix **lhsCol** and **rhsCol**.
 
 ---
 ### mult_row()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,mult_row,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,mult_row,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 void Matrix<T>::mult_row(std::size_t row, T value)
@@ -953,7 +953,7 @@ Multiplies the **row** row of the matrix by the **value** value.
 
 ---
 ### mult_col()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,mult_col,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,mult_col,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 void Matrix<T>::mult_col(std::size_t col, T value)
@@ -970,7 +970,7 @@ Multiplies the **col** column of the matrix by the **value** value.
 
 ---
 ### add_row()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,add_row,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,add_row,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 void Matrix<T>::add_row(std::size_t lhsRow, std::size_t rhsRow, T value)
@@ -988,7 +988,7 @@ Adds the **rhsRow** row of the matrix multiplied by the **value** value to the *
 
 ---
 ### add_col()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,add_col,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,add_col,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 void Matrix<T>::add_col(std::size_t lhsCol, std::size_t rhsCol, T value)
@@ -1006,7 +1006,7 @@ Adds the **rhsCol** column of the matrix multiplied by the **value** value to th
 
 ---
 ### clear()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,clear,-()%20noexcept )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,clear,-()%20noexcept )
 ```cpp
 template <typename T>
 void Matrix<T>::clear() noexcept
@@ -1020,7 +1020,7 @@ Erases all elements from the matrix.
 
 ---
 ### resize()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,resize,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,resize,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 void Matrix<T>::resize(std::size_t rows, std::size_t cols)
@@ -1040,7 +1040,7 @@ Resizes the matrix to contain **rows** rows and **cols** columns.
 
 ---
 ### join()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,join,-(const%20LinAlg )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,join,-(const%20LinAlg )
 ```cpp
 template <typename T>
 void Matrix<T>::join(const Matrix<T>& other)
@@ -1056,7 +1056,7 @@ Joins the matrix with the **other** matrix.
 
 ---
 ### separate()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,separate,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,separate,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 void Matrix<T>::separate(std::size_t col, Matrix<T>& lhs, Matrix<T>& rhs)
@@ -1074,7 +1074,7 @@ Separates the **col** column from the matrix and separates the matrix into **lhs
 
 ---
 ### del_row()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,del_row,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,del_row,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 void Matrix<T>::del_row(std::size_t row)
@@ -1090,7 +1090,7 @@ Deletes the **row** row from the matrix.
 
 ---
 ### del_col()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,del_col,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,del_col,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 void Matrix<T>::del_col(std::size_t col)
@@ -1106,7 +1106,7 @@ Deletes the **col** column from the matrix.
 
 ---
 ### cofactor()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,cofactor,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,cofactor,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 T Matrix<T>::cofactor(std::size_t row, std::size_t col)
@@ -1125,7 +1125,7 @@ Returns determinant of the minor formed by removing **row** row and **col** colu
 
 ---
 ### determinant()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,determinant,-())
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,determinant,-())
 ```cpp
 template <typename T>
 T Matrix<T>::determinant()
@@ -1141,7 +1141,7 @@ Returns matrix determinant. The determinant is computed via cofactor expansion.
 
 ---
 ### rank()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,rank,-())
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,rank,-())
 ```cpp
 template <typename T>
 T Matrix<T>::rank()
@@ -1155,7 +1155,7 @@ Returns matrix rank. The rank is computed via transforming the matrix to row ech
 
 ---
 ### submatrix()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,submatrix,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,submatrix,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::submatrix(std::size_t row, std::size_t col)
@@ -1173,7 +1173,7 @@ Returns submatrix formed by removing **row** row and **col** column of the matri
 
 ---
 ### minor()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,minor,-(std%3A%3Asize_t )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,minor,-(std%3A%3Asize_t )
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::minor(std::size_t row, std::size_t col)
@@ -1192,7 +1192,7 @@ Returns minor formed by removing **row** row and **col** column of the matrix.
 
 ---
 ### adjoint()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,adjoint,-())
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,adjoint,-())
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::adjoint()
@@ -1208,7 +1208,7 @@ Returns adjoint of the matrix.
 
 ---
 ### inverse()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,inverse,-())
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,inverse,-())
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::inverse()
@@ -1225,7 +1225,7 @@ Returns inverse of the matrix[^2].
 
 ---
 ### row_echelon()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,row_echelon,-())
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,row_echelon,-())
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::row_echelon()
@@ -1239,7 +1239,7 @@ Returns matrix in row echelon form[^2].
 
 ---
 ### back_sub()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,back_sub,-())
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=LinAlg%3A%3AMatrix%3CT%3E%3A%3A-,back_sub,-())
 ```cpp
 template <typename T>
 Matrix<T> Matrix<T>::back_sub()
@@ -1256,7 +1256,7 @@ Performs the procedure of solving a system of linear equations and returns matri
 ---
 ## Friends Description
 ### operator==()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20bool-,operator%3D%3D,-(const%20Matrix )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20bool-,operator%3D%3D,-(const%20Matrix )
 ```cpp
 template <typename U>
 friend bool operator== (const Matrix<U>& lhs, const Matrix<U>& rhs)
@@ -1270,7 +1270,7 @@ Checks if the contents of **lhs** and **rhs** are equal, that is, they have the 
 
 ---
 ### operator!=()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20bool-,operator!%3D,-(const%20Matrix )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20bool-,operator!%3D,-(const%20Matrix )
 ```cpp
 template <typename U>
 friend bool operator!= (const Matrix<U>& lhs, const Matrix<U>& rhs)
@@ -1284,7 +1284,7 @@ Checks if the contents of **lhs** and **rhs** are equal, that is, they have the 
 
 ---
 ### operator*()
-#### [Go to the source](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20Matrix%3CU%3E-,operator*,-(U%20value%2C )
+#### [Go to the source](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp#:~:text=inline%20Matrix%3CU%3E-,operator*,-(U%20value%2C )
 ```cpp
 template <typename U>
 friend Matrix<U> operator* (U value, const Matrix<U>& other)
