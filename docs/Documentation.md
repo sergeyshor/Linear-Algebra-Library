@@ -12,11 +12,11 @@ Full documentation of Linear Algebra Library.
 
 ## **Installation**
 
-### 1. Clone the repository from [GitHub](https://github.com/SergeyShor/Linear-Algebra-Library)
+### 1. Clone the repository from [GitHub](https://github.com/sergeyshor/Linear-Algebra-Library)
 **PATH** = path to clone repository
 ```console
 >> cd <PATH>
->> git clone --recursive https://github.com/SergeyShor/Linear-Algebra-Library.git
+>> git clone --recursive https://github.com/sergeyshor/Linear-Algebra-Library.git
 ```
 
 ### 2. Build installed products using CMake
@@ -109,8 +109,8 @@ target_link_libraries(
 
 `LinAlg` namespace holds all tools of Linear Algebra Library.
 
-## **[Classes](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/Classes.md)**
+## **[Classes](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/docs/markdown/Classes.md)**
 
-## **[Functions](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/Functions.md)**
+## **[Functions](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/docs/markdown/Functions.md)**
 
-## **[Files](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/Files.md)**
+## **[Files](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/docs/markdown/Files.md)**
