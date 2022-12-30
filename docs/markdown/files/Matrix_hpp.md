@@ -1,5 +1,5 @@
 # Description of Matrix.hpp file
-#### [Go back](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/Files.md)
+#### [Go back](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/docs/markdown/Files.md)
 ---
 ```cpp
 #include <algorithm>
@@ -19,13 +19,13 @@ This file holds the Matrix class implementation and are_equal function implement
 template <typename T>
 bool are_equal(T lhs, T rhs)
 ```
-#### [Go to the description of this function](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/functions/are_equal.md)
+#### [Go to the description of this function](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/docs/markdown/functions/are_equal.md)
 ---
 ## Classes
 ```cpp
 template <typename T>
 class Matrix
 ```
-#### [Go to the description of this class](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/docs/markdown/classes/Matrix.md)
+#### [Go to the description of this class](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/docs/markdown/classes/Matrix.md)
 ---
-#### [Go to the source file](https://github.com/SergeyShor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp)
+#### [Go to the source file](https://github.com/sergeyshor/Linear-Algebra-Library/blob/main/include/LinearAlgebra/Matrix.hpp)
